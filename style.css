@@ -1,0 +1,160 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px 0
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px
+}
+
+.input-group input,
+.input-group button {
+    box-sizing: border-box;
+    width: 90%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 16px
+}
+
+.input-group input {
+    background: #334155;
+    border: 1px solid #475569;
+    border-radius: 8px;
+    color: white
+}
+
+.input-group button {
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700
+}
+
+.input-group button:disabled {
+    background: #475569;
+    cursor: not-allowed
+}
+
+button {
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 12px 20px
+}
+
+button:disabled {
+    background: #475569;
+    cursor: not-allowed
+}
+
+.plans {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px
+}
+
+.plan-card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    flex: 1;
+    min-width: 120px;
+    transition: all .3s;
+    position: relative
+}
+
+.plan-card:hover {
+    transform: scale(1.05);
+    border-color: #6366f1
+}
+
+.plan-card.selected {
+    border-color: #22c55e;
+    background: #064e3b
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 12px
+}
+
+.hidden {
+    display: none
+}
+
+.tag {
+    background: #22c55e;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px
+}
+
+#qrCode {
+    max-width: 250px;
+    height: 250px;
+    margin: 20px auto;
+    display: block;
+    border: 1px solid #475569;
+    border-radius: 8px
+}
+
+#showQR {
+    width: 90%;
+    background: #22c55e !important;
+    font-size: 18px;
+    margin-top: 20px;
+    padding: 15px
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 14px
+}
+
+.popular {
+    position: relative
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #94a3b8
+}
+
+.h1 {
+    font-size: 2em;
+    margin-bottom: 10px
+}
+
+@media (max-width:480px) {
+    .plans {
+        flex-direction: column
+    }
+
+    .container {
+        padding: 10px
+    }
+
+    .input-group input,
+    .input-group button {
+        width: 95%
+    }
+}

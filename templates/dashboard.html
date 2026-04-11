@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | SARS_RECOMMENDER</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- Language Support -->
+  <script>window.changeLanguage = window.changeLanguage || function(lang) { localStorage.setItem('selectedLanguage', lang); const cv = '/en/' + lang; document.cookie = 'googtrans=' + cv + '; path=/'; window.location.hash = "#googtrans(en|" + lang + ")"; location.reload(); };</script><script src="{{ url_for('static', filename='language.js') }}"></script><script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <style>
+    /* Hide Google Translate Bar */
+    .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+    body { top: 0px !important; }
+    .goog-te-combo { display: none !important; }
+  </style>
+  <style>
+    /* ══════════════════════════════════════════
+       1.  THEME TOKENS  — ALL colours live here
+    ══════════════════════════════════════════ */
+    [data-theme="dark"] {
+      --bg:        #080c14;
+      --panel:     #111827;
+      --sidebar-bg:rgba(13,19,32,0.97);
+      --topbar-bg: rgba(8,12,20,0.85);
+      --border:    rgba(99,179,237,0.12);
+      --text:      #e2e8f0;
+      --text2:     #94a3b8;
+      --muted:     #64748b;
+      --inp:       rgba(255,255,255,0.05);
+      --hover:     rgba(56,189,248,0.08);
+      --row-hover: rgba(56,189,248,0.04);
+      --thead:     rgba(56,189,248,0.04);
+    }
+    [data-theme="light"] {
+      --bg:        #f0f4f8;
+      --panel:     #ffffff;
+      --sidebar-bg:rgba(255,255,255,0.98);
+      --topbar-bg: rgba(240,244,248,0.92);
+      --border:    rgba(56,189,248,0.2);
+      --text:      #1e293b;
+      --text2:     #475569;
+      --muted:     #94a3b8;
+      --inp:       rgba(0,0,0,0.04);
+      --hover:     rgba(56,189,248,0.08);
+      --row-hover: rgba(56,189,248,0.05);
+      --thead:     rgba(56,189,248,0.05);
+    }
+    /* accent colours identical in both themes */
+    :root {
+      --accent:   #38bdf8;
+      --accent2:  #818cf8;
+      --accent3:  #34d399;
+      --danger:   #f87171;
+      --warn:     #fbbf24;
+      --sidebar-w:242px;
+    }
+
+    /* ══════════════════════════════════════════
+       2.  RESET & BASE
+    ══════════════════════════════════════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; transition:background .3s, color .3s; }
+    body {
+      font-family:'DM Sans',sans-serif;
+      background:var(--bg); color:var(--text);
+      display:flex; min-height:100vh; overflow-x:hidden;
+    }
+    body::before {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 60% 50% at 10% 20%,rgba(56,189,248,.06) 0%,transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 80%,rgba(129,140,248,.06) 0%,transparent 60%);
+    }
+
+    /* ══════════════════════════════════════════
+       3.  MOBILE OVERLAY
+    ══════════════════════════════════════════ */
+    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:99; }
+    .overlay.show { display:block; }
+
+    /* ══════════════════════════════════════════
+       4.  SIDEBAR
+    ══════════════════════════════════════════ */
+    .sidebar {
+      width:var(--sidebar-w); height:100vh;
+      background:var(--sidebar-bg); border-right:1px solid var(--border);
+      position:fixed; top:0; left:0; bottom:0; z-index:100;
+      display:flex; flex-direction:column; padding:24px 0;
+      backdrop-filter:blur(20px);
+      transition:transform .3s ease, background .3s, border-color .3s;
+    }
+    /* desktop: body class collapses sidebar */
+    body.sidebar-hidden .sidebar      { transform:translateX(calc(-1 * var(--sidebar-w))); }
+    body.sidebar-hidden .main-content { margin-left:0; }
+
+    /* ── logo ── */
+    .logo {
+      display:flex; align-items:center; gap:10px;
+      padding:0 20px 22px; border-bottom:1px solid var(--border); margin-bottom:14px;
+    }
+    .logo-icon { width:34px; height:34px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; flex-shrink:0; }
+    .logo-text  { font-family:'Syne',sans-serif; font-weight:800; font-size:13px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; line-height:1.3; }
+    .logo-small { font-size:10px; color:var(--muted); font-weight:400; letter-spacing:.04em; text-transform:none; }
+
+    /* ── nav label ── */
+    .nav-label { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:0 20px; margin-bottom:4px; }
+
+    /* ── nav list ── */
+    .nav-links { list-style:none; flex:1; padding:0 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
+    .nav-links li>a {
+      display:flex; align-items:center; gap:11px;
+      padding:10px 12px; border-radius:10px; color:var(--muted);
+      text-decoration:none; font-size:16px; font-weight:500;
+      transition:all .2s; position:relative;
+    }
+    .nav-links li>a:hover        { color:var(--text);  background:var(--hover); }
+    .nav-links li.active>a       { color:var(--accent); background:rgba(56,189,248,.1); }
+    .nav-links li.active>a::before { content:''; position:absolute; left:0; top:22%; bottom:22%; width:3px; background:var(--accent); border-radius:0 3px 3px 0; }
+    .nav-links li>a i.nav-ic { width:18px; font-size:14px; text-align:center; flex-shrink:0; }
+
+    /* ── dropdown group ── */
+    .nav-group { display:flex; flex-direction:column; }
+    .nav-group-hdr {
+      display:flex; align-items:center; gap:11px;
+      padding:10px 12px; border-radius:10px; color:var(--muted);
+      font-size:16.5px; font-weight:500; background:none; border:none;
+      cursor:pointer; font-family:'DM Sans',sans-serif;
+      text-align:left; width:100%; transition:all .2s;
+    }
+    .nav-group-hdr .g-ic  { width:18px; font-size:14px; text-align:center; flex-shrink:0; }
+    .nav-group-hdr .g-lbl { flex:1; }
+    .nav-group-hdr .chev  { font-size:10px; transition:transform .25s ease; }
+    .nav-group-hdr:hover    { color:var(--text);   background:var(--hover); }
+    .nav-group-hdr.g-active { color:var(--accent);  background:rgba(56,189,248,.1); }
+    .nav-group.open .chev   { transform:rotate(180deg); }
+    .nav-submenu {
+      max-height:0; overflow:hidden; opacity:0;
+      transition:max-height .3s ease, opacity .25s ease;
+      display:flex; flex-direction:column; gap:2px; padding-left:16px;
+    }
+    .nav-group.open .nav-submenu { max-height:220px; opacity:1; }
+    .nav-sub { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; color:var(--muted); font-size:13px; font-weight:500; text-decoration:none; transition:all .2s; }
+    .nav-sub i { width:15px; font-size:12px; text-align:center; }
+    .nav-sub:hover  { background:var(--hover); color:var(--text); }
+    .nav-sub.active { color:var(--accent); background:rgba(56,189,248,.09); }
+
+    /* ── sidebar footer ── */
+    .sidebar-footer { padding:16px 16px 0; border-top:1px solid var(--border); margin-top:auto; }
+    .user-card { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; background:var(--inp); border:1px solid var(--border); }
+    .user-av { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:12px; color:#fff; flex-shrink:0; }
+    .user-info { flex:1; min-width:0; }
+    .user-info p    { font-size:13px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .user-info span { font-size:10.5px; color:var(--muted); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .logout-ic { color:var(--muted); font-size:14px; text-decoration:none; padding:4px; border-radius:6px; transition:color .2s; flex-shrink:0; }
+    .logout-ic:hover { color:var(--danger); }
+
+    /* ══════════════════════════════════════════
+       5.  MAIN CONTENT
+    ══════════════════════════════════════════ */
+    .main-content {
+      margin-left:var(--sidebar-w); flex:1;
+      display:flex; flex-direction:column;
+      position:relative; z-index:1;
+      transition:margin-left .3s ease;
+    }
+
+    /* ══════════════════════════════════════════
+       6.  TOPBAR
+    ══════════════════════════════════════════ */
+    .topbar {
+      display:flex; align-items:center; gap:14px;
+      padding:14px 30px; border-bottom:1px solid var(--border);
+      background:var(--topbar-bg); backdrop-filter:blur(20px);
+      position:sticky; top:0; z-index:50;
+      transition:background .3s, border-color .3s;
+    }
+    .menu-btn {
+      display:flex; align-items:center; justify-content:center;
+      width:38px; height:38px; background:var(--inp); border:1px solid var(--border);
+      color:var(--text); border-radius:10px; cursor:pointer; font-size:15px;
+      flex-shrink:0; transition:all .2s;
+    }
+    .menu-btn:hover { color:var(--accent); border-color:rgba(56,189,248,.3); }
+    .search-box {
+      display:flex; align-items:center; gap:10px;
+      background:var(--inp); border:1px solid var(--border);
+      border-radius:10px; padding:9px 14px; flex:1; max-width:360px; transition:all .2s;
+    }
+    .search-box:focus-within { border-color:rgba(56,189,248,.4); background:rgba(56,189,248,.04); }
+    .search-box i     { color:var(--muted); font-size:13px; }
+    .search-box input { background:none; border:none; outline:none; color:var(--text); font-family:'DM Sans',sans-serif; font-size:13.5px; width:100%; }
+    .search-box input::placeholder { color:var(--muted); }
+    .topbar-right { margin-left:auto; display:flex; align-items:center; gap:10px; }
+    .icon-btn { width:38px; height:38px; border-radius:10px; background:var(--inp); border:1px solid var(--border); color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s; font-size:14px; }
+    .icon-btn:hover { color:var(--accent); border-color:rgba(56,189,248,.3); background:rgba(56,189,248,.07); }
+    .profile-chip { display:flex; align-items:center; gap:9px; background:var(--inp); border:1px solid var(--border); border-radius:12px; padding:5px 13px 5px 5px; }
+    .profile-chip .av { width:28px; height:28px; border-radius:7px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; }
+    .profile-chip .nm { font-size:13px; font-weight:500; color:var(--text); }
+    .logout-btn { display:flex; align-items:center; gap:7px; padding:8px 15px; background:rgba(248,113,113,.1); border:1px solid rgba(248,113,113,.2); color:var(--danger); border-radius:10px; font-size:13px; font-family:'DM Sans',sans-serif; font-weight:500; cursor:pointer; text-decoration:none; transition:all .2s; }
+    .logout-btn:hover { background:rgba(248,113,113,.18); }
+
+    /* ══════════════════════════════════════════
+       7.  PAGES / DASHBOARD SPECIFIC
+    ══════════════════════════════════════════ */
+    .page { padding:32px; display:flex; flex-direction:column; gap:28px; }
+
+    .banner { background:linear-gradient(135deg,#0f1f3d 0%,#0d1b2a 60%,#0f1521 100%); border:1px solid rgba(56,189,248,0.18); border-radius:18px; padding:36px 40px; position:relative; overflow:hidden; }
+    .banner::before { content:''; position:absolute; top:-80px; right:-80px; width:280px; height:280px; background:radial-gradient(circle,rgba(56,189,248,0.09) 0%,transparent 70%); border-radius:50%; }
+    .banner-tag { font-size:0.72rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+    .banner-title { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:#fff; margin-bottom:10px; position:relative; z-index:1; }
+    .banner-desc { font-size:0.88rem; color:#94a3b8; max-width:520px; line-height:1.7; position:relative; z-index:1; }
+    .banner-stats { display:flex; gap:32px; margin-top:26px; position:relative; z-index:1; flex-wrap:wrap; }
+    .bstat-num { font-family:'Syne',sans-serif; font-size:1.9rem; font-weight:800; color:#fff; line-height:1; }
+    .bstat-label { font-size:0.73rem; color:var(--muted); margin-top:4px; }
+    .bstat-sep { width:1px; background:var(--border); }
+    .sec-head { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+    .sec-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px rgba(56,189,248,0.5); }
+    .sec-head h2 { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; color:var(--text); }
+    .sec-head span { margin-left:auto; font-size:0.75rem; color:var(--muted); }
+    .actions-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .action-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:22px; text-decoration:none; color:var(--text); display:flex; flex-direction:column; gap:10px; transition:all 0.25s; position:relative; overflow:hidden; }
+    .action-card::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; opacity:0; transition:opacity 0.3s; }
+    .action-card:hover { border-color:rgba(56,189,248,0.3); transform:translateY(-3px); box-shadow:0 12px 40px rgba(0,0,0,0.3); }
+    .action-card:hover::after { opacity:1; }
+    .action-card.blue::after { background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+    .action-card.green::after { background:linear-gradient(90deg,var(--accent3),#06b6d4); }
+    .action-card.purple::after { background:linear-gradient(90deg,var(--accent2),#c084fc); }
+    .action-icon { width:42px; height:42px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:1rem; }
+    .action-icon.blue { background:rgba(56,189,248,0.1); color:var(--accent); }
+    .action-icon.green { background:rgba(52,211,153,0.1); color:var(--accent3); }
+    .action-icon.purple { background:rgba(129,140,248,0.1); color:var(--accent2); }
+    .action-card h3 { font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:700; }
+    .action-card p { font-size:0.8rem; color:var(--muted); line-height:1.6; flex:1; }
+    .action-arrow { font-size:0.78rem; color:var(--muted); display:flex; align-items:center; gap:5px; transition:all 0.2s; }
+    .action-card:hover .action-arrow { color:var(--accent); gap:8px; }
+    .stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .stat-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px 22px; display:flex; align-items:center; gap:14px; transition:border-color 0.2s; }
+    .stat-card:hover { border-color:rgba(56,189,248,0.22); }
+    .stat-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+    .stat-icon.blue { background:rgba(56,189,248,0.1); color:var(--accent); }
+    .stat-icon.green { background:rgba(52,211,153,0.1); color:var(--accent3); }
+    .stat-icon.purple { background:rgba(129,140,248,0.1); color:var(--accent2); }
+    .stat-val { font-family:'Syne',sans-serif; font-size:1.75rem; font-weight:800; color:#fff; line-height:1; }
+    .stat-lbl { font-size:0.75rem; color:var(--muted); margin-top:3px; }
+    .badge { font-size:0.65rem; font-weight:600; padding:3px 8px; border-radius:20px; margin-top:5px; display:inline-block; }
+    .badge-blue { background:rgba(56,189,248,0.1); color:var(--accent); }
+    .badge-green { background:rgba(52,211,153,0.1); color:var(--accent3); }
+    .badge-purple { background:rgba(129,140,248,0.1); color:var(--accent2); }
+    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:99; }
+    @media(max-width:900px) {
+      .sidebar { transform:translateX(-260px); width:260px; transition:transform 0.3s; }
+      .sidebar.open { transform:translateX(0); }
+      .overlay.show { display:block; }
+      .menu-btn { display:flex; }
+      .main { margin-left:0; }
+      .actions-grid, .stats-grid { grid-template-columns:1fr; }
+      .banner-stats { gap:20px; }
+      .bstat-sep { display:none; }
+      .page { padding:20px; }
+      .banner { padding:24px; }
+      .banner-title { font-size:1.5rem; }
+      .topbar { padding:12px 18px; }
+    }
+  
+    /* ═══════ THEME VARIABLES ═══════ */
+    [data-theme="dark"]  { --bg:#080c14; --surface:#0f1521; --surface2:#151d2e; --border:rgba(99,179,237,0.12); --text:#e2e8f0; --muted:#64748b; }
+    [data-theme="light"] { --bg:#f0f4f8; --surface:#ffffff;  --surface2:#f1f5f9; --border:rgba(56,189,248,0.2);   --text:#1e293b; --muted:#94a3b8; }
+    html, body { transition: background 0.3s, color 0.3s; }
+
+    /* ═══════ SIDEBAR DROPDOWN ═══════ */
+    .nav-group { display:flex; flex-direction:column; }
+    .nav-group-hdr {
+      display:flex; align-items:center; gap:12px;
+      padding:11px 14px; border-radius:10px;
+      color:var(--muted); font-size:0.88rem; font-weight:500;
+      background:none; border:1px solid transparent;
+      cursor:pointer; font-family:'DM Sans',sans-serif;
+      text-align:left; width:100%; transition:all 0.2s;
+    }
+    .nav-group-hdr .nav-ic { width:18px; font-size:0.9rem; text-align:center; flex-shrink:0; }
+    .nav-group-hdr .nav-lbl { flex:1; }
+    .nav-group-hdr .chev { font-size:0.68rem; transition:transform 0.25s ease; }
+    .nav-group-hdr:hover { background:var(--surface2); color:var(--text); border-color:var(--border); }
+    .nav-group-hdr.g-active { background:linear-gradient(135deg,rgba(56,189,248,0.12),rgba(129,140,248,0.08)); color:var(--accent); border-color:rgba(56,189,248,0.25); }
+    .nav-group.open .chev { transform:rotate(180deg); }
+    .nav-submenu {
+      max-height:0; overflow:hidden; opacity:0;
+      transition:max-height 0.3s ease, opacity 0.25s ease;
+      display:flex; flex-direction:column; gap:2px; padding-left:16px;
+    }
+    .nav-group.open .nav-submenu { max-height:250px; opacity:1; }
+    .nav-sub-btn {
+      display:flex; align-items:center; gap:10px;
+      padding:9px 12px; border-radius:8px; color:var(--muted);
+      font-size:0.83rem; font-weight:500; text-decoration:none;
+      transition:all 0.2s; border:1px solid transparent;
+    }
+    .nav-sub-btn i { width:15px; font-size:0.8rem; text-align:center; }
+    .nav-sub-btn:hover { background:var(--surface2); color:var(--text); border-color:var(--border); }
+    .nav-sub-btn.active { color:var(--accent); background:rgba(56,189,248,0.09); border-color:rgba(56,189,248,0.2); }
+
+  </style>
+</head>
+<body>
+<div id="google_translate_element"></div>
+<div class="overlay" id="overlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-capsules"></i></div>
+    <div>
+      <div class="logo-text">SARS </div>
+      <div class="logo-small">Recommender System</div>
+    </div>
+  </div>
+
+  <div class="nav-label">Navigation</div>
+
+  <ul class="nav-links">
+
+    <li class="active">
+      <a href="{{ url_for('dashboard') }}">
+        <i class="fa-solid fa-chart-line nav-ic"></i> Dashboard
+      </a>
+    </li>
+
+    <!-- Predictors dropdown -->
+    <li class="nav-group" id="grpPredictor">
+      <button class="nav-group-hdr" onclick="toggleGroup('grpPredictor')">
+        <i class="fa-solid fa-stethoscope g-ic"></i>
+        <span class="g-lbl">Predictors</span>
+        <i class="fa-solid fa-chevron-down chev"></i>
+      </button>
+      <div class="nav-submenu">
+        <a href="{{ url_for('disease_predictor') }}" class="nav-sub"><i class="fa-solid fa-virus"></i> Disease Predictor</a>
+        <a href="{{ url_for('recommend_medicine') }}" class="nav-sub"><i class="fa-solid fa-pills"></i> Drug Recommendations</a>
+      </div>
+    </li>
+
+    <!-- Medicine dropdown -->
+    <li class="nav-group" id="grpMedicine">
+      <button class="nav-group-hdr" onclick="toggleGroup('grpMedicine')">
+        <i class="fa-solid fa-capsules g-ic"></i>
+        <span class="g-lbl">Medicine</span>
+        <i class="fa-solid fa-chevron-down chev"></i>
+      </button>
+      <div class="nav-submenu">
+        <a href="{{ url_for('medicine') }}" class="nav-sub"><i class="fa-solid fa-book-medical"></i> Medicine Info</a>
+        <a href="{{ url_for('ddi') }}" class="nav-sub"><i class="fa-solid fa-flask"></i> Interaction Checker</a>
+      </div>
+    </li>
+
+    <li>
+      <a href="{{ url_for('health_records') }}"><i class="fa-solid fa-notes-medical nav-ic"></i> Health Records</a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('chatbot') }}"><i class="fa-solid fa-robot nav-ic"></i> AI Health Buddy</a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('settings') }}"><i class="fa-solid fa-gear nav-ic"></i> Settings</a>
+    </li>
+
+  </ul>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-av">{{ username[:1].upper() if username else 'U' }}</div>
+      <div class="user-info">
+        <p>{{ username }}</p>
+        <span>{{ email }}</span>
+      </div>
+      <a href="{{ url_for('logout') }}" class="logout-ic" title="Logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" title="Toggle sidebar">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search medicines, diseases..." />
+    </div>
+
+    <div class="topbar-right">
+      <button class="icon-btn" title="Notifications">
+        <i class="fa-regular fa-bell"></i>
+      </button>
+
+      <button class="icon-btn" id="themeBtn" title="Toggle light / dark">
+        <i class="fa-solid fa-sun"></i>
+      </button>
+
+      <div class="profile-chip">
+        <div class="av">{{ username[:1].upper() if username else 'U' }}</div>
+        <span class="nm">{{ username }}</span>
+      </div>
+
+      <a href="{{ url_for('logout') }}" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </a>
+    </div>
+  </header>
+
+  <div class="page">
+    <section class="banner">
+      <div class="banner-tag">AI Health Platform</div>
+      <h1 class="banner-title">Welcome back, {{ username }} 👋</h1>
+      <p class="banner-desc">Your AI-powered health assistant is ready. Get personalized insights, track health metrics, and receive intelligent drug recommendations.</p>
+      <div class="banner-stats">
+        <div class="bstat">
+          <div class="bstat-num">26</div>
+          <div class="bstat-label">Active Recommendations</div>
+        </div>
+        <div class="bstat-sep"></div>
+        <div class="bstat">
+          <div class="bstat-num">14</div>
+          <div class="bstat-label">Health Records</div>
+        </div>
+        <div class="bstat-sep"></div>
+        <div class="bstat">
+          <div class="bstat-num">98%</div>
+          <div class="bstat-label">AI Accuracy Rate</div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="sec-head">
+        <div class="sec-dot"></div>
+        <h2>Quick Actions</h2>
+        <span>AI-powered tools</span>
+      </div>
+      <div class="actions-grid">
+        <a href="{{ url_for('disease_predictor') }}" class="action-card blue">
+          <div class="action-icon blue"><i class="fa-solid fa-virus-covid"></i></div>
+          <h3>Disease Predictor</h3>
+          <p>AI symptom analysis to predict potential health conditions with high accuracy.</p>
+          <div class="action-arrow">Analyze symptoms <i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+        <a href="{{ url_for('recommend_medicine') }}" class="action-card green">
+          <div class="action-icon green"><i class="fa-solid fa-stethoscope"></i></div>
+          <h3>Drug Recommendations</h3>
+          <p>Personalized medication suggestions based on your health profile and condition.</p>
+          <div class="action-arrow">Get recommendations <i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+        <a href="{{ url_for('settings') }}" class="action-card purple">
+          <div class="action-icon purple"><i class="fa-solid fa-gear"></i></div>
+          <h3>Settings</h3>
+          <p>Manage your account, security settings, and profile preferences easily.</p>
+          <div class="action-arrow">Open settings <i class="fa-solid fa-arrow-right"></i></div>
+        </a>
+      </div>
+    </section>
+    <section>
+      <div class="sec-head">
+        <div class="sec-dot" style="background:var(--accent3); box-shadow:0 0 8px rgba(52,211,153,0.5);"></div>
+        <h2>Health Overview</h2>
+        <span>Live stats</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-pills"></i></div>
+          <div>
+            <div class="stat-val" data-target="26">0</div>
+            <div class="stat-lbl">Total Recommendations</div>
+            <span class="badge badge-blue">Active</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-heartbeat"></i></div>
+          <div>
+            <div class="stat-val" data-target="14">0</div>
+            <div class="stat-lbl">Health Reports</div>
+            <span class="badge badge-green">Just Updated</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fa-solid fa-bottle-water"></i></div>
+          <div>
+            <div class="stat-val" data-target="52">0</div>
+            <div class="stat-lbl">Available Medicines</div>
+            <span class="badge badge-purple">Paracetamol</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+  <script>
+    /* ── A. THEME (runs before paint to prevent flash) ── */
+    (function () {
+      var t = localStorage.getItem('sars-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+
+    function applyTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      localStorage.setItem('sars-theme', t);
+      var btn = document.getElementById('themeBtn');
+      if (btn) btn.innerHTML = (t === 'dark')
+        ? '<i class="fa-solid fa-sun"></i>'      /* dark mode  → show sun  */
+        : '<i class="fa-solid fa-moon"></i>';     /* light mode → show moon */
+    }
+
+    /* ── B. SIDEBAR TOGGLE ── */
+    function isDesktop() { return window.innerWidth > 768; }
+
+    function toggleSidebar() {
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('overlay');
+      if (isDesktop()) {
+        /* desktop: slide sidebar off-screen, shrink main margin */
+        document.body.classList.toggle('sidebar-hidden');
+        localStorage.setItem('sars-sidebar', document.body.classList.contains('sidebar-hidden') ? 'hidden' : 'visible');
+      } else {
+        /* mobile: slide panel in with dark overlay */
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('show');
+      }
+    }
+
+    /* ── C. DROPDOWN GROUPS ── */
+    function toggleGroup(id) {
+      var g = document.getElementById(id);
+      var wasOpen = g.classList.contains('open');
+      document.querySelectorAll('.nav-group').forEach(function (x) {
+        x.classList.remove('open');
+        var h = x.querySelector('.nav-group-hdr');
+        if (h) h.classList.remove('g-active');
+      });
+      if (!wasOpen) {
+        g.classList.add('open');
+        var h = g.querySelector('.nav-group-hdr');
+        if (h) h.classList.add('g-active');
+      }
+    }
+
+    /* ── D. WIRE UP ON DOM READY ── */
+    document.addEventListener('DOMContentLoaded', function () {
+
+      /* apply saved theme and sync icon */
+      applyTheme(localStorage.getItem('sars-theme') || 'dark');
+      if (localStorage.getItem('sars-sidebar') === 'hidden') document.body.classList.add('sidebar-hidden');
+
+      /* theme button */
+      var themeBtn = document.getElementById('themeBtn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function () {
+          applyTheme(
+            document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+          );
+        });
+      }
+
+      /* hamburger */
+      var menuBtn = document.getElementById('menuBtn');
+      if (menuBtn) menuBtn.addEventListener('click', toggleSidebar);
+
+      /* overlay closes mobile sidebar */
+      var overlay = document.getElementById('overlay');
+      if (overlay) {
+        overlay.addEventListener('click', function () {
+          document.getElementById('sidebar').classList.remove('open');
+          this.classList.remove('show');
+        });
+      }
+
+      /* stat counter animation */
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            var el = e.target, t = +el.dataset.target, c = 0, s = t / 60;
+            var ti = setInterval(function() {
+              c += s;
+              if (c >= t) { el.textContent = t; clearInterval(ti); }
+              else el.textContent = Math.floor(c);
+            }, 16);
+            obs.unobserve(el);
+          }
+        });
+      });
+      document.querySelectorAll('.stat-val[data-target]').forEach(function(c) { obs.observe(c); });
+    });
+  </script>
+</body>
+</html>

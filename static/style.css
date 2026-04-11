@@ -1,0 +1,459 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  transition: 0.3s;
+}
+
+body {
+  display: flex;
+  background: #f5f9ff;
+  min-height: 100vh;
+  color: #111;
+}
+
+/* ---------------- SIDEBAR ---------------- */
+.sidebar {
+  width: 260px;
+  background: #0a2540;
+  color: white;
+  padding: 25px;
+  position: fixed;
+  height: 100vh;
+}
+
+.logo {
+  font-size: 22px;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.logo i {
+  color: #00c2ff;
+  margin-right: 8px;
+}
+
+/* Nav Links */
+.nav-links {
+  list-style: none;
+}
+
+.nav-links li {
+  margin: 10px 0;
+}
+
+/* NEW: Anchor Styling */
+.nav-links li a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.nav-links li a i {
+  margin-right: 10px;
+}
+
+/* Hover Effect */
+.nav-links li a:hover {
+  background: #00c2ff;
+  color: #0a2540;
+  font-weight: 600;
+}
+
+/* Active Link */
+.nav-links li.active a {
+  background: #00c2ff;
+  color: #0a2540;
+  font-weight: 600;
+}
+
+/* ---------------- MAIN CONTENT ---------------- */
+.main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  padding: 20px;
+}
+
+/* ---------------- TOPBAR ---------------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 15px 20px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+}
+/* Sidebar Toggle Button */
+.menu-btn {
+  background: #0a2540;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.menu-btn:hover {
+  background: #00c2ff;
+  color: #0a2540;
+}
+
+/* Sidebar Hidden Mode */
+body.sidebar-hidden .sidebar {
+  transform: translateX(-100%);
+}
+
+body.sidebar-hidden .main-content {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Search Box */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f5ff;
+  padding: 10px 15px;
+  border-radius: 12px;
+  width: 40%;
+}
+
+.search-box i {
+  color: gray;
+  margin-right: 10px;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+}
+
+/* Top Actions */
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ---------------- THEME BUTTON ---------------- */
+.theme-btn {
+  background: #0a2540;
+  color: white;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.theme-btn:hover {
+  background: #00c2ff;
+  color: #0a2540;
+}
+
+/* ---------------- PROFILE SECTION ---------------- */
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-info {
+  text-align: right;
+}
+
+.username {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.email {
+  font-size: 12px;
+  color: gray;
+}
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  background: #00c2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+}
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.logout-btn {
+  background: #ff4d4d;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: #d63b3b;
+}
+
+/* ---------------- WELCOME SECTION ---------------- */
+.welcome {
+  margin: 25px 0;
+  background: linear-gradient(to right, #00c2ff, #0a2540);
+  color: white;
+  padding: 20px;
+  border-radius: 18px;
+}
+
+.welcome h1 {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.welcome p {
+  font-size: 14px;
+}
+
+/* ---------------- SECTIONS ---------------- */
+.section {
+  margin-top: 30px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #0a2540;
+}
+
+.section-title i {
+  color: #00c2ff;
+  margin-right: 8px;
+}
+
+/* ---------------- MEDICINE CARDS ---------------- */
+.medicine-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.medicine-card {
+  background: white;
+  padding: 18px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+}
+
+.medicine-card:hover {
+  transform: translateY(-5px);
+}
+
+.medicine-card h3 {
+  color: #0a2540;
+  margin-bottom: 10px;
+}
+
+.medicine-card p {
+  font-size: 13px;
+  margin: 4px 0;
+  color: #444;
+}
+
+/* ---------------- STATUS BADGES ---------------- */
+.status {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.available {
+  background: #d4f8d4;
+  color: #1a7d1a;
+}
+
+.limited {
+  background: #fff4cc;
+  color: #b8860b;
+}
+
+.unavailable {
+  background: #ffd6d6;
+  color: #d11a1a;
+}
+
+/* ---------------- TABLE SECTION ---------------- */
+.table-container {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #0a2540;
+  color: white;
+}
+
+thead th {
+  padding: 12px;
+  font-size: 13px;
+  text-align: left;
+}
+
+tbody td {
+  padding: 12px;
+  font-size: 13px;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+  background: #f1f5ff;
+}
+
+/* ---------------- FOOTER ---------------- */
+.footer {
+  text-align: center;
+  margin-top: 30px;
+  padding: 15px;
+  font-size: 13px;
+  color: gray;
+}
+
+/* ===================================================== */
+/* ==================== DARK MODE ======================= */
+/* ===================================================== */
+body.dark-mode {
+  background: #0d1117;
+  color: white;
+}
+
+body.dark-mode .topbar {
+  background: #161b22;
+  box-shadow: none;
+}
+
+body.dark-mode .search-box {
+  background: #1f2937;
+}
+
+body.dark-mode .search-box input {
+  color: white;
+}
+
+body.dark-mode .section-title {
+  color: white;
+}
+
+body.dark-mode .medicine-card {
+  background: #161b22;
+  color: white;
+  box-shadow: none;
+}
+
+body.dark-mode .medicine-card h3 {
+  color: #00c2ff;
+}
+
+body.dark-mode .medicine-card p {
+  color: #c9d1d9;
+}
+
+body.dark-mode .table-container {
+  background: #161b22;
+  box-shadow: none;
+}
+
+body.dark-mode tbody td {
+  color: #c9d1d9;
+  border-bottom: 1px solid #2d333b;
+}
+
+body.dark-mode tbody tr:hover {
+  background: #1f2937;
+}
+
+body.dark-mode .email {
+  color: #c9d1d9;
+}
+
+body.dark-mode .footer {
+  color: #c9d1d9;
+}
+
+/* ===================================================== */
+/* ==================== RESPONSIVE ====================== */
+/* ===================================================== */
+@media(max-width: 900px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+
+  .search-box {
+    width: 60%;
+  }
+}
+
+@media(max-width: 700px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .topbar {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .profile-box {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

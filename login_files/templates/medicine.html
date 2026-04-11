@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medicine Info | MedAI</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <h2 class="logo"><i class="fa-solid fa-capsules"></i> MedAI</h2>
+
+    <ul class="nav-links">
+  <li><a href="{{ url_for('dashboard') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+  <li><a href="{{ url_for('disease_predictor') }}"><i class="fa-solid fa-virus"></i> Disease Predictor</a></li>
+  <li><a href="{{ url_for('recommend_medicine') }}"><i class="fa-solid fa-stethoscope"></i> Drug Recommendations</a></li>
+  <li><a href="{{ url_for('medicine') }}"><i class="fa-solid fa-pills"></i> Medicine Info</a></li>
+  <li><a href="{{ url_for('health_records') }}"><i class="fa-solid fa-notes-medical"></i> Health Records</a></li>
+  <li><a href="{{ url_for('settings') }}"><i class="fa-solid fa-gear"></i> Settings</a></li>
+</ul>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <button class="menu-btn" id="menuToggle">
+  <i class="fa-solid fa-bars"></i>
+</button>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search medicines..." />
+      </div>
+
+      <div class="top-actions">
+
+        <button class="theme-btn" id="themeToggle">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <div class="profile-box">
+          <div class="profile-info">
+            <p class="username">{{ username }}</p>
+            <p class="email">{{ email }}/p>
+          </div>
+
+          <div class="profile-icon">
+    {% if profile_pic %}
+        <img src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" class="profile-img">
+    {% else %}
+        <img src="{{ url_for('static', filename='profile_pics/default.png') }}" class="profile-img">
+    {% endif %}
+</div>
+
+          <button class="logout-btn">
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+  <i class="fa-solid fa-right-from-bracket"></i> Logout
+</a>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <section class="welcome">
+      <h1>Medicine Information</h1>
+      <p>View details of popular medicines and their precautions.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-pills"></i> Popular Medicines</h2>
+
+      <div class="medicine-cards">
+
+        <div class="medicine-card">
+          <h3>Paracetamol</h3>
+          <p><strong>Usage:</strong> Fever & Pain Relief</p>
+          <p><strong>Dosage:</strong> 500mg (2 times/day)</p>
+          <p><strong>Side Effects:</strong> Nausea, rash</p>
+          <p><strong>Precautions:</strong> Avoid overdose</p>
+          <span class="status available">Available</span>
+        </div>
+
+        <div class="medicine-card">
+          <h3>Amoxicillin</h3>
+          <p><strong>Usage:</strong> Bacterial Infection</p>
+          <p><strong>Dosage:</strong> 250mg (3 times/day)</p>
+          <p><strong>Side Effects:</strong> Diarrhea, vomiting</p>
+          <p><strong>Precautions:</strong> Allergy check required</p>
+          <span class="status available">Available</span>
+        </div>
+
+        <div class="medicine-card">
+          <h3>Metformin</h3>
+          <p><strong>Usage:</strong> Diabetes Control</p>
+          <p><strong>Dosage:</strong> 500mg (1-2 times/day)</p>
+          <p><strong>Side Effects:</strong> Stomach upset</p>
+          <p><strong>Precautions:</strong> Kidney monitoring</p>
+          <span class="status limited">Limited Stock</span>
+        </div>
+
+        <div class="medicine-card">
+          <h3>Aspirin</h3>
+          <p><strong>Usage:</strong> Blood thinning & pain</p>
+          <p><strong>Dosage:</strong> 75mg (once/day)</p>
+          <p><strong>Side Effects:</strong> Bleeding risk</p>
+          <p><strong>Precautions:</strong> Avoid with ulcers</p>
+          <span class="status unavailable">Unavailable</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

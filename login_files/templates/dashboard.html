@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | MedAI</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <h2 class="logo"><i class="fa-solid fa-capsules"></i> MedAI</h2>
+
+    <ul class="nav-links">
+
+  <li>
+    <a href="{{ url_for('dashboard') }}">
+      <i class="fa-solid fa-chart-line"></i> Dashboard
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ url_for('disease_predictor') }}">
+      <i class="fa-solid fa-virus"></i> Disease Predictor
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ url_for('recommend_medicine') }}">
+      <i class="fa-solid fa-stethoscope"></i> Medicine Recommender
+    </a>
+  </li>
+
+
+  <li>
+    <a href="{{ url_for('health_records') }}">
+      <i class="fa-solid fa-notes-medical"></i> Health Records
+    </a>
+  </li>
+
+  <li>
+    <a href="{{ url_for('settings') }}">
+      <i class="fa-solid fa-gear"></i> Settings
+    </a>
+  </li>
+
+</ul>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <button class="menu-btn" id="menuToggle">
+  <i class="fa-solid fa-bars"></i>
+</button>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search..." />
+      </div>
+
+      <div class="top-actions">
+
+        <button class="theme-btn" id="themeToggle">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <div class="profile-box">
+          <div class="profile-info">
+            <p class="username">{{ username }}</p>
+            <p class="email">{{ email }}</p>
+          </div>
+
+          <div class="profile-icon">
+    {% if profile_pic %}
+        <img src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" class="profile-img">
+    {% else %}
+        <img src="{{ url_for('static', filename='profile_pics/default.png') }}" class="profile-img">
+    {% endif %}
+</div>
+
+          <button class="logout-btn">
+            <a href="{{ url_for('logout') }}" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <section class="welcome">
+      <h1>Dashboard Overview</h1>
+      <p>Welcome {{ username }} </p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-chart-simple"></i> Quick Summary</h2>
+
+      <div class="medicine-cards">
+        <div class="medicine-card">
+          <h3>Total Recommendations</h3>
+          <p><strong>Count:</strong> 26</p>
+          <p><strong>Status:</strong> Active</p>
+        </div>
+
+        <div class="medicine-card">
+          <h3>Health Reports</h3>
+          <p><strong>Records:</strong> 14</p>
+          <p><strong>Updated:</strong> Feb 2026</p>
+        </div>
+
+        <div class="medicine-card">
+          <h3>Popular Medicines</h3>
+          <p><strong>Available:</strong> 52</p>
+          <p><strong>Top:</strong> Paracetamol</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+ <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

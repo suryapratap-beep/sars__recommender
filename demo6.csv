@@ -1,0 +1,501 @@
+Symptom,Age Group,Medicine,Dosage
+Headache (mild),Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Headache (mild),1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Headache (mild),3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Headache (mild),6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Headache (mild),Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Headache (high),Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Headache (high),1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Headache (high),3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Headache (high),6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Headache (high),Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Eye itching,Below 1 year,Saline eye drops / supportive care,Saline drops 1-2 drops as needed; refer to pediatrician for antibiotic drops if infected
+Eye itching,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Eye itching,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Eye itching,6-15 years,Paracetamol tablet/syrup + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Eye itching,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Ear pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Ear pain,1-3 years,Amoxicillin syrup + Paracetamol,Amoxicillin 20-40 mg/kg/day divided + Paracetamol 120 mg every 4-6 hrs
+Ear pain,3-6 years,Amoxicillin syrup ± Paracetamol,"Amoxicillin per pediatric dosing (e.g., 20-45 mg/kg/day divided); Paracetamol 250 mg every 4-6 hrs"
+Ear pain,6-15 years,Amoxicillin or Azithromycin + Paracetamol tablet/syrup,Amoxicillin dosing per pediatric guidance; Paracetamol 500 mg every 4-6 hrs
+Ear pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Nose blocking,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Nose blocking,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Nose blocking,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Nose blocking,6-15 years,Paracetamol tablet/syrup + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Nose blocking,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Mouth ulcers,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Mouth ulcers,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Mouth ulcers,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Mouth ulcers,6-15 years,Paracetamol tablet/syrup + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Mouth ulcers,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Throat pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Throat pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Throat pain,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Throat pain,6-15 years,Amoxicillin or Azithromycin + Paracetamol tablet/syrup,Amoxicillin dosing per pediatric guidance; Paracetamol 500 mg every 4-6 hrs
+Throat pain,Above 15 years,acetaminophen/ibuprofen + lozenges + benzocaine/menthol,"take dosage 2 time per day , i.e., morning and evening"
+Body pains,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Body pains,1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Body pains,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Body pains,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Body pains,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Stomach pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Stomach pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Stomach pain,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Stomach pain,6-15 years,Paracetamol tablet/syrup + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Stomach pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Acidity,Below 1 year,grype water,give a spoon full after feeding trhe baby
+Acidity,1-3 years,Antacid tablets/ Antacid Syrup,"After every meal, repeat morning, Afternoon, night"
+Acidity,3-6 years,Antacid tablets/ Antacid Syrup,"After every meal, repeat morning, Afternoon, night"
+Acidity,6-15 years,Antacid tablets/ Antacid Syrup,"After every meal, repeat morning, Afternoon, night"
+Acidity,Above 15 years,Antacid tablets/ Antacid Syrup,"After every meal, repeat morning, Afternoon, night"
+Vomiting,Below 1 year,ORS + Supportive care,ORS small frequent feeds; seek pediatric advice for rehydration volumes
+Vomiting,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Vomiting,3-6 years,ORS + Zinc syrup + Probiotic,ORS volumes per clinician; Zinc 10-20 mg daily; Probiotic once daily
+Vomiting,6-15 years,Paracetamol tablet/syrup + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Vomiting,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Fever,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Fever,1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Fever,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Fever,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Fever,Above 15 years,Paracetamol ± specific antimicrobial/supportive treatment,"Paracetamol 500-650 mg every 4-6 hrs as needed; specific therapy per diagnosis (e.g., antimalarial, antibiotics)"
+Eye redness,Below 1 year,Saline eye drops / supportive care,Saline drops 1-2 drops as needed; refer to pediatrician for antibiotic drops if infected
+Eye redness,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Eye redness,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Eye redness,6-15 years,Paracetamol tablet/syrup + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Eye redness,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Back pain,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Back pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Back pain,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Back pain,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Back pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Toothache,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Toothache,1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Toothache,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Toothache,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Toothache,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Neck pain,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Neck pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Neck pain,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Neck pain,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Neck pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Loose motions,Below 1 year,ORS + Supportive care,ORS small frequent feeds; seek pediatric advice for rehydration volumes
+Loose motions,1-3 years,ORS + Zinc syrup,ORS small frequent volumes; Zinc 10-20 mg daily for 10-14 days if recommended
+Loose motions,3-6 years,ORS + Zinc syrup + Probiotic,ORS volumes per clinician; Zinc 10-20 mg daily; Probiotic once daily
+Loose motions,6-15 years,ORS + Zinc + Antiemetic if needed,ORS as required; Zinc 20 mg daily; Ondansetron 2-4 mg if severe vomiting (per clinician)
+Loose motions,Above 15 years,ORS + Antidiarrheal ± Antibiotic if invasive,ORS as needed; Loperamide only if non-invasive diarrhea in adults; antibiotics if indicated
+Body weakness,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Body weakness,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Body weakness,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Body weakness,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Body weakness,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Cold,Below 1 year,"Supportive care (saline nasal drops, humidification)",Saline 2-3 drops; no OTC cough syrups — consult pediatrician
+Cold,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Cold,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Cold,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Cold,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Cough (dry),Below 1 year,"Supportive care (saline nasal drops, humidification)",Saline 2-3 drops; no OTC cough syrups — consult pediatrician
+Cough (dry),1-3 years,Supportive care ± antibiotic if bacterial (per doctor),Supportive; antibiotics if bacterial per clinician (amoxicillin dosing per kg)
+Cough (dry),3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Cough (dry),6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Cough (dry),Above 15 years,Antibiotic if bacterial (Amoxicillin/Azithromycin) + Expectorant/Salbutamol if wheeze,Amoxicillin 500 mg TDS or per local guidelines; Azithromycin 500 mg once daily for 3 days as alternative
+Cough (wet),Below 1 year,"Supportive care (saline nasal drops, humidification)",Saline 2-3 drops; no OTC cough syrups — consult pediatrician
+Cough (wet),1-3 years,Supportive care ± antibiotic if bacterial (per doctor),Supportive; antibiotics if bacterial per clinician (amoxicillin dosing per kg)
+Cough (wet),3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Cough (wet),6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Cough (wet),Above 15 years,Antibiotic if bacterial (Amoxicillin/Azithromycin) + Expectorant/Salbutamol if wheeze,Amoxicillin 500 mg TDS or per local guidelines; Azithromycin 500 mg once daily for 3 days as alternative
+Asthma,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Asthma,1-3 years,Salbutamol nebulizer/inhaler + Pediatric steroid if needed,Salbutamol 1-2 puffs/nebulizer as per clinician
+Asthma,3-6 years,Salbutamol inhaler + Montelukast if indicated,Salbutamol 2 puffs as needed; Montelukast 4-5 mg nightly if prescribed
+Asthma,6-15 years,Salbutamol inhaler + Montelukast + Short steroid course if severe,Salbutamol 2 puffs as needed; Montelukast 5-10 mg nightly depending on age
+Asthma,Above 15 years,Salbutamol inhaler + Montelukast + Oral steroid short course if severe,Salbutamol 2 puffs PRN; Montelukast 10 mg nightly; Prednisolone 20-40 mg daily short course if prescribed
+Allergy,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Allergy,1-3 years,Antihistamine syrup + Topical agent if needed,Cetirizine 2.5-5 mg daily; hydrocortisone 1% cream for mild eczema if advised
+Allergy,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Allergy,6-15 years,Antihistamine + Topical steroid/antifungal,Cetirizine 5-10 mg daily; topical agents as per clinician
+Allergy,Above 15 years,Topical agents ± oral antihistamine or antifungal,Oral antihistamine (Cetirizine 10 mg daily); topical steroid/antifungal per clinician
+Skin rash,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Skin rash,1-3 years,Topical treatment ± oral if severe,Topical creams (hydrocortisone 1% for mild eczema) or antifungal creams as advised
+Skin rash,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Skin rash,6-15 years,Antihistamine + Topical steroid/antifungal,Cetirizine 5-10 mg daily; topical agents as per clinician
+Skin rash,Above 15 years,Topical agents ± oral antihistamine or antifungal,Oral antihistamine (Cetirizine 10 mg daily); topical steroid/antifungal per clinician
+Constipation,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Constipation,1-3 years,Laxative (Lactulose) + Fluids/Lifestyle,Lactulose 1-3 mL/kg/day divided; dietary fiber/fluids per pediatrician
+Constipation,3-6 years,Laxative (Lactulose) + Fluids/Lifestyle,Lactulose 10-20 mL/day divided; dietary fiber/fluids per pediatrician
+Constipation,6-15 years,Osmotic laxative (PEG) + Fluids/Lifestyle,Polyethylene glycol 0.4-0.8 g/kg/day; increase fiber and fluids
+Constipation,Above 15 years,Osmotic laxative (PEG) + Lifestyle,Polyethylene glycol 17 g daily; increase fiber and fluids
+Indigestion,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Indigestion,1-3 years,Supportive care ± pediatric antacid (per clinician),Small frequent meals; pediatric antacid only if advised by clinician
+Indigestion,3-6 years,Dietary measures ± pediatric antacid (per clinician),Avoid triggers; pediatric antacid only if advised by clinician
+Indigestion,6-15 years,Antacid (short course) + Lifestyle,Simple antacids PRN; avoid trigger foods; clinician if persistent
+Indigestion,Above 15 years,PPI or H2 blocker + Lifestyle,Omeprazole 20 mg daily or Famotidine 20 mg BID for 2-4 weeks if needed
+Migraine,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Migraine,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Migraine,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Migraine,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Migraine,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Joint pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Joint pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Joint pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Joint pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Joint pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Arthritis,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Arthritis,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Arthritis,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Arthritis,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Arthritis,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Gastritis,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Gastritis,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Gastritis,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Gastritis,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Gastritis,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Diabetes fatigue,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Diabetes fatigue,1-3 years,Optimize glycemic control (per clinician),Adjust insulin/meds per endocrinology; screen for complications
+Diabetes fatigue,3-6 years,Optimize glycemic control (per clinician),Adjust therapy per pediatrics/endocrinology; evaluate causes
+Diabetes fatigue,6-15 years,Optimize glycemic control (per clinician),Adjust regimen per endocrinology; evaluate causes of fatigue
+Diabetes fatigue,Above 15 years,Optimize glycemic control (per clinician),Adjust therapy per clinician; evaluate anemia/thyroid/sleep
+Hypertension headache,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Hypertension headache,1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Hypertension headache,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Hypertension headache,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Hypertension headache,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Chest pain (mild),Below 1 year,Refer to pediatrician (possible Amoxicillin drops),"Amoxicillin dosing per pediatric guidelines (e.g., 15-30 mg/kg/day divided) — prescribe per clinician"
+Chest pain (mild),1-3 years,Clinical evaluation; avoid self-medication,Seek clinician assessment; urgent care if severe or associated symptoms
+Chest pain (mild),3-6 years,Clinical evaluation; avoid self-medication,Seek clinician assessment; urgent care if severe or associated symptoms
+Chest pain (mild),6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Chest pain (mild),Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Breathlessness,Below 1 year,Refer to pediatrician (possible Amoxicillin drops),"Amoxicillin dosing per pediatric guidelines (e.g., 15-30 mg/kg/day divided) — prescribe per clinician"
+Breathlessness,1-3 years,Salbutamol nebulizer/inhaler + Pediatric steroid if needed,Salbutamol 1-2 puffs/nebulizer as per clinician
+Breathlessness,3-6 years,Urgent clinical evaluation; bronchodilator if wheeze,Salbutamol 2 puffs PRN per clinician; seek urgent care if distress
+Breathlessness,6-15 years,Urgent clinical evaluation; bronchodilator if wheeze,Salbutamol 2 puffs PRN per clinician; seek urgent care if distress
+Breathlessness,Above 15 years,Salbutamol inhaler + Montelukast + Oral steroid short course if severe,Salbutamol 2 puffs PRN; Montelukast 10 mg nightly; Prednisolone 20-40 mg daily short course if prescribed
+Anemia fatigue,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Anemia fatigue,1-3 years,Iron supplementation (per clinician) + Evaluation,Elemental iron ~3 mg/kg/day; check cause and follow-up
+Anemia fatigue,3-6 years,Iron supplementation (per clinician) + Evaluation,Elemental iron dosing per weight; evaluate etiology
+Anemia fatigue,6-15 years,Iron therapy (per clinician) + Evaluation,Elemental iron 2-3 mg/kg/day; reassess Hgb and ferritin
+Anemia fatigue,Above 15 years,Iron therapy (per clinician) + Evaluation,Ferrous sulfate 325 mg (65 mg elemental) once-twice daily; assess cause
+Dehydration,Below 1 year,ORS + Supportive care,ORS small frequent feeds; seek pediatric advice for rehydration volumes
+Dehydration,1-3 years,ORS + Zinc syrup,ORS small frequent volumes; Zinc 10-20 mg daily for 10-14 days if recommended
+Dehydration,3-6 years,Paracetamol syrup + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Dehydration,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Dehydration,Above 15 years,ORS + Antidiarrheal ± Antibiotic if invasive,ORS as needed; Loperamide only if non-invasive diarrhea in adults; antibiotics if indicated
+Anxiety,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Anxiety,1-3 years,Behavioral support + Specialist referral,Parental guidance
+Anxiety,3-6 years,CBT/behavioral strategies + Specialist referral,School/parent training; refer to child psychologist if impairing
+Anxiety,6-15 years,CBT; consider SSRI per specialist,Refer to mental health; pharmacotherapy only per specialist
+Anxiety,Above 15 years,CBT; consider SSRI per clinician,Refer to mental health; medication only per clinician
+Depression (mild),Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Depression (mild),1-3 years,Behavioral support + Specialist referral,Parental support; refer to pediatric mental health if persistent
+Depression (mild),3-6 years,Psychological therapies + Specialist referral,CBT/play therapy per specialist
+Depression (mild),6-15 years,Psychological therapies; meds per specialist,Refer to mental health; SSRIs only per specialist
+Depression (mild),Above 15 years,Psychotherapy; SSRIs per clinician,Refer to mental health; consider SSRI if indicated
+Insomnia,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Insomnia,1-3 years,Sleep hygiene + Behavioral strategies,Consistent routines; avoid caffeine/screens; clinician if persistent
+Insomnia,3-6 years,Sleep hygiene + Behavioral strategies,Consistent routines; clinician if persistent
+Insomnia,6-15 years,Sleep hygiene ± melatonin per clinician,Melatonin only if advised; evaluate causes
+Insomnia,Above 15 years,Sleep hygiene; CBT-I; meds per clinician,CBT-I first-line; pharmacotherapy only per clinician
+Obesity-related pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Obesity-related pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Obesity-related pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Obesity-related pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Obesity-related pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Menstrual cramps,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Menstrual cramps,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Menstrual cramps,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Menstrual cramps,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Menstrual cramps,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Pregnancy nausea,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Pregnancy nausea,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Pregnancy nausea,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Pregnancy nausea,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Pregnancy nausea,Above 15 years,Doxylamine + Pyridoxine (per OB guidance),Doxylamine 10 mg + Pyridoxine 10 mg up to TID per obstetrician; seek care if severe
+UTI pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+UTI pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+UTI pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+UTI pain,6-15 years,Cefixime + Paracetamol tablet/syrup,Cefixime 8 mg/kg/day divided BID; Paracetamol 500 mg every 4-6 hrs
+UTI pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Kidney stone pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Kidney stone pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Kidney stone pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Kidney stone pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Kidney stone pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Liver disorder fatigue,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Liver disorder fatigue,1-3 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Liver disorder fatigue,3-6 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Liver disorder fatigue,6-15 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Liver disorder fatigue,Above 15 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Jaundice weakness,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Jaundice weakness,1-3 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Jaundice weakness,3-6 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Jaundice weakness,6-15 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Jaundice weakness,Above 15 years,Specialist management; avoid hepatotoxic drugs,Refer to hepatology; supportive care only per clinician
+Malaria fever,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Malaria fever,1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Malaria fever,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Malaria fever,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Malaria fever,Above 15 years,Paracetamol ± specific antimicrobial/supportive treatment,"Paracetamol 500-650 mg every 4-6 hrs as needed; specific therapy per diagnosis (e.g., antimalarial, antibiotics)"
+Typhoid fever,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Typhoid fever,1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+Typhoid fever,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+Typhoid fever,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+Typhoid fever,Above 15 years,Paracetamol ± specific antimicrobial/supportive treatment,"Paracetamol 500-650 mg every 4-6 hrs as needed; specific therapy per diagnosis (e.g., antimalarial, antibiotics)"
+Dengue fever,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Dengue fever,1-3 years,Paracetamol syrup,Paracetamol 120 mg every 4-6 hrs as needed; avoid NSAIDs (e.g.
+Dengue fever,3-6 years,Paracetamol syrup,Paracetamol 250 mg every 4-6 hrs as needed; avoid NSAIDs (e.g.
+Dengue fever,6-15 years,Paracetamol tablet/syrup,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); avoid NSAIDs (e.g.
+Dengue fever,Above 15 years,Paracetamol ± specific antimicrobial/supportive treatment,"Paracetamol 500-650 mg every 4-6 hrs as needed; avoid NSAIDs (e.g., ibuprofen) in suspected dengue; specific therapy per diagnosis (e.g., antimalarial, antibiotics)"
+COVID fever,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+COVID fever,1-3 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 120 mg every 4-6 hrs as needed; Ibuprofen 100 mg every 6-8 hrs if needed
+COVID fever,3-6 years,Paracetamol syrup ± Ibuprofen syrup,Paracetamol 250 mg every 4-6 hrs as needed; Ibuprofen 200 mg every 6-8 hrs if needed
+COVID fever,6-15 years,Paracetamol tablet/syrup ± Ibuprofen,Paracetamol 500 mg every 4-6 hrs as needed (max 4 doses/day); Ibuprofen 200-300 mg every 6-8 hrs if needed
+COVID fever,Above 15 years,Paracetamol ± specific antimicrobial/supportive treatment,"Paracetamol 500-650 mg every 4-6 hrs as needed; specific therapy per diagnosis (e.g., antimalarial, antibiotics)"
+Allergic rhinitis,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Allergic rhinitis,1-3 years,Antihistamine syrup + Saline, Cetirizine 2.5 mg daily
+Allergic rhinitis,3-6 years,Antihistamine syrup ± intranasal steroid (per clinician),Cetirizine 5 mg daily; consider mometasone if prescribed
+Allergic rhinitis,6-15 years,Antihistamine ± intranasal steroid,Cetirizine 5-10 mg daily; fluticasone nasal spray if clinician advises
+Allergic rhinitis,Above 15 years,Oral antihistamine ± intranasal steroid,Cetirizine 10 mg daily; fluticasone nasal spray once/twice daily if needed
+Sinusitis,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Sinusitis,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Sinusitis,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Sinusitis,6-15 years,Amoxicillin or Azithromycin + Paracetamol,Amoxicillin dosing per pediatric guidance; Paracetamol 500 mg every 4-6 hrs
+Sinusitis,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Tonsillitis,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Tonsillitis,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Tonsillitis,3-6 years,Amoxicillin syrup ± Paracetamol,"Amoxicillin per pediatric dosing (e.g., 20-45 mg/kg/day divided); Paracetamol 250 mg every 4-6 hrs"
+Tonsillitis,6-15 years,Amoxicillin or Azithromycin + Paracetamol,Amoxicillin dosing per pediatric guidance; Paracetamol 500 mg every 4-6 hrs
+Tonsillitis,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Pneumonia cough,Below 1 year,Refer to pediatrician (possible Amoxicillin drops),"Amoxicillin dosing per pediatric guidelines (e.g., 15-30 mg/kg/day divided) — prescribe per clinician"
+Pneumonia cough,1-3 years,Supportive care ± antibiotic if bacterial (per doctor),Supportive; antibiotics if bacterial per clinician (amoxicillin dosing per kg)
+Pneumonia cough,3-6 years,Amoxicillin syrup ± Paracetamol,"Amoxicillin per pediatric dosing (e.g., 20-45 mg/kg/day divided); Paracetamol 250 mg every 4-6 hrs"
+Pneumonia cough,6-15 years,Amoxicillin or Azithromycin + Paracetamol,Amoxicillin dosing per pediatric guidance; Paracetamol 500 mg every 4-6 hrs
+Pneumonia cough,Above 15 years,Antibiotic if bacterial (Amoxicillin/Azithromycin) + Expectorant/Salbutamol if wheeze,Amoxicillin 500 mg TDS or per local guidelines; Azithromycin 500 mg once daily for 3 days as alternative
+Bronchitis cough,Below 1 year,"Supportive care (saline nasal drops, humidification)",Saline 2-3 drops; no OTC cough syrups — consult pediatrician
+Bronchitis cough,1-3 years,Supportive care ± antibiotic if bacterial (per doctor),Supportive; antibiotics if bacterial per clinician (amoxicillin dosing per kg)
+Bronchitis cough,3-6 years,Amoxicillin syrup ± Paracetamol,"Amoxicillin per pediatric dosing (e.g., 20-45 mg/kg/day divided); Paracetamol 250 mg every 4-6 hrs"
+Bronchitis cough,6-15 years,Amoxicillin or Azithromycin + Paracetamol tablet/syrup,Amoxicillin dosing per pediatric guidance; Paracetamol 500 mg every 4-6 hrs
+Bronchitis cough,Above 15 years,Antibiotic if bacterial (Amoxicillin/Azithromycin) + Expectorant/Salbutamol if wheeze,Amoxicillin 500 mg TDS or per local guidelines; Azithromycin 500 mg once daily for 3 days as alternative
+TB cough,Below 1 year,Refer for TB evaluation; anti-TB regimen (per program),Do not self-medicate antibiotics; follow national TB program
+TB cough,1-3 years,Refer for TB evaluation; anti-TB regimen (per program),Do not self-medicate antibiotics; follow national TB program
+TB cough,3-6 years,Refer for TB evaluation; anti-TB regimen (per program),Do not self-medicate antibiotics; follow national TB program
+TB cough,6-15 years,Refer for TB evaluation; anti-TB regimen (per program),Do not self-medicate antibiotics; follow national TB program
+TB cough,Above 15 years,Refer for TB evaluation; anti-TB regimen (per program),Do not self-medicate antibiotics; follow national TB program
+Chickenpox fever,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Chickenpox fever,1-3 years,Paracetamol syrup,Paracetamol syrup 120 mg every 4-6 hrs as needed; avoid NSAIDs (e.g.
+Chickenpox fever,3-6 years,Paracetamol syrup,Paracetamol syrup 250 mg every 4-6 hrs as needed; avoid NSAIDs (e.g.
+Chickenpox fever,6-15 years,Paracetamol tablet/syrup,Paracetamol tablet 500 mg every 4-6 hrs as needed (max 4 doses/day); avoid NSAIDs (e.g.
+Chickenpox fever,Above 15 years,Paracetamol ± specific antimicrobial/supportive treatment,"Paracetamol 500-650 mg every 4-6 hrs as needed; specific therapy per diagnosis (e.g., antimalarial, antibiotics)"
+Measles fever,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Measles fever,1-3 years,Paracetamol syrup,Paracetamol syrup 120 mg every 4-6 hrs as needed; avoid NSAIDs (e.g.
+Measles fever,3-6 years,Paracetamol syrup,Paracetamol syrup 250 mg every 4-6 hrs as needed; avoid NSAIDs (e.g.
+Measles fever,6-15 years,Paracetamol tablet/syrup,Paracetamol tablet 500 mg every 4-6 hrs as needed (max 4 doses/day); avoid NSAIDs (e.g.
+Measles fever,Above 15 years,Paracetamol ± specific antimicrobial/supportive treatment,"Paracetamol 500-650 mg every 4-6 hrs as needed; specific therapy per diagnosis (e.g., antimalarial, antibiotics)"
+Mumps pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Mumps pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Mumps pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Mumps pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Mumps pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Hepatitis weakness,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Hepatitis weakness,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Hepatitis weakness,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Hepatitis weakness,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Hepatitis weakness,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Gout pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Gout pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Gout pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Gout pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Gout pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Sciatica pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Sciatica pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Sciatica pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Sciatica pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Sciatica pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Spondylitis pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Spondylitis pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Spondylitis pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Spondylitis pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Spondylitis pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Slip disc pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Slip disc pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Slip disc pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Slip disc pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Slip disc pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Vertigo,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Vertigo,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Vertigo,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Vertigo,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Vertigo,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Epilepsy seizure,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Epilepsy seizure,1-3 years,Refer to neurologist; anticonvulsant therapy per specialist,Do not self-medicate; follow pediatric neurology guidance
+Epilepsy seizure,3-6 years,Refer to neurologist; anticonvulsant therapy per specialist,Do not self-medicate; follow pediatric neurology guidance
+Epilepsy seizure,6-15 years,Refer to neurologist; anticonvulsant therapy per specialist,Do not self-medicate; follow neurology guidance
+Epilepsy seizure,Above 15 years,Refer to neurologist; anticonvulsant therapy per specialist,Do not self-medicate; follow neurology guidance
+Parkinson tremor,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Parkinson tremor,1-3 years,Refer to neurologist; specialist management,Do not self-medicate; follow neurology guidance
+Parkinson tremor,3-6 years,Refer to neurologist; specialist management,Do not self-medicate; follow neurology guidance
+Parkinson tremor,6-15 years,Refer to neurologist; specialist management,Do not self-medicate; follow neurology guidance
+Parkinson tremor,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Alzheimer confusion,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Alzheimer confusion,1-3 years,Refer to neurologist; specialist management,Do not self-medicate; follow neurology/geriatrics guidance
+Alzheimer confusion,3-6 years,Refer to neurologist; specialist management,Do not self-medicate; follow neurology/geriatrics guidance
+Alzheimer confusion,6-15 years,Refer to neurologist; specialist management,Do not self-medicate; follow neurology/geriatrics guidance
+Alzheimer confusion,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Stroke weakness,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Stroke weakness,1-3 years,Refer to specialist; emergency evaluation,Immediate emergency care for acute symptoms; specialist-directed management
+Stroke weakness,3-6 years,Refer to specialist; emergency evaluation,Immediate emergency care for acute symptoms; specialist-directed management
+Stroke weakness,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Stroke weakness,Above 15 years,Refer to specialist; symptomatic meds as per cardiology/neurology,Specialist-directed regimens
+Paralysis pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Paralysis pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Paralysis pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Paralysis pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Paralysis pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Burn injury pain,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Burn injury pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Burn injury pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Burn injury pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Burn injury pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Wound pain,Below 1 year,Paracetamol (drops),Paracetamol 15 mg/kg every 4-6 hrs as needed (follow pediatrician)
+Wound pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Wound pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Wound pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Wound pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Fracture pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Fracture pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Fracture pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Fracture pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Fracture pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Sprain pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Sprain pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Sprain pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Sprain pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Sprain pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Sports injury pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Sports injury pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Sports injury pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Sports injury pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Sports injury pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Post-surgery pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Post-surgery pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Post-surgery pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Post-surgery pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Post-surgery pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Cancer pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Cancer pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Cancer pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Cancer pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Cancer pain,Above 15 years,NSAID (Aceclofenac or Ibuprofen) + PPI (Rabeprazole/Pantoprazole) + Supplement if needed,Aceclofenac 100 mg twice daily or Ibuprofen 400 mg every 6-8 hrs + Rabeprazole 20 mg daily; add Vit D/calcium if indicated
+Chemotherapy nausea,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Chemotherapy nausea,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Chemotherapy nausea,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Chemotherapy nausea,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Chemotherapy nausea,Above 15 years,Antiemetic + Analgesic + Supportive oncology meds,Ondansetron 4 mg TDS for nausea; analgesics per pain severity; oncology regimens per oncologist
+Radiation fatigue,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Radiation fatigue,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Radiation fatigue,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Radiation fatigue,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Radiation fatigue,Above 15 years,Antiemetic + Analgesic + Supportive oncology meds,Ondansetron 4 mg TDS for nausea; analgesics per pain severity; oncology regimens per oncologist
+HIV weakness,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+HIV weakness,1-3 years,Specialist management (HIV care),Refer to HIV specialist; optimize ART and supportive care
+HIV weakness,3-6 years,Specialist management (HIV care),Refer to HIV specialist; optimize ART and supportive care
+HIV weakness,6-15 years,Specialist management (HIV care),Refer to HIV specialist; optimize ART and supportive care
+HIV weakness,Above 15 years,Specialist management (HIV care),Refer to HIV specialist; optimize ART and supportive care
+Cold sore,Below 1 year,"Supportive care (saline nasal drops, humidification)",Saline 2-3 drops; no OTC cough syrups — consult pediatrician
+Cold sore,1-3 years,Supportive care (avoid triggers),Cold compress; clinician if severe
+Cold sore,3-6 years,Supportive care (avoid triggers),Cold compress; clinician if severe
+Cold sore,6-15 years,Topical antiviral (if advised) + Supportive,Acyclovir 5% cream per clinician; cold compress
+Cold sore,Above 15 years,Topical antiviral + Supportive,Acyclovir 5% cream; cold compress; clinician if severe
+Herpes zoster pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Herpes zoster pain,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Herpes zoster pain,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Herpes zoster pain,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Herpes zoster pain,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Fungal infection itch,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Fungal infection itch,1-3 years,Topical treatment ± oral if severe,Topical creams (hydrocortisone 1% for mild eczema) or antifungal creams as advised
+Fungal infection itch,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Fungal infection itch,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Fungal infection itch,Above 15 years,Topical agents ± oral antihistamine or antifungal,Oral antihistamine (Cetirizine 10 mg daily); topical steroid/antifungal per clinician
+Ringworm itch,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Ringworm itch,1-3 years,Topical treatment ± oral if severe,Topical creams (hydrocortisone 1% for mild eczema) or antifungal creams as advised
+Ringworm itch,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Ringworm itch,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Ringworm itch,Above 15 years,Topical agents ± oral antihistamine or antifungal,Oral antihistamine (Cetirizine 10 mg daily); topical steroid/antifungal per clinician
+Scabies itch,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Scabies itch,1-3 years,Topical treatment ± oral if severe,Topical creams (hydrocortisone 1% for mild eczema) or antifungal creams as advised
+Scabies itch,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Scabies itch,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Scabies itch,Above 15 years,Topical agents ± oral antihistamine or antifungal,Oral antihistamine (Cetirizine 10 mg daily); topical steroid/antifungal per clinician
+Psoriasis rash,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Psoriasis rash,1-3 years,Topical treatment ± oral if severe,Topical creams (hydrocortisone 1% for mild eczema) or antifungal creams as advised
+Psoriasis rash,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Psoriasis rash,6-15 years,Antihistamine + Topical steroid/antifungal,Cetirizine 5-10 mg daily; topical agents as per clinician
+Psoriasis rash,Above 15 years,Topical agents ± oral antihistamine or antifungal,Oral antihistamine (Cetirizine 10 mg daily); topical steroid/antifungal per clinician
+Eczema itch,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Eczema itch,1-3 years,Topical treatment ± oral if severe,Topical creams (hydrocortisone 1% for mild eczema) or antifungal creams as advised
+Eczema itch,3-6 years,Antihistamine syrup + Topical steroid/cream,Cetirizine 5 mg daily; hydrocortisone cream 1% twice daily if needed
+Eczema itch,6-15 years,Antihistamine + Topical steroid/antifungal,Cetirizine 5-10 mg daily; topical agents as per clinician
+Eczema itch,Above 15 years,Topical agents ± oral antihistamine or antifungal,Oral antihistamine (Cetirizine 10 mg daily); topical steroid/antifungal per clinician
+Acne,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Acne,1-3 years,Supportive skin care; refer if severe,Gentle cleansing; clinician if severe/unusual
+Acne,3-6 years,Supportive skin care; refer if severe,Gentle cleansing; clinician if severe/unusual
+Acne,6-15 years,Topical benzoyl peroxide ± clindamycin,BPO 2.5-5% once daily; add clindamycin if inflammatory per clinician
+Acne,Above 15 years,Topical benzoyl peroxide ± retinoid,BPO 2.5-5% once daily; add adapalene/retinoid per clinician
+Hair loss,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Hair loss,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Hair loss,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Hair loss,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Hair loss,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Dandruff,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Dandruff,1-3 years,Gentle shampoo; clinician if severe,Use gentle baby shampoo; avoid irritants
+Dandruff,3-6 years,Gentle shampoo; clinician if severe,Use mild shampoo; avoid irritants
+Dandruff,6-15 years,Antifungal shampoo (ketoconazole 2%) twice weekly,Use ketoconazole 2% shampoo twice weekly for 2-4 weeks
+Dandruff,Above 15 years,Antifungal shampoo (ketoconazole 2%) twice weekly,Use ketoconazole 2% shampoo twice weekly for 2-4 weeks
+Eye infection,Below 1 year,Saline eye drops / supportive care,Saline drops 1-2 drops as needed; refer to pediatrician for antibiotic drops if infected
+Eye infection,1-3 years,Topical antibiotic drops (per clinician),Moxifloxacin or ofloxacin drops if bacterial conjunctivitis per clinician
+Eye infection,3-6 years,Topical antibiotic drops (per clinician),Moxifloxacin or ofloxacin drops if bacterial conjunctivitis per clinician
+Eye infection,6-15 years,Topical antibiotic drops (per clinician),Moxifloxacin or ofloxacin drops if bacterial conjunctivitis per clinician
+Eye infection,Above 15 years,Topical antibiotic drops (per clinician),Moxifloxacin or ofloxacin drops if bacterial conjunctivitis per clinician
+Ear infection,Below 1 year,Refer to pediatrician (possible Amoxicillin drops),"Amoxicillin dosing per pediatric guidelines (e.g., 15-30 mg/kg/day divided) — prescribe per clinician"
+Ear infection,1-3 years,Amoxicillin syrup + Paracetamol,Amoxicillin 20-40 mg/kg/day divided + Paracetamol 120 mg every 4-6 hrs
+Ear infection,3-6 years,Amoxicillin syrup ± Paracetamol,"Amoxicillin per pediatric dosing (e.g., 20-45 mg/kg/day divided); Paracetamol 250 mg every 4-6 hrs"
+Ear infection,6-15 years,Amoxicillin or Azithromycin + Paracetamol,Amoxicillin dosing per pediatric guidance; Paracetamol 500 mg every 4-6 hrs
+Ear infection,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Nail infection,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Nail infection,1-3 years,Topical antifungal (per clinician),Clotrimazole 1% cream/solution per clinician; nail care
+Nail infection,3-6 years,Topical antifungal (per clinician),Clotrimazole 1% cream/solution per clinician; nail care
+Nail infection,6-15 years,Topical antifungal (per clinician),Clotrimazole 1% or amorolfine lacquer per clinician; nail care
+Nail infection,Above 15 years,Topical/oral antifungal (per clinician),Topical agents or oral terbinafine/itraconazole if indicated per clinician
+Food poisoning,Below 1 year,ORS + Supportive care,ORS small frequent feeds; seek pediatric advice for rehydration volumes
+Food poisoning,1-3 years,ORS + Zinc syrup,ORS small frequent volumes; Zinc 10-20 mg daily for 10-14 days if recommended
+Food poisoning,3-6 years,ORS + Zinc syrup + Probiotic,ORS volumes per clinician; Zinc 10-20 mg daily; Probiotic once daily
+Food poisoning,6-15 years,ORS + Zinc + Antiemetic if needed,ORS as required; Zinc 20 mg daily; Ondansetron 2-4 mg if severe vomiting (per clinician)
+Food poisoning,Above 15 years,ORS + Antidiarrheal ± Antibiotic if invasive,ORS as needed; Loperamide only if non-invasive diarrhea in adults; antibiotics if indicated
+Heat stroke,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Heat stroke,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Heat stroke,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Heat stroke,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Heat stroke,Above 15 years,Refer to specialist; symptomatic meds as per cardiology/neurology,Specialist-directed regimens
+Sunburn,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Sunburn,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Sunburn,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Sunburn,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Sunburn,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Allergic dermatitis,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Allergic dermatitis,1-3 years,Paracetamol syrup + Supportive care,Paracetamol 120 mg every 4-6 hrs as needed; follow-up with clinician
+Allergic dermatitis,3-6 years,Paracetamol + Multivitamin (if weakness) / Supportive care,Paracetamol 250 mg every 4-6 hrs as needed; multivitamin per label
+Allergic dermatitis,6-15 years,Appropriate analgesic/antipyretic + supportive care,Paracetamol 500 mg every 4-6 hrs as needed
+Allergic dermatitis,Above 15 years,Paracetamol or condition-specific therapy,Paracetamol 500-650 mg every 4-6 hrs as needed
+Angina pain,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Angina pain,1-3 years,Refer to cardiology; urgent evaluation if severe chest pain,Emergency evaluation if acute/severe; dosing per cardiology
+Angina pain,3-6 years,Refer to cardiology; urgent evaluation if severe chest pain,Emergency evaluation if acute/severe; dosing per cardiology
+Angina pain,6-15 years,Refer to cardiology; symptomatic management,Specialist-led dosing
+Angina pain,Above 15 years,Refer to specialist; symptomatic meds as per cardiology/neurology,Specialist-directed regimens
+Heart failure fatigue,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Heart failure fatigue,1-3 years,Refer to cardiology; specialist management,Emergency evaluation if acute/severe; dosing per cardiology
+Heart failure fatigue,3-6 years,Refer to cardiology; specialist management,Emergency evaluation if acute/severe; dosing per cardiology
+Heart failure fatigue,6-15 years,Refer to cardiology; symptomatic management,Specialist-led dosing
+Heart failure fatigue,Above 15 years,Refer to specialist; symptomatic meds as per cardiology/neurology,Specialist-directed regimens
+Arrhythmia palpitation,Below 1 year,Supportive care / Pediatric review,Non-medical measures; consult pediatrician before systemic drugs
+Arrhythmia palpitation,1-3 years,Refer to cardiology; specialist management,Emergency evaluation if acute/severe; dosing per cardiology
+Arrhythmia palpitation,3-6 years,Refer to cardiology; specialist management,Emergency evaluation if acute/severe; dosing per cardiology
+Arrhythmia palpitation,6-15 years,Refer to cardiology; symptomatic management,Specialist-led dosing
+Arrhythmia palpitation,Above 15 years,Refer to specialist; symptomatic meds as per cardiology/neurology,Specialist-directed regimens

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Drug Recommendation System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Liquid glass background */
+        html, body { height: 100%; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            color: #0f172a;
+            background: radial-gradient(1200px 600px at 10% 20%, rgba(99,102,241,0.12), transparent 10%),
+                        radial-gradient(1000px 500px at 90% 80%, rgba(16,185,129,0.08), transparent 12%),
+                        linear-gradient(180deg, #e6eef9 0%, #f8fbff 50%, #f7fafc 100%);
+            background-attachment: fixed;
+        }
+
+        /* animated colored blobs for liquid effect */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.55;
+            transform: translateZ(0);
+            pointer-events: none;
+        }
+        body::before { left: -8%; top: -10%; background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.28), rgba(99,102,241,0.06)); animation: floatA 8s ease-in-out infinite; }
+        body::after  { right: -6%; bottom: -14%; background: radial-gradient(circle at 70% 70%, rgba(16,185,129,0.24), rgba(16,185,129,0.04)); animation: floatB 10s ease-in-out infinite; }
+        @keyframes floatA { 0% { transform: translateY(0) scale(1);} 50% { transform: translateY(18px) scale(1.02);} 100% { transform: translateY(0) scale(1);} }
+        @keyframes floatB { 0% { transform: translateY(0) scale(1);} 50% { transform: translateY(-18px) scale(0.98);} 100% { transform: translateY(0) scale(1);} }
+
+        /* Container: frosted glass card */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 720px;
+            padding: 26px;
+            border-radius: 14px;
+            box-sizing: border-box;
+            background: linear-gradient(135deg, rgba(255,255,255,0.72), rgba(255,255,255,0.58));
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 8px 30px rgba(2,6,23,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+            backdrop-filter: blur(10px) saturate(120%);
+            -webkit-backdrop-filter: blur(10px) saturate(120%);
+        }
+
+        h1 { margin: 0 0 6px 0; font-size: 20px; color: #10b981; }
+        .subtitle { margin: 0 0 18px 0; color: rgba(15,23,42,0.7); }
+
+        /* Step animation: collapse/expand with opacity and translate */
+        .field-step {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: max-height .35s cubic-bezier(.2,.9,.2,1), opacity .35s ease, transform .35s ease;
+            margin-bottom: 15px;
+        }
+        .field-step.active {
+            max-height: 500px;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .buttons { margin-top: 10px; }
+        button { padding: 8px 14px; margin-right: 8px; border-radius: 8px; border: none; cursor: pointer; background: #111827; color: #fff; }
+        button.back { background: rgba(17,24,39,0.08); color: #111827; }
+
+        /* Entry row with doctor face */
+        .entry-row { display: flex; align-items: center; gap: 12px; position: relative; }
+        .entry-row textarea, .entry-row input, .entry-row select { flex: 1; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(2,6,23,0.06); background: rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.6); transition: box-shadow .18s ease, transform .12s ease, color .12s ease; }
+        
+        /* Datalist styling */
+        .entry-row input[type="text"] {
+            font-family: inherit;
+        }
+        
+        .entry-row input[type="text"]::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+        }
+        .doctor-face { width: 48px; height: 48px; flex: 0 0 48px; display: flex; align-items: center; justify-content: center; }
+        .doctor-face svg { display: block; }
+        .doctor-face .eye { transform-origin: center; animation: blink 5s infinite; }
+        @keyframes blink { 0%,92%,100% { transform: scaleY(1); } 94% { transform: scaleY(0.12); } }
+        /* subtle nudge when input focused */
+        .entry-row:focus-within .doctor-face { transform: translateY(-4px); transition: transform .18s ease; }
+
+        /* Glassy letters for specific fields */
+        #symptoms, #age {
+            color: #064e3b;
+            font-weight: 600;
+            -webkit-text-stroke: 0.1px rgba(255,255,255,0.6);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.7), 0 8px 18px rgba(16,185,129,0.06);
+            background-image: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.06));
+        }
+        #symptoms::placeholder, #age::placeholder { color: rgba(6,95,70,0.36); }
+        #symptoms:focus, #age:focus {
+            box-shadow: 0 8px 30px rgba(16,185,129,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+            outline: none;
+            color: #064e3b;
+            transform: translateY(-1px);
+        }
+
+        /* Loading and result animations */
+        .hidden { display: none; }
+
+        #result {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: max-height .4s ease, opacity .4s ease, transform .4s ease;
+        }
+        #result.visible {
+            max-height: 800px;
+            opacity: 1;
+            transform: none;
+        }
+
+        #loading { display: flex; align-items: center; gap: 8px; }
+        .spinner { width: 16px; height: 16px; border-radius: 50%; border: 3px solid rgba(15,23,42,0.12); border-top-color: rgba(15,23,42,0.7); animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Home page button styles */
+        #home-page button {
+            transition: all 0.3s ease !important;
+        }
+        #home-page button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        #home-page #btn-disease-predictor:hover {
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.08)) !important;
+            border-color: #10b981 !important;
+        }
+        #home-page #btn-medicine-recommender:hover {
+            background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(99,102,241,0.08)) !important;
+            border-color: #6366f1 !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HOME PAGE -->
+    <div id="home-page">
+        <h1 style="text-align: center; margin-bottom: 30px;">AI Health Assistant</h1>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button type="button" id="btn-disease-predictor" style="padding: 16px; border-radius: 12px; border: 2px solid #10b981; background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.04)); color: #10b981; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                🔍 Disease Predictor
+            </button>
+            <button type="button" id="btn-medicine-recommender" style="padding: 16px; border-radius: 12px; border: 2px solid #6366f1; background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(99,102,241,0.04)); color: #6366f1; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                💊 Medicine Recommender
+            </button>
+        </div>
+    </div>
+
+    <!-- DISEASE PREDICTOR PAGE -->
+    <div id="disease-page" style="display: none;">
+        <h1>Disease Predictor</h1>
+        <form id="diseaseForm">
+            <!-- Step 1: Symptoms -->
+            <div class="field-step" id="step-disease-symptoms">
+                <label for="disease-symptoms">Describe Your Symptoms</label>
+                <div class="entry-row">
+                    <div class="doctor-face" aria-hidden="true">
+                        <svg viewBox="0 0 80 80" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <clipPath id="cap"><rect x="0" y="0" width="80" height="40" rx="8"/></clipPath>
+                            </defs>
+                            <rect x="6" y="12" width="68" height="56" rx="12" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                            <g clip-path="url(#cap)">
+                                <rect x="0" y="0" width="80" height="40" fill="#10b981" opacity="0.12"/>
+                            </g>
+                            <circle cx="28" cy="36" r="6" fill="#111827" class="eye"/>
+                            <circle cx="52" cy="36" r="6" fill="#111827" class="eye"/>
+                            <path d="M26 50c4 4 12 4 16 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <rect x="18" y="6" width="44" height="10" rx="5" fill="#eef2ff" opacity="0.8"/>
+                        </svg>
+                    </div>
+                    <input type="text" id="disease-symptoms" name="symptoms" placeholder="fever, cough, headache, body ache" list="symptomsList" required>
+                    <datalist id="symptomsList">
+                        <option value="Fever"></option>
+                        <option value="Cough"></option>
+                        <option value="Headache"></option>
+                        <option value="Body ache"></option>
+                        <option value="Sore throat"></option>
+                        <option value="Runny nose"></option>
+                        <option value="Fatigue"></option>
+                        <option value="Nausea"></option>
+                        <option value="Vomiting"></option>
+                        <option value="Diarrhea"></option>
+                        <option value="Chest pain"></option>
+                        <option value="Shortness of breath"></option>
+                        <option value="Dizziness"></option>
+                        <option value="Rash"></option>
+                        <option value="Itching"></option>
+                        <option value="Joint pain"></option>
+                        <option value="Muscle pain"></option>
+                    </datalist>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="disease-next">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Duration -->
+            <div class="field-step" id="step-disease-duration">
+                <label for="disease-duration">How long have you had these symptoms?</label>
+                <div class="entry-row">
+                    <div class="doctor-face" aria-hidden="true">
+                        <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="28" r="26" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                            <circle cx="30" cy="30" r="4" fill="#111827" class="eye"/>
+                            <circle cx="50" cy="30" r="4" fill="#111827" class="eye"/>
+                            <path d="M30 46c4 3 10 3 14 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <select id="disease-duration" name="duration" required>
+                        <option value="">Select</option>
+                        <option value="less than 24 hours">Less than 24 hours</option>
+                        <option value="1-3 days">1-3 days</option>
+                        <option value="1-2 weeks">1-2 weeks</option>
+                        <option value="more than 2 weeks">More than 2 weeks</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="disease-back">Back</button>
+                    <button type="button" class="disease-next">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Severity -->
+            <div class="field-step" id="step-disease-severity">
+                <label for="disease-severity">Severity of symptoms</label>
+                <div class="entry-row">
+                    <div class="doctor-face" aria-hidden="true">
+                        <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="6" y="12" width="68" height="56" rx="12" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                            <circle cx="28" cy="36" r="5" fill="#111827" class="eye"/>
+                            <circle cx="52" cy="36" r="5" fill="#111827" class="eye"/>
+                            <path d="M26 50c4 4 12 4 16 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <select id="disease-severity" name="severity" required>
+                        <option value="">Select</option>
+                        <option value="mild">Mild</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="severe">Severe</option>
+                    </select>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="disease-back">Back</button>
+                    <button type="button" class="disease-next">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Medical History -->
+            <div class="field-step" id="step-disease-history">
+                <label for="disease-history">Medical History (if any)</label>
+                <div class="entry-row">
+                    <div class="doctor-face" aria-hidden="true">
+                        <svg viewBox="0 0 80 80" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="28" r="26" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                            <circle cx="30" cy="30" r="6" fill="#111827" class="eye"/>
+                            <circle cx="50" cy="30" r="6" fill="#111827" class="eye"/>
+                            <path d="M30 46c4 4 12 4 16 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <textarea id="disease-history" name="history" placeholder="diabetes, hypertension, allergies, none"></textarea>
+                </div>
+                <div class="buttons">
+                    <button type="button" class="disease-back">Back</button>
+                    <button type="submit">Predict Disease</button>
+                </div>
+            </div>
+        </form>
+
+        <div id="disease-loading" class="hidden"><div class="spinner"></div><span>Analyzing symptoms...</span></div>
+        <div id="disease-result" class="hidden">
+            <h3>Possible Conditions</h3>
+            <ul id="diseaseList"></ul>
+            <div style="margin-top: 15px;">
+                <button type="button" id="disease-to-medicine">💊 Get Medicine Recommendations</button>
+                <button type="button" id="back-home-disease-result">Back to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEDICINE RECOMMENDER PAGE -->
+    <div id="medicine-page" style="display: none;">
+        <h1>Medicine Recommender</h1>
+
+    <form id="drugForm">
+        <!-- Step 1: Symptoms -->
+        <div class="field-step" id="step-symptoms">
+            <label for="symptoms">Symptoms</label>
+            <div class="entry-row">
+                <div class="doctor-face" aria-hidden="true">
+                    <!-- simple animated doctor SVG: eyes will blink -->
+                    <svg viewBox="0 0 80 80" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <clipPath id="cap"><rect x="0" y="0" width="80" height="40" rx="8"/></clipPath>
+                        </defs>
+                        <rect x="6" y="12" width="68" height="56" rx="12" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                        <g clip-path="url(#cap)">
+                            <rect x="0" y="0" width="80" height="40" fill="#10b981" opacity="0.12"/>
+                        </g>
+                        <circle cx="28" cy="36" r="6" fill="#111827" class="eye"/>
+                        <circle cx="52" cy="36" r="6" fill="#111827" class="eye"/>
+                        <path d="M26 50c4 4 12 4 16 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <rect x="18" y="6" width="44" height="10" rx="5" fill="#eef2ff" opacity="0.8"/>
+                    </svg>
+                </div>
+                <input type="text" id="symptoms" name="symptoms" placeholder="fever, cough, headache" list="medicineSymptomsListl" required>
+                <datalist id="medicineSymptomsListl">
+                    <option value="Fever"></option>
+                    <option value="Cough"></option>
+                    <option value="Headache"></option>
+                    <option value="Body ache"></option>
+                    <option value="Sore throat"></option>
+                    <option value="Runny nose"></option>
+                    <option value="Fatigue"></option>
+                    <option value="Nausea"></option>
+                    <option value="Vomiting"></option>
+                    <option value="Diarrhea"></option>
+                    <option value="Chest pain"></option>
+                    <option value="Shortness of breath"></option>
+                    <option value="Dizziness"></option>
+                    <option value="Rash"></option>
+                    <option value="Itching"></option>
+                    <option value="Joint pain"></option>
+                    <option value="Muscle pain"></option>
+                </datalist>
+            </div>
+            <div class="buttons">
+                <button type="button" class="next">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Gender -->
+        <div class="field-step" id="step-gender">
+            <label for="gender">Gender</label>
+            <div class="entry-row">
+                <div class="doctor-face" aria-hidden="true">
+                    <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="40" cy="28" r="26" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                        <circle cx="30" cy="30" r="4" fill="#111827" class="eye"/>
+                        <circle cx="50" cy="30" r="4" fill="#111827" class="eye"/>
+                        <path d="M30 46c4 3 10 3 14 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <select id="gender" name="gender" required>
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button type="button" class="back">Back</button>
+                <button type="button" class="next">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Age -->
+        <div class="field-step" id="step-age">
+            <label for="age">Age</label>
+            <div class="entry-row">
+                <div class="doctor-face" aria-hidden="true">
+                    <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="6" y="12" width="68" height="56" rx="12" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                        <circle cx="28" cy="36" r="5" fill="#111827" class="eye"/>
+                        <circle cx="52" cy="36" r="5" fill="#111827" class="eye"/>
+                        <path d="M26 50c4 4 12 4 16 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <input type="number" id="age" name="age" min="0" required>
+            </div>
+            <div class="buttons">
+                <button type="button" class="back">Back</button>
+                <button type="button" class="next">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Medical History -->
+        <div class="field-step" id="step-history">
+            <label for="history">Medical History</label>
+            <div class="entry-row">
+                <div class="doctor-face" aria-hidden="true">
+                    <svg viewBox="0 0 80 80" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="40" cy="28" r="26" fill="#fff" stroke="rgba(15,23,42,0.06)"/>
+                        <circle cx="30" cy="30" r="6" fill="#111827" class="eye"/>
+                        <circle cx="50" cy="30" r="6" fill="#111827" class="eye"/>
+                        <path d="M30 46c4 4 12 4 16 0" stroke="#0f172a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <textarea id="history" name="history" placeholder="diabetes, hypertension, none"></textarea>
+            </div>
+            <div class="buttons">
+                <button type="button" class="back">Back</button>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="loading" class="hidden"><div class="spinner"></div><span>Processing...</span></div>
+    <div id="result" class="hidden">
+        <h3>Suggested Drugs</h3>
+        <ul id="drugList"></ul>
+        <div style="margin-top: 15px;">
+            <button type="button" id="medicine-to-disease">🔍 Back to Disease Predictor</button>
+            <button type="button" id="back-home-medicine">Back to Home</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<script src="stepform.js"></script>
+</body>
+</html>

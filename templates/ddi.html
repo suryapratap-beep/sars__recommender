@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Translate -->
+    <script>window.changeLanguage = window.changeLanguage || function(l) { localStorage.setItem("selectedLanguage", l); document.cookie = "googtrans=/en/"+l+"; path=/"; window.location.hash = "#googtrans(en|" + l + ")"; location.reload(); };</script>
+    <script src="{{ url_for("static", filename="language.js") }}"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js"></script>
+    <div id="google_translate_element" style="position:fixed;bottom:-100px;opacity:0;"></div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drug Interaction Checker | SARS_RECOMMENDER</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════
+       1.  THEME TOKENS  — Same as health-records
+    ══════════════════════════════════════════ */
+    [data-theme="dark"] {
+      --bg:        #080c14;
+      --panel:     #111827;
+      --sidebar-bg:rgba(13,19,32,0.97);
+      --topbar-bg: rgba(8,12,20,0.85);
+      --border:    rgba(99,179,237,0.12);
+      --text:      #e2e8f0;
+      --text2:     #94a3b8;
+      --muted:     #64748b;
+      --inp:       rgba(255,255,255,0.05);
+      --hover:     rgba(56,189,248,0.08);
+      --row-hover: rgba(56,189,248,0.04);
+      --thead:     rgba(56,189,248,0.04);
+    }
+    [data-theme="light"] {
+      --bg:        #f0f4f8;
+      --panel:     #ffffff;
+      --sidebar-bg:rgba(255,255,255,0.98);
+      --topbar-bg: rgba(240,244,248,0.92);
+      --border:    rgba(56,189,248,0.2);
+      --text:      #1e293b;
+      --text2:     #475569;
+      --muted:     #94a3b8;
+      --inp:       rgba(0,0,0,0.04);
+      --hover:     rgba(56,189,248,0.08);
+      --row-hover: rgba(56,189,248,0.05);
+      --thead:     rgba(56,189,248,0.05);
+    }
+    :root {
+      --accent:   #38bdf8;
+      --accent2:  #818cf8;
+      --accent3:  #34d399;
+      --danger:   #f87171;
+      --warn:     #fbbf24;
+      --sidebar-w:242px;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; transition:background .3s, color .3s; }
+    body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); display:flex; min-height:100vh; overflow-x:hidden; }
+    body::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background: radial-gradient(ellipse 60% 50% at 10% 20%,rgba(56,189,248,.06) 0%,transparent 60%), radial-gradient(ellipse 50% 40% at 90% 80%,rgba(129,140,248,.06) 0%,transparent 60%); }
+
+    .overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:99; }
+    .overlay.show { display:block; }
+
+    /* ══════════════════════════════════════════
+       SIDEBAR
+    ══════════════════════════════════════════ */
+    .sidebar { width:var(--sidebar-w); height:100vh; background:var(--sidebar-bg); border-right:1px solid var(--border); position:fixed; top:0; left:0; bottom:0; z-index:100; display:flex; flex-direction:column; padding:24px 0; backdrop-filter:blur(20px); transition:transform .3s ease; }
+    body.sidebar-hidden .sidebar { transform:translateX(calc(-1 * var(--sidebar-w))); }
+    body.sidebar-hidden .main-content { margin-left:0; }
+
+    .logo { display:flex; align-items:center; gap:10px; padding:0 20px 22px; border-bottom:1px solid var(--border); margin-bottom:14px; }
+    .logo-icon { width:34px; height:34px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; flex-shrink:0; }
+    .logo-text { font-family:'Syne',sans-serif; font-weight:800; font-size:13px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; line-height:1.3; }
+    .logo-small { font-size:10px; color:var(--muted); font-weight:400; letter-spacing:.04em; }
+
+    .nav-label { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:0 20px; margin-bottom:4px; }
+    .nav-links { list-style:none; flex:1; padding:0 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
+    .nav-links li>a { display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:10px; color:var(--muted); text-decoration:none; font-size:14px; font-weight:500; transition:all .2s; }
+    .nav-links li>a:hover { color:var(--text); background:var(--hover); }
+    .nav-links li.active>a { color:var(--accent); background:rgba(56,189,248,.1); }
+    .nav-links li>a i.nav-ic { width:18px; font-size:14px; text-align:center; }
+
+    .nav-group { display:flex; flex-direction:column; }
+    .nav-group-hdr { display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:10px; color:var(--muted); font-size:14.5px; font-weight:500; background:none; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; text-align:left; width:100%; transition:all .2s; }
+    .nav-group-hdr .g-ic { width:18px; font-size:14px; text-align:center; }
+    .nav-group-hdr .g-lbl { flex:1; }
+    .nav-group-hdr .chev { font-size:10px; transition:transform .25s ease; }
+    .nav-group.open .chev { transform:rotate(180deg); }
+    .nav-submenu { max-height:0; overflow:hidden; opacity:0; transition:max-height .3s ease, opacity .25s ease; display:flex; flex-direction:column; gap:2px; padding-left:16px; }
+    .nav-group.open .nav-submenu { max-height:220px; opacity:1; }
+    .nav-sub { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; color:var(--muted); font-size:13px; font-weight:500; text-decoration:none; transition:all .2s; }
+    .nav-sub:hover { background:var(--hover); color:var(--text); }
+    .nav-sub.active { color:var(--accent); background:rgba(56,189,248,.09); }
+
+    .sidebar-footer { padding:16px 16px 0; border-top:1px solid var(--border); margin-top:auto; }
+    .user-card { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; background:var(--inp); border:1px solid var(--border); }
+    .user-av { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:12px; color:#fff; }
+    .user-info { flex:1; min-width:0; }
+    .user-info p { font-size:13px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .user-info span { font-size:10.5px; color:var(--muted); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .logout-ic { color:var(--muted); font-size:14px; text-decoration:none; padding:4px; border-radius:6px; transition:color .2s; }
+    .logout-ic:hover { color:var(--danger); }
+
+    .main-content { margin-left:var(--sidebar-w); flex:1; display:flex; flex-direction:column; position:relative; z-index:1; transition:margin-left .3s ease; }
+
+    .topbar { display:flex; align-items:center; gap:14px; padding:14px 30px; border-bottom:1px solid var(--border); background:var(--topbar-bg); backdrop-filter:blur(20px); position:sticky; top:0; z-index:50; }
+    .menu-btn { display:flex; align-items:center; justify-content:center; width:38px; height:38px; background:var(--inp); border:1px solid var(--border); color:var(--text); border-radius:10px; cursor:pointer; font-size:15px; flex-shrink:0; }
+    .search-box { display:flex; align-items:center; gap:10px; background:var(--inp); border:1px solid var(--border); border-radius:10px; padding:9px 14px; flex:1; max-width:360px; }
+    .search-box input { background:none; border:none; outline:none; color:var(--text); font-family:'DM Sans',sans-serif; font-size:13.5px; width:100%; }
+    .topbar-right { margin-left:auto; display:flex; align-items:center; gap:10px; }
+    .icon-btn { width:38px; height:38px; border-radius:10px; background:var(--inp); border:1px solid var(--border); color:var(--muted); cursor:pointer; display:flex; align-items:center; justify-content:center; }
+    .icon-btn:hover { color:var(--accent); border-color:rgba(56,189,248,.3); }
+
+    /* ══════════════════════════════════════════
+       PAGE CONTENT - DDI SPECIFIC
+    ══════════════════════════════════════════ */
+    .page { padding:32px; display:flex; flex-direction:column; gap:28px; }
+
+    .banner { background:linear-gradient(135deg,#1e1e3f 0%,#0f1521 100%); border:1px solid rgba(129,140,248,0.22); border-radius:18px; padding:40px; position:relative; overflow:hidden; }
+    .banner-title { font-family:'Syne',sans-serif; font-size:2rem; font-weight:800; color:#fff; margin-bottom:8px; }
+    .banner-desc { font-size:0.95rem; color:#94a3b8; max-width:600px; line-height:1.6; }
+
+    .checker-box { background:var(--panel); border:1px solid var(--border); border-radius:20px; padding:32px; display:flex; flex-direction:column; gap:20px; }
+    
+    .input-wrap { display:flex; flex-direction:column; gap:12px; }
+    .label-row { display:flex; align-items:center; justify-content:space-between; }
+    .label-row h3 { font-family:'Syne',sans-serif; font-size:1.1rem; color:var(--text); }
+    .pill-input-container {
+      display:flex; flex-wrap:wrap; gap:8px; background:var(--inp); border:1px solid var(--border); border-radius:12px; padding:12px; min-height:140px; align-content:flex-start; transition: border-color .2s;
+    }
+    .pill-input-container:focus-within { border-color:var(--accent2); }
+    .pill-input { border:none; background:none; outline:none; color:var(--text); font-family:'DM Sans',sans-serif; flex:1; min-width:180px; font-size:15px; }
+    
+    .pill { display:flex; align-items:center; gap:8px; background:rgba(129,140,248,0.1); border:1px solid rgba(129,140,248,0.3); color:var(--accent2); padding:6px 12px; border-radius:100px; font-size:0.9rem; font-weight:600; cursor:default; animation: pillIn .3s ease forwards; }
+    @keyframes pillIn { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
+    .pill .remove { cursor:pointer; color:var(--muted); transition: color .2s; }
+    .pill .remove:hover { color:var(--danger); }
+
+    .hint { font-size:0.8rem; color:var(--muted); line-height:1.5; }
+
+    .btn-check { display:inline-flex; align-items:center; justify-content:center; gap:10px; background:linear-gradient(135deg,var(--accent2),#6366f1); color:white; border:none; padding:14px 30px; border-radius:12px; font-family:'DM Sans',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; transition:all 0.3s ease; box-shadow:0 10px 30px -10px rgba(129,140,248,0.5); width:fit-content; margin-top:10px; }
+    .btn-check:hover { transform:translateY(-2px); box-shadow:0 15px 35px -10px rgba(129,140,248,0.6); }
+    .btn-check:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+
+    /* RESULTS */
+    .results-area { display:none; flex-direction:column; gap:20px; animation: slideUp .4s ease forwards; }
+    @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    
+    .res-card { background:var(--panel); border:1px solid var(--border); border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:14px; position:relative; overflow:hidden; }
+    .res-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; }
+    .res-card.severity-3::before { background:var(--danger); }
+    .res-card.severity-2::before { background:var(--warn); }
+    .res-card.severity-1::before { background:var(--accent); }
+
+    .res-header { display:flex; align-items:center; gap:12px; }
+    .severity-badge { font-size:0.7rem; font-weight:800; text-transform:uppercase; padding:4px 10px; border-radius:6px; letter-spacing:1px; }
+    .sev-3 { background:rgba(248,113,113,0.1); color:var(--danger); }
+    .sev-2 { background:rgba(251,191,36,0.1); color:var(--warn); }
+    .sev-1 { background:rgba(56,189,248,0.1); color:var(--accent); }
+    
+    .res-pair { font-family:'Syne',sans-serif; font-weight:700; font-size:1.1rem; color:var(--text); text-transform:capitalize; }
+    .res-effect { font-size:0.95rem; color:var(--text2); line-height:1.6; }
+
+    .no-interactions { background:rgba(52,211,153,0.06); border:1px solid rgba(52,211,153,0.15); border-radius:18px; padding:40px; text-align:center; display:none; }
+    .no-interactions i { font-size:40px; color:var(--accent3); margin-bottom:14px; }
+    .no-interactions h4 { font-family:'Syne',sans-serif; font-size:1.2rem; color:var(--text); margin-bottom:6px; }
+    .no-interactions p { color:var(--muted); font-size:0.9rem; }
+
+    /* EMPTY STATE */
+    .empty-state { display:flex; flex-direction:column; align-items:center; justify-content:center; padding:60px 40px; text-align:center; color:var(--muted); border:1px dashed var(--border); border-radius:20px; }
+    .empty-state i { font-size:48px; margin-bottom:16px; opacity:0.4; }
+
+    @media(max-width:768px){ .main-content { margin-left:0; } .sidebar { transform:translateX(-100%); } .sidebar.open { transform:translateX(0); } .page { padding:20px; } }
+  </style>
+</head>
+<body>
+<div class="overlay" id="overlay"></div>
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-icon"><i class="fa-solid fa-capsules"></i></div>
+    <div>
+      <div class="logo-text">SARS </div>
+      <div class="logo-small">Recommender System</div>
+    </div>
+  </div>
+  <div class="nav-label">Navigation</div>
+  <ul class="nav-links">
+    <li><a href="{{ url_for('dashboard') }}"><i class="fa-solid fa-chart-line nav-ic"></i> Dashboard</a></li>
+    <li class="nav-group" id="grpPredictor">
+      <button class="nav-group-hdr" onclick="toggleGroup('grpPredictor')">
+        <i class="fa-solid fa-stethoscope g-ic"></i> <span class="g-lbl">Predictors</span> <i class="fa-solid fa-chevron-down chev"></i>
+      </button>
+      <div class="nav-submenu">
+        <a href="{{ url_for('disease_predictor') }}" class="nav-sub"><i class="fa-solid fa-virus"></i> Disease Predictor</a>
+        <a href="{{ url_for('recommend_medicine') }}" class="nav-sub"><i class="fa-solid fa-pills"></i> Drug Recommendations</a>
+      </div>
+    </li>
+    <li class="nav-group open" id="grpMedicine">
+      <button class="nav-group-hdr g-active" onclick="toggleGroup('grpMedicine')">
+        <i class="fa-solid fa-capsules g-ic"></i> <span class="g-lbl">Medicine</span> <i class="fa-solid fa-chevron-down chev"></i>
+      </button>
+      <div class="nav-submenu">
+        <a href="{{ url_for('medicine') }}" class="nav-sub"><i class="fa-solid fa-book-medical"></i> Medicine Info</a>
+        <a href="{{ url_for('ddi') }}" class="nav-sub active"><i class="fa-solid fa-flask"></i> Interaction Checker</a>
+      </div>
+    </li>
+    <li><a href="{{ url_for('health_records') }}"><i class="fa-solid fa-notes-medical nav-ic"></i> Health Records</a></li>
+    <li><a href="{{ url_for('chatbot') }}"><i class="fa-solid fa-robot nav-ic"></i> AI Health Buddy</a></li>
+    <li><a href="{{ url_for('settings') }}"><i class="fa-solid fa-gear nav-ic"></i> Settings</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-av">{{ username[:1].upper() if username else 'U' }}</div>
+      <div class="user-info"><p>{{ username }}</p><span>{{ email }}</span></div>
+      <a href="{{ url_for('logout') }}" class="logout-ic"><i class="fa-solid fa-right-from-bracket"></i></a>
+    </div>
+  </div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search interactions..." />
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" id="themeBtn"><i class="fa-solid fa-sun"></i></button>
+      <div class="profile-chip">
+        <div class="av">{{ username[:1].upper() if username else 'U' }}</div>
+        <span class="nm">{{ username }}</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    <div class="banner">
+      <h1 class="banner-title">Drug Interaction Checker</h1>
+      <p class="banner-desc">Ensure your safety by checking for potential interactions between multiple medications. Enter the names of the drugs you are taking below.</p>
+    </div>
+
+    <div class="checker-box">
+      <div class="input-wrap">
+        <div class="label-row">
+          <h3>Your Medications</h3>
+          <span class="hint" id="countHint">0 drugs added</span>
+        </div>
+        <div class="pill-input-container" id="pillContainer">
+          <input type="text" class="pill-input" id="pillInput" placeholder="Type medicine name and press Enter..." autocomplete="off">
+        </div>
+        <div class="hint">
+          <i class="fa-solid fa-circle-info"></i> &nbsp; Example: Ibuprofen, Lisinopril, Warfarin, Aspirin...
+        </div>
+      </div>
+      <button class="btn-check" id="btnCheck" disabled>
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Check for Interactions
+      </button>
+    </div>
+
+    <div class="results-area" id="resultsArea">
+      <h3 style="font-family:Syne, sans-serif; font-size:1.2rem;">Potential Interactions Found</h3>
+      <div id="resultsList" style="display:flex; flex-direction:column; gap:16px;">
+        <!-- Interaction cards injected here -->
+      </div>
+    </div>
+
+    <div class="no-interactions" id="noInteractions">
+      <i class="fa-solid fa-circle-check"></i>
+      <h4>No Interactions Detected</h4>
+      <p>Based on our database, no known major interactions were found between the medications provided.</p>
+    </div>
+
+    <div class="empty-state" id="emptyState">
+      <i class="fa-solid fa-vial"></i>
+      <p>Add at least two medications to start checking.</p>
+    </div>
+  </div>
+</main>
+
+<script>
+  /* ── A. THEME ── */
+  (function () {
+    var t = localStorage.getItem('sars-theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('sars-theme', t);
+    var btn = document.getElementById('themeBtn');
+    if (btn) btn.innerHTML = (t === 'dark') ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+  }
+
+  /* ── B. SIDEBAR ── */
+  function toggleSidebar() {
+    var s = document.getElementById('sidebar'), o = document.getElementById('overlay');
+    if (window.innerWidth > 768) { document.body.classList.toggle('sidebar-hidden'); localStorage.setItem('sars-sidebar', document.body.classList.contains('sidebar-hidden') ? 'hidden' : 'visible'); }
+    else { s.classList.toggle('open'); o.classList.toggle('show'); }
+  }
+  function toggleGroup(id) {
+    var g = document.getElementById(id);
+    var wasOpen = g.classList.contains('open');
+    document.querySelectorAll('.nav-group').forEach(function (x) { x.classList.remove('open'); var h = x.querySelector('.nav-group-hdr'); if (h) h.classList.remove('g-active'); });
+    if (!wasOpen) { g.classList.add('open'); var h = g.querySelector('.nav-group-hdr'); if (h) h.classList.add('g-active'); }
+  }
+
+  /* ── C. PILL INPUT LOGIC ── */
+  const pillInput = document.getElementById('pillInput');
+  const pillContainer = document.getElementById('pillContainer');
+  const btnCheck = document.getElementById('btnCheck');
+  const emptyState = document.getElementById('emptyState');
+  const resultsArea = document.getElementById('resultsArea');
+  const noInteractions = document.getElementById('noInteractions');
+  const resultsList = document.getElementById('resultsList');
+  const countHint = document.getElementById('countHint');
+  
+  let medicines = [];
+
+  function updatePills() {
+    // Clear existing pills except input
+    const pills = pillContainer.querySelectorAll('.pill');
+    pills.forEach(p => p.remove());
+    
+    medicines.forEach((med, idx) => {
+      const pill = document.createElement('div');
+      pill.className = 'pill';
+      pill.innerHTML = `<span>${med}</span><i class="fa-solid fa-xmark remove" onclick="removePill(${idx})"></i>`;
+      pillContainer.insertBefore(pill, pillInput);
+    });
+
+    countHint.textContent = `${medicines.length} drug${medicines.length !== 1 ? 's' : ''} added`;
+    btnCheck.disabled = medicines.length < 2;
+    
+    if (medicines.length === 0) {
+      emptyState.style.display = 'flex';
+      resultsArea.style.display = 'none';
+      noInteractions.style.display = 'none';
+    }
+  }
+
+  function removePill(idx) {
+    medicines.splice(idx, 1);
+    updatePills();
+  }
+
+  pillInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      const val = pillInput.value.trim().toLowerCase();
+      if (val && !medicines.includes(val)) {
+        medicines.push(val);
+        pillInput.value = '';
+        updatePills();
+      }
+    } else if (e.key === 'Backspace' && pillInput.value === '' && medicines.length > 0) {
+      removePill(medicines.length - 1);
+    }
+  });
+
+  /* ── D. API CALL ── */
+  btnCheck.addEventListener('click', async () => {
+    btnCheck.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Checking...';
+    btnCheck.disabled = true;
+
+    try {
+      const response = await fetch('/api/ddi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ medicines })
+      });
+      const data = await response.json();
+      
+      emptyState.style.display = 'none';
+      
+      if (data.length > 0) {
+        resultsArea.style.display = 'flex';
+        noInteractions.style.display = 'none';
+        
+        resultsList.innerHTML = '';
+        data.forEach(item => {
+          const card = document.createElement('div');
+          card.className = `res-card severity-${item.severity}`;
+          
+          const sevLabels = ["Low Risk", "Moderate Warning", "Major Interaction"];
+          const sevLabel = sevLabels[item.severity - 1];
+          
+          card.innerHTML = `
+            <div class="res-header">
+              <span class="severity-badge sev-${item.severity}">${sevLabel}</span>
+              <div class="res-pair">${item.pair[0]} + ${item.pair[1]}</div>
+            </div>
+            <div class="res-effect">${item.effect}</div>
+          `;
+          resultsList.appendChild(card);
+        });
+      } else {
+        resultsArea.style.display = 'none';
+        noInteractions.style.display = 'block';
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error checking interactions. Please try again.");
+    } finally {
+      btnCheck.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Check for Interactions';
+      btnCheck.disabled = false;
+    }
+  });
+
+  /* ── E. SETUP ── */
+  document.addEventListener('DOMContentLoaded', function () {
+    applyTheme(localStorage.getItem('sars-theme') || 'dark');
+    if (localStorage.getItem('sars-sidebar') === 'hidden') document.body.classList.add('sidebar-hidden');
+    document.getElementById('themeBtn').addEventListener('click', () => applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    document.getElementById('menuBtn').addEventListener('click', toggleSidebar);
+    document.getElementById('overlay').addEventListener('click', () => { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('show'); });
+
+    // Auto-load and trigger from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const medsParam = urlParams.get('medicines');
+    if (medsParam) {
+      const drugArray = medsParam.split(',').map(m => m.trim().toLowerCase()).filter(m => m !== "");
+      if (drugArray.length > 0) {
+        medicines = drugArray;
+        updatePills();
+        // Small delay to let the UI render before showing results
+        setTimeout(() => {
+          if (medicines.length >= 2) {
+             btnCheck.click();
+          } else {
+             pillInput.focus();
+          }
+        }, 600);
+      }
+    }
+  });
+</script>
+</body>
+</html>

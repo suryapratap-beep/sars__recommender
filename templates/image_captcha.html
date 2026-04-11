@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google Translate -->
+    <script>window.changeLanguage = window.changeLanguage || function(l) { localStorage.setItem("selectedLanguage", l); document.cookie = "googtrans=/en/"+l+"; path=/"; window.location.hash = "#googtrans(en|" + l + ")"; location.reload(); };</script>
+    <script src="{{ url_for("static", filename="language.js") }}"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js"></script>
+    <div id="google_translate_element" style="position:fixed;bottom:-100px;opacity:0;"></div>
+    <title>Image CAPTCHA</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* gap: 10px; */
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* hide checkbox completely */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+            display: block;
+        }
+
+        img {
+            width: 100%;
+            height: 120px;
+            border: 3px solid #ccc;
+            object-fit: cover;
+            border-radius: 6px;
+            transition: 0.2s ease;
+        }
+
+        /* when clicked (checkbox checked), highlight image */
+        input[type="checkbox"]:checked + img {
+            border: 3px solid #d7dcde;
+            box-shadow: 0 0 15px rgba(204, 228, 240, 0.9);
+            transform: scale(1.05);
+        }
+
+        button {
+            height: 40px;
+            width: 170px;
+            text-align: center;
+            background-color: rgb(99, 182, 255);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: rgb(14, 114, 207);
+        }
+    </style>
+</head>
+<body>
+
+<h3>Select all images containing <b>{{ captcha_label }}</b></h3>
+
+<form method="post">
+    <div class="grid">
+        {% for img in images %}
+            <label>
+                <input type="checkbox" name="captcha_images" value="{{ img.url }}">
+                <img src="{{ img.url }}">
+            </label>
+        {% endfor %}
+    </div>
+
+    <button type="submit">Verify CAPTCHA</button>
+</form>
+
+</body>
+</html>

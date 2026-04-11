@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* background: linear-gradient( to right,#e6d079, #5f6a95); */
+            background-image: url(/static/profile_pics/good_processed.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .box {
+            background: white;
+            opacity: 0.75;
+            padding: 30px;
+            width: 300px;
+            min-height:518px;
+            border-radius: 10px;
+            box-shadow: 10px 10px 8px rgba(4, 4, 4, 0.2);
+            position: relative;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: rgb(235, 235, 235);
+            border: 1px solid #cfeef5;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #0083b0;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: rgb(49, 152, 242);
+        }
+
+        .link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .link :hover{
+            color: rgb(67, 7, 67);
+        }
+
+        #forget1{
+            margin-left:90px;
+            text-decoration: none;
+        }
+
+        .link a{
+            text-decoration: none;
+        }
+
+        #forget1:hover{
+            color:rgb(68, 4, 100);
+        }
+
+        #reloadcaptcha{
+            width:65px;
+            height: 50px;
+            text-align: center;
+            background-color: #4cc9f3;
+        }
+
+        #reloadcaptcha:hover{
+            background-color:rgb(49, 152, 242);
+        }
+
+        /* PASSWORD RULES CONTAINER */
+
+        .password-container{
+            position:relative;
+        }
+
+        .password-rules{
+            display:none;
+            position:absolute;
+            left:330px;
+            top:0;
+            width:220px;
+            background:#fff3cd;
+            border:1px solid #ffeeba;
+            padding:12px;
+            border-radius:8px;
+            font-size:13px;
+            color:#856404;
+            box-shadow:0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        .password-container:hover .password-rules,
+        .password-container input:focus + .password-rules{
+            display:block;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h2>Login</h2>
+
+    <form method="post">
+
+        <input type="email" name="email" placeholder="Email" required><br>
+
+        {% if error %}
+        <div class="password-error" style="
+            background:#ffe6e6;
+            color:#b30000;
+            padding:10px;
+            border-radius:6px;
+            font-size:14px;
+            margin-bottom:10px;
+        ">
+        <strong>Password requirements:</strong><br>
+        • Minimum 6 characters<br>
+        • At least 1 uppercase letter (A–Z)<br>
+        • At least 1 special character (!@#$%^&*)<br>
+        • At least 1 number (0–9)<br><br>
+        <em>{{ error }}</em>
+        </div>
+        {% endif %}
+
+        <div class="password-container">
+
+            <input type="password" name="password" placeholder="Password" required>
+
+            <div class="password-rules">
+                <strong>Password rules:</strong><br><br>
+                • Minimum 6 characters<br>
+                • At least 1 uppercase letter<br>
+                • At least 1 number<br>
+                • At least 1 special symbol
+            </div>
+
+        </div>
+
+        <br>
+
+        <img id="captcha-img" src="data:image/png;base64,{{ captcha }}" alt="captcha">
+
+        <br>
+
+        <input type="text" name="captcha" placeholder="Enter CAPTCHA" required>
+
+        <br>
+
+        <button type="button" onclick="reloadCaptcha()" id="reloadcaptcha">Reload Captcha</button>
+
+        <br><br><br>
+
+        <button type="submit">Login</button>
+
+        <br><br><br>
+
+        <a href="/forgot" id="forget1">Forgot Password</a>
+
+    </form>
+
+    <div class="link">
+        <a href="/register">Create Account</a>
+    </div>
+
+</div>
+
+<script>
+function reloadCaptcha() {
+    fetch("/reload_captcha")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("captcha-img").src =
+                "data:image/png;base64," + data.captcha;
+        });
+}
+</script>
+
+</body>
+</html>

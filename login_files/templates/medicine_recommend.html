@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Medicine Recommendation</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#a3ffa4,#66a6ff);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Main container */
+
+.container{
+    width:650px;
+    padding:35px;
+    background:rgba(255,255,255,0.95);
+    border-radius:15px;
+    box-shadow:0px 15px 40px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+/* Title */
+
+h2{
+    color:#2c3e50;
+    margin-bottom:15px;
+}
+
+/* Disease result */
+
+.disease-box{
+    background:#eaf7ff;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:20px;
+    font-size:18px;
+}
+
+/* Medicine grid */
+
+.medicine-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+/* Medicine card */
+
+.medicine{
+    padding:15px;
+    background:white;
+    border-radius:10px;
+    border:1px solid #dbe6f0;
+    box-shadow:0px 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+/* Hover effect */
+
+.medicine:hover{
+    transform:scale(1.05);
+    box-shadow:0px 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Icon */
+
+.icon{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+/* Medicine name */
+
+.med-name{
+    font-weight:bold;
+    font-size:16px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>💊 Recommended Medicines</h2>
+
+<div class="disease-box">
+Disease detected: <b>{{ disease }}</b>
+</div>
+
+<div class="medicine-list">
+
+{% for med in medicines %}
+
+<div class="medicine">
+<div class="icon">💊</div>
+<div class="med-name">{{ med }}</div>
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+Flask==3.0.2
+flask-cors==4.0.0
+Flask-Mail==0.9.1
+Werkzeug==3.0.1
+supabase==2.3.6
+Pillow==10.2.0
+pandas==2.2.0
+groq==0.4.2
+scikit-learn==1.4.0
+xgboost==2.0.3
+numpy==1.26.4

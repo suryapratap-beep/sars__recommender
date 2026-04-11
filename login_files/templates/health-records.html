@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Records | MedAI</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <h2 class="logo"><i class="fa-solid fa-capsules"></i> MedAI</h2>
+
+    <ul class="nav-links">
+  <li><a href="{{ url_for('dashboard') }}"><i class="fa-solid fa-chart-line"></i> Dashboard</a></li>
+  <li><a href="{{ url_for('disease_predictor') }}"><i class="fa-solid fa-virus"></i> Disease Predictor</a></li>
+  <li><a href="{{ url_for('recommend_medicine') }}"><i class="fa-solid fa-stethoscope"></i> Medicine Recommendations</a></li>
+  <li><a href="{{ url_for('medicine') }}"><i class="fa-solid fa-pills"></i> Medicine Info</a></li>
+  <li><a href="{{ url_for('health_records') }}"><i class="fa-solid fa-notes-medical"></i> Health Records</a></li>
+  <li><a href="{{ url_for('settings') }}"><i class="fa-solid fa-gear"></i> Settings</a></li>
+</ul>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <button class="menu-btn" id="menuToggle">
+  <i class="fa-solid fa-bars"></i>
+</button>
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search records..." />
+      </div>
+
+      <div class="top-actions">
+
+        <button class="theme-btn" id="themeToggle">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <div class="profile-box">
+          <div class="profile-info">
+            <p class="username">{{ username }}</p>
+            <p class="email">{{ email }}</p>
+          </div>
+
+          <div class="profile-icon">
+    {% if profile_pic %}
+        <img src="{{ url_for('static', filename='profile_pics/' + profile_pic) }}" class="profile-img">
+    {% else %}
+        <img src="{{ url_for('static', filename='profile_pics/default.png') }}" class="profile-img">
+    {% endif %}
+</div>
+
+          <button class="logout-btn">
+           <a href="{{ url_for('logout') }}" class="logout-btn">
+  <i class="fa-solid fa-right-from-bracket"></i> Logout
+</a>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <section class="welcome">
+      <h1>User Health Track Record</h1>
+      <p>View your previous symptoms, conditions, and recommended medicines.</p>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title"><i class="fa-solid fa-notes-medical"></i> Health Record Table</h2>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Symptoms</th>
+              <th>Condition</th>
+              <th>Recommended Drug</th>
+              <th>Dosage</th>
+              <th>Doctor Notes</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>12-Feb-2026</td>
+              <td>Fever, Headache</td>
+              <td>Viral Infection</td>
+              <td>Paracetamol</td>
+              <td>500mg</td>
+              <td>Drink fluids, rest</td>
+            </tr>
+
+            <tr>
+              <td>08-Feb-2026</td>
+              <td>High sugar level</td>
+              <td>Diabetes</td>
+              <td>Metformin</td>
+              <td>500mg</td>
+              <td>Diet control advised</td>
+            </tr>
+
+            <tr>
+              <td>01-Feb-2026</td>
+              <td>Cough, Sore throat</td>
+              <td>Throat Infection</td>
+              <td>Amoxicillin</td>
+              <td>250mg</td>
+              <td>Complete full course</td>
+            </tr>
+
+            <tr>
+              <td>25-Jan-2026</td>
+              <td>Chest discomfort</td>
+              <td>BP Fluctuation</td>
+              <td>Aspirin</td>
+              <td>75mg</td>
+              <td>ECG recommended</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+ <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

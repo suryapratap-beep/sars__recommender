@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SARS_RECOMMENDER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e293b; --secondary: #334155; --accent-blue: #6366f1; --accent-green: #10b981;
+            --bg-color: #f8fafc; --glass-bg: rgba(255, 255, 255, 0.7); --glass-border: rgba(255, 255, 255, 0.5);
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body {
+            background-color: var(--bg-color); background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%); background-size: cover; background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+        }
+        .container {
+            background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); box-shadow: var(--card-shadow);
+            border-radius: 24px; padding: 40px; width: 100%; max-width: 600px;
+            position: relative; overflow: hidden;
+        }
+        h1, h2 { color: var(--primary); font-weight: 700; }
+        p { color: var(--secondary); margin-bottom: 20px; line-height: 1.6; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: 500; color: var(--primary); margin-bottom: 8px; font-size: 14px; }
+        input, select, textarea {
+            width: 100%; padding: 12px 16px; border-radius: 12px; border: 1px solid #cbd5e1;
+            background: rgba(255, 255, 255, 0.9); color: var(--primary); font-size: 15px; outline: none; transition: all 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); background: #ffffff; }
+        button { border: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        button.primary { background: var(--accent-blue); color: white; box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39); width: 100%; }
+        button.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.23); background: #4f46e5; }
+        button.secondary { background: white; color: var(--primary); border: 1px solid #cbd5e1; }
+        button.secondary:hover { background: #f1f5f9; }
+        .button-group { display: flex; gap: 10px; margin-top: 25px; }
+        .button-group button { flex: 1; }
+        .field-step { display: none; animation: slideIn 0.4s ease forwards; }
+        .field-step.active { display: block; }
+        .step-indicator { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; }
+        .step-dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; transition: all 0.3s; }
+        .step-dot.active { background: var(--accent-blue); transform: scale(1.3); }
+        .hidden { display: none !important; }
+        #loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px 0; }
+        .loader { width: 48px; height: 48px; border: 5px solid rgba(99, 102, 241, 0.2); border-bottom-color: var(--accent-blue); border-radius: 50%; display: inline-block; box-sizing: border-box; animation: rotation 1s linear infinite; }
+        #result, #disease-result { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; margin-top: 20px; background: white; padding: 25px; border-radius: 16px; border: 1px solid #e2e8f0; }
+        #result.visible, #disease-result.visible { opacity: 1; transform: translateY(0); }
+        .result-header { border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 15px; }
+        .result-header h3 { color: var(--accent-green); display: flex; align-items: center; gap: 8px; font-size: 1.25rem; }
+        .result-list { list-style: none; }
+        .result-list li { margin-bottom: 10px; padding: 12px 16px; background: #f8fafc; border-radius: 8px; border-left: 4px solid var(--accent-blue); color: var(--secondary); font-size: 15px; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        #chatbot-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--accent-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 24px; cursor: pointer; box-shadow: 0 4px 14px rgba(99,102,241,0.4); transition: transform 0.3s;
+            z-index: 1000; border: none; display: none;
+        }
+        #chatbot-toggle:hover { transform: scale(1.1); }
+        #chatbot-window {
+            position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px;
+            background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: none; flex-direction: column; overflow: hidden;
+            z-index: 1000; border: 1px solid #e2e8f0;
+        }
+        /* Chatbot Enhanced Styling */
+        .chip {
+            background: #e2e8f0; color: #334155; border: none; padding: 6px 12px;
+            border-radius: 16px; font-size: 12px; cursor: pointer; transition: all 0.2s; height: auto;
+        }
+        .chip:hover { background: #cbd5e1; transform: scale(1.05); }
+        .typing-indicator {
+            display: inline-flex; align-items: center; gap: 4px; padding: 8px 14px;
+            background: #e2e8f0; border-radius: 14px 14px 14px 0; width: fit-content;
+        }
+        .typing-indicator span {
+            width: 6px; height: 6px; background: #64748b; border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+    <datalist id="symptomsList"></datalist>
+    <datalist id="medicineSymptomsListl"></datalist>
+
+    <div id="global-nav" style="display: flex; gap: 10px; position: absolute; top: 20px; left: 20px; z-index: 10;">
+        <button type="button" id="nav-home-btn" style="padding: 8px 16px; border-radius: 8px; background: white; color: #1e293b; border: 1px solid #e2e8f0; cursor: pointer; font-size: 14px;">🏠 Home</button>
+        <button type="button" id="nav-subscribe-btn" style="padding: 8px 16px; border-radius: 8px; background: #10b981; color: white; border: none; cursor: pointer; font-size: 14px;">⭐ Subscribe</button>
+    </div>
+
+    <!-- HOME PAGE -->
+    <div id="home-page" class="container">
+        <div id="user-dashboard" style="text-align: center; margin-bottom: 25px; color: #10b981;">
+            <h2 id="welcome-message" style="margin: 0; font-size: 26px;">Welcome!</h2>
+            <p id="attempts-message" style="font-size: 15px; color: #64748b; margin-top: 5px;">You have <strong id="attempts-count">3</strong> free attempts left.</p>
+        </div>
+        <h1 style="text-align: center; margin-bottom: 30px;">SARS_RECOMMENDER</h1>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button type="button" id="btn-disease-predictor" style="padding: 16px; border-radius: 12px; border: 2px solid #10b981; background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.04)); color: #10b981; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">🔍 Disease Predictor</button>
+            <button type="button" id="btn-medicine-recommender" style="padding: 16px; border-radius: 12px; border: 2px solid #6366f1; background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(99,102,241,0.04)); color: #6366f1; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">💊 Medicine Recommender</button>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/dashboard" style="color: #64748b; text-decoration: underline; font-size: 14px;">← Back to Main Dashboard</a>
+        </div>
+    </div>
+
+    <!-- DISEASE PREDICTOR PAGE -->
+    <div class="container" id="disease-page" style="display: none;">
+        <div style="display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+            <div style="background: rgba(16,185,129,0.1); padding: 10px; border-radius: 12px; margin-right: 15px;">
+                <span style="font-size: 24px;">🔍</span>
+            </div>
+            <div>
+                <h2 style="margin:0;">Disease Predictor</h2>
+                <p style="margin:0; font-size: 14px;">Analyze symptoms intelligently.</p>
+            </div>
+        </div>
+
+        <form id="diseaseForm">
+            <div id="step-disease-symptoms" class="field-step active">
+                <div class="form-group">
+                    <label>Main Symptoms</label>
+                    <input type="text" id="disease-symptoms" placeholder="e.g., fever, cough, headache" list="symptomsList">
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary disease-back">Back</button>
+                    <button type="button" class="primary disease-next">Next ➔</button>
+                </div>
+            </div>
+
+            <div id="step-disease-duration" class="field-step">
+                <div class="form-group">
+                    <label>Duration of Symptoms</label>
+                    <input type="text" id="disease-duration" placeholder="e.g., 3 days, 2 weeks">
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary disease-back">Back</button>
+                    <button type="button" class="primary disease-next">Next ➔</button>
+                </div>
+            </div>
+
+            <div id="step-disease-severity" class="field-step">
+                <div class="form-group">
+                    <label>Severity</label>
+                    <select id="disease-severity">
+                        <option value="">Select severity...</option>
+                        <option value="mild">Mild (Manageable)</option>
+                        <option value="moderate">Moderate (Interferes with daily activities)</option>
+                        <option value="severe">Severe (Incapacitating)</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary disease-back">Back</button>
+                    <button type="button" class="primary disease-next">Next ➔</button>
+                </div>
+            </div>
+
+            <div id="step-disease-history" class="field-step">
+                <div class="form-group">
+                    <label>Relevant Medical History</label>
+                    <textarea id="disease-history" rows="3" placeholder="Any pre-existing conditions?"></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary disease-back">Back</button>
+                    <button type="button" class="primary disease-next">Next ➔</button>
+                </div>
+            </div>
+            
+            <div id="step-disease-medicines" class="field-step">
+                <div class="form-group">
+                    <label>Current Medications (Optional)</label>
+                    <p style="font-size: 12px; color: #64748b; margin-top: -5px; line-height: 1.2;">Select the medicines you are currently taking from your dataset (Hold CTRL/CMD to select multiple).</p>
+                    <select id="disease-medicines" multiple size="6"></select>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary disease-back">Back</button>
+                    <button type="submit" class="primary" style="background:#10b981">Predict Disease ✨</button>
+                </div>
+            </div>
+        </form>
+
+        <div id="disease-loading" class="hidden">
+            <span class="loader" style="border-bottom-color: #10b981;"></span>
+            <p style="margin-top: 15px; font-weight: 500;">Analyzing health patterns...</p>
+        </div>
+
+        <div id="disease-result" class="hidden">
+            <div class="result-header">
+                <h3><span>🩺</span> Predicted Diseases</h3>
+            </div>
+            <ul id="diseaseList" class="result-list"></ul>
+            <div class="button-group" style="margin-top: 20px;">
+                 <button type="button" class="secondary" id="back-home-disease-result">← Home</button>
+                 <button type="button" class="primary" id="disease-to-medicine" style="background: #6366f1;">Find Medicines ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEDICINE RECOMMENDER PAGE -->
+    <div class="container" id="medicine-page" style="display: none;">
+        <div style="display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+            <div style="background: rgba(99,102,241,0.1); padding: 10px; border-radius: 12px; margin-right: 15px;">
+                <span style="font-size: 24px;">💊</span>
+            </div>
+            <div>
+                <h2 style="margin:0;">Medicine Recommender</h2>
+                <p style="margin:0; font-size: 14px;">Targeted pharmaceutical suggestions.</p>
+            </div>
+        </div>
+
+        <form id="drugForm">
+            <div id="step-symptoms" class="field-step active">
+                <div class="form-group">
+                    <label>Symptoms / Condition</label>
+                    <input type="text" id="symptoms" placeholder="e.g., headache, cough, malaria" list="medicineSymptomsListl">
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary back">Back</button>
+                    <button type="button" class="primary next">Next ➔</button>
+                </div>
+            </div>
+
+            <div id="step-gender" class="field-step">
+                <div class="form-group">
+                    <label>Biological Gender</label>
+                    <select id="gender">
+                        <option value="">Select gender...</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other / Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary back">Back</button>
+                    <button type="button" class="primary next">Next ➔</button>
+                </div>
+            </div>
+
+            <div id="step-age" class="field-step">
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="age" placeholder="Years" min="0" max="120">
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary back">Back</button>
+                    <button type="button" class="primary next">Next ➔</button>
+                </div>
+            </div>
+
+            <div id="step-history" class="field-step">
+                <div class="form-group">
+                    <label>Medical History & Allergies</label>
+                    <textarea id="history" rows="3" placeholder="Known allergies, ongoing medications..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary back">Back</button>
+                    <button type="submit" class="primary">Get Recommendations ✨</button>
+                </div>
+            </div>
+        </form>
+
+        <div id="loading" class="hidden">
+            <span class="loader"></span>
+            <p style="margin-top: 15px; font-weight: 500;">Synthesizing medical data...</p>
+        </div>
+
+        <div id="result" class="hidden">
+            <div class="result-header">
+                <h3><span>⚕️</span> Recommended Output</h3>
+            </div>
+            <ul id="drugList" class="result-list"></ul>
+            <div class="button-group" style="margin-top: 20px;">
+                <button type="button" class="secondary" id="back-home-medicine">← Home</button>
+                <button type="button" class="primary" id="check-safety-btn" style="background: #fbbf24; color: #1e293b; border: none;">⚠️ Verify Safety (DDI) ➔</button>
+                <button type="button" class="primary" id="medicine-to-disease" style="background: #10b981; color: white;">Try Disease Predictor ➔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHATBOT WIDGET -->
+    <button id="chatbot-toggle">💬</button>
+    <div id="chatbot-window">
+        <!-- Header -->
+        <div style="background: #6366f1; color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; font-weight: 600;">
+            <span>SARS_RECOMMENDER 🤖</span>
+            <button id="chatbot-close" style="background: none; border: none; color: white; font-size: 20px; cursor: pointer; padding: 0;">&times;</button>
+        </div>
+        <!-- Messages -->
+        <div id="chat-messages" style="flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #f8fafc; font-size: 14px;">
+            <div style="background: #e2e8f0; padding: 10px 14px; border-radius: 14px 14px 14px 0; align-self: flex-start; max-width: 85%; color: #0f172a; line-height: 1.4;">
+                👋 Hello! I am your interactive SARS_RECOMMENDER assistant.<br><br>Feel free to ask me about health conditions, or tap a quick action below:
+            </div>
+            <div class="quick-actions" style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button class="chip" onclick="document.getElementById('chat-input').value='What is Malaria?'; document.getElementById('chat-send').click();">🦠 What is Malaria?</button>
+                <button class="chip" onclick="document.getElementById('chat-input').value='Precautions for Dengue'; document.getElementById('chat-send').click();">🛡️ Dengue Precautions</button>
+            </div>
+        </div>
+        <!-- Input area -->
+        <div style="padding: 12px; border-top: 1px solid #e2e8f0; background: white; display: flex; gap: 8px;">
+            <input type="text" id="chat-input" placeholder="Type a disease name..." style="flex: 1; padding: 10px; border-radius: 20px; font-size: 14px;">
+            <button id="chat-send" style="background: #6366f1; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                <i class="fa-solid fa-paper-plane" style="font-size: 14px; transform: translateX(-1px);">➤</i>
+            </button>
+        </div>
+    </div>
+
+    <script src="/frontend_files/stepform.js"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Disease Predictor</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#89f7fe,#66a6ff);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Main Card */
+
+.container{
+    width:500px;
+    padding:35px;
+    background:rgba(255,255,255,0.9);
+    border-radius:15px;
+    box-shadow:0px 15px 40px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+/* Title */
+
+h2{
+    margin-bottom:20px;
+    color:#2c3e50;
+}
+
+/* Textarea */
+
+textarea{
+    width:100%;
+    height:120px;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    resize:none;
+    font-size:14px;
+    transition:0.3s;
+}
+
+textarea:focus{
+    outline:none;
+    border-color:#66a6ff;
+    box-shadow:0 0 5px rgba(102,166,255,0.5);
+}
+
+/* File Upload */
+
+input[type="file"]{
+    margin-top:15px;
+}
+
+/* Button */
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    background:linear-gradient(45deg,#4CAF50,#2ecc71);
+    color:white;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0px 8px 20px rgba(0,0,0,0.2);
+}
+
+/* Icon */
+
+.icon{
+    font-size:40px;
+    color:#3498db;
+    margin-bottom:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="icon">🩺</div>
+
+<h2>Disease Predictor</h2>
+
+<form action="/predict_disease" method="POST" enctype="multipart/form-data">
+
+<textarea name="symptoms" placeholder="Describe your symptoms... (fever, cough, headache)"></textarea>
+
+<input type="file" name="image">
+
+<button type="submit">Predict Disease</button>
+
+</form>
+
+</div>
+
+</body>
+</html>
