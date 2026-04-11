@@ -182,8 +182,6 @@ class MedicineRecommender:
                             pred, 0) + weights[model]
 
                     final_pred = max(vote_count, key=vote_count.get)
-
-                    final_pred = max(set(preds), key=preds.count)
                     model_med = self.med_enc.inverse_transform([final_pred])[0]
 
                     results.append(f"\nFor symptom '{s}':")

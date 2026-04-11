@@ -50,10 +50,18 @@ class DiseasePredictor:
 
     def predict(self, symptoms, severity, duration, comorbidities):
 
-        sym_list = [i.strip().lower() for i in symptoms.split(",")]
+        import difflib
+        sym_list_raw = [i.strip().lower() for i in symptoms.split(",")]
 
         known_symptoms = set(self.sym_bin.classes_)
-        sym_list = [s for s in sym_list if s in known_symptoms]
+        sym_list = []
+        for s in sym_list_raw:
+            if s in known_symptoms:
+                sym_list.append(s)
+            else:
+                matches = difflib.get_close_matches(s, known_symptoms, n=1, cutoff=0.6)
+                if matches:
+                    sym_list.append(matches[0])
 
         if len(sym_list) == 0:
             return "No valid symptoms found in dataset."
