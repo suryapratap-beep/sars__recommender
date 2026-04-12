@@ -51,17 +51,34 @@ class DiseasePredictor:
     def predict(self, symptoms, severity, duration, comorbidities):
 
         import difflib
-        sym_list_raw = [i.strip().lower() for i in symptoms.split(",")]
-
-        known_symptoms = set(self.sym_bin.classes_)
+        
+        raw_input = symptoms.lower().strip()
+        known_symptoms = list(self.sym_bin.classes_)
+        
         sym_list = []
+        
+        # 1. Broad extraction: Find any known symptoms that appear anywhere in the user's string
+        # This fixes the issue where users type "fever and headache" without using commas
+        for known in known_symptoms:
+            # We enforce a small length limit so short acronyms don't falsely trigger inside other words
+            if len(known) > 3 and known in raw_input:
+                sym_list.append(known)
+                
+        # 2. Strict / Typos extraction: Fallback to comma separation and fuzzy matching
+        sym_list_raw = [i.strip() for i in raw_input.split(",")]
         for s in sym_list_raw:
-            if s in known_symptoms:
-                sym_list.append(s)
-            else:
-                matches = difflib.get_close_matches(s, known_symptoms, n=1, cutoff=0.6)
-                if matches:
-                    sym_list.append(matches[0])
+            if not s:
+                 continue
+            # Skip if this chunk already clearly matches an extracted symptom from step 1
+            if any(k in s for k in sym_list):
+                 continue
+                 
+            matches = difflib.get_close_matches(s, known_symptoms, n=1, cutoff=0.6)
+            if matches:
+                sym_list.append(matches[0])
+                
+        # Clean duplicates
+        sym_list = list(set(sym_list))
 
         if len(sym_list) == 0:
             return "No valid symptoms found in dataset."
