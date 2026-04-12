@@ -3,7 +3,6 @@ from flask_cors import CORS
 from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from supabase import create_client
-import sqlite3
 import random
 import time
 import os
@@ -42,8 +41,14 @@ except Exception as e:
     medicine_model = None
     ddi_model = None
 
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://lzlilmxegsrmnqcxlszs.supabase.co")
-SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "placeholder_supabase_key")
+SUPABASE_URL = os.environ.get("SUPABASE_URL")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
+
+if not SUPABASE_URL or not SUPABASE_KEY:
+    print("Supabase credentials missing from environment.")
+    SUPABASE_URL = input("Enter Supabase URL: ").strip()
+    SUPABASE_KEY = input("Enter Supabase Anon Key: ").strip()
+
 try:
     supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 except:
@@ -72,10 +77,6 @@ def set_language():
 
 # ----- Auth Helpers -----
 
-
-def get_db():
-    # check_same_thread=False allows multiple users to access the DB simultaneously
-    return sqlite3.connect("users.db", check_same_thread=False)
 
 def is_subscribed_user():
     email = session.get("email")
@@ -156,15 +157,12 @@ def is_valid_email(email):
 
 @app.context_processor
 def inject_user():
-    if "email" in session:
+    if "email" in session and supabase:
         try:
-            db = get_db()
-            cur = db.cursor()
-            cur.execute("SELECT profile_pic FROM users WHERE email=?",
-                        (session["email"],))
-            user = cur.fetchone()
-            db.close()
-            return dict(profile_pic=user[0] if user else None)
+            res = supabase.table('users').select('profile_pic').eq('email', session["email"]).execute()
+            if res.data and len(res.data) > 0:
+                pic = res.data[0].get('profile_pic')
+                return dict(profile_pic=pic if pic else None)
         except:
             pass
     return dict(profile_pic=None)
@@ -195,17 +193,17 @@ def login():
             session['captcha'] = captcha_text
             return render_template("login.html", captcha=captcha_img, error=message)
 
-        db = get_db()
-        cur = db.cursor()
-        cur.execute("SELECT * FROM users WHERE email=?", (email,))
-        user = cur.fetchone()
-        db.close()
+        user = None
+        if supabase:
+            res = supabase.table('users').select('*').eq('email', email).execute()
+            if res.data and len(res.data) > 0:
+                user = res.data[0]
 
-        if user and check_password_hash(user[3], plain_password):
+        if user and check_password_hash(user.get('password', ''), plain_password):
             otp = random.randint(100000, 999999)
             session['otp'] = otp
             session['email'] = email
-            session['username'] = user[1]
+            session['username'] = user.get('username')
             session['otp_time'] = time.time()
             msg = Message(
                 "Your OTP", sender=app.config['MAIL_USERNAME'], recipients=[email])
@@ -240,15 +238,22 @@ def register():
             return "Please complete Image CAPTCHA first."
 
         hashed_password = generate_password_hash(plain_password)
-        db = get_db()
-        cur = db.cursor()
-        try:
-            cur.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-                        (username, email, hashed_password))
-            db.commit()
-        except:
-            pass
-        db.close()
+        if supabase:
+            try:
+                # Check for existing email to prevent duplicate registrations
+                existing = supabase.table('users').select('id').eq('email', email).execute()
+                if existing.data and len(existing.data) > 0:
+                    return render_template("register.html", error="User already registered")
+                
+                # Insert new user
+                supabase.table('users').insert({
+                    "username": username,
+                    "email": email,
+                    "password": hashed_password
+                }).execute()
+            except Exception as e:
+                return render_template("register.html", error="Registration failed. Please try again.")
+
         session["captcha_verified"] = False
         return redirect("/")
     return render_template("register.html")
@@ -258,17 +263,17 @@ def register():
 def forgot_password():
     if request.method == "POST":
         email = request.form['email']
-        db = get_db()
-        cur = db.cursor()
-        cur.execute("SELECT * FROM users WHERE email=?", (email,))
-        user = cur.fetchone()
+        user = None
+        if supabase:
+            res = supabase.table('users').select('id').eq('email', email).execute()
+            if res.data and len(res.data) > 0:
+                user = res.data[0]
+                
         if user:
             new_password = generate_strong_password()
             hashed_password = generate_password_hash(new_password)
-            cur.execute("UPDATE users SET password=? WHERE email=?",
-                        (hashed_password, email))
-            db.commit()
-            db.close()
+            if supabase:
+                supabase.table('users').update({'password': hashed_password}).eq('email', email).execute()
             msg = Message(
                 "Password Reset", sender=app.config['MAIL_USERNAME'], recipients=[email])
             msg.body = f"Your password has been reset successfully.\n\nNew Password: {new_password}\n\nPlease login and change your password."
