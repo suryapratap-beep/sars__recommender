@@ -6,6 +6,9 @@ from supabase import create_client
 import random
 import time
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
 import sys
 import warnings
 import io
