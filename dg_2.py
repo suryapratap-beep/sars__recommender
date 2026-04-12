@@ -132,69 +132,70 @@ class MedicineRecommender:
         symptoms = [i.strip().lower() for i in sym_input.split(',')]
         results = []
 
+        import difflib
+        known_symptoms = list(self.sym_bin.classes_)
+        valid_syms = []
         for s in symptoms:
-            match = self.df[
-                (self.df['Symptom'].str.contains(s, case=False, na=False)) &
-                (self.df['Age Group'].str.lower() == age_grp.lower())
+            if s in known_symptoms:
+                valid_syms.append(s)
+            else:
+                matches = difflib.get_close_matches(s, known_symptoms, n=1, cutoff=0.6)
+                if matches:
+                    valid_syms.append(matches[0])
+                else:
+                    # Still try to find substring matches in the dataset symptoms just in case
+                    fallback = [k for k in known_symptoms if s in k]
+                    if fallback:
+                        valid_syms.append(fallback[0])
+
+        if not valid_syms:
+            return "No valid symptoms found in our database to reliably recommend medicine."
+            
+        try:
+            sym_vec = self.sym_bin.transform([valid_syms])
+            age_vec = self.age_enc.transform([age_grp]).reshape(-1, 1)
+            x_in = np.hstack((sym_vec, age_vec))
+
+            preds = [
+                ("nb", self.nb.predict(x_in)[0]),
+                ("rf", self.rf.predict(x_in)[0]),
+                ("knn", self.knn.predict(x_in)[0]),
+                ("mlp", self.mlp.predict(x_in)[0]),
+                ("xgb", self.xgb.predict(x_in)[0])
             ]
 
+            weights = {
+                "nb": 1,
+                "rf": 3,
+                "knn": 1,
+                "mlp": 2,
+                "xgb": 4
+            }
+            vote_count = {}
+            for model, pred in preds:
+                vote_count[pred] = vote_count.get(pred, 0) + weights[model]
+
+            final_pred = max(vote_count, key=vote_count.get)
+            model_med = self.med_enc.inverse_transform([final_pred])[0]
+
+            results.append(f"Recommended Medicine: {model_med.title()}")
+
+            match = self.df[self.df['Medicine'].str.lower() == model_med.lower()]
             if len(match) > 0:
-                results.append(f"\nFor symptom '{s}':")
-                row = match.iloc[0]
-                dose = row['Dosage'] if 'Dosage' in self.df.columns else 'N/A'
-                results.append(f"Medicine: {row['Medicine']}")
-                results.append(f"Dosage: {dose}")
-
+                dose = match.iloc[0]['Dosage'] if 'Dosage' in self.df.columns else 'N/A'
+                results.append(f"Typical Dosage: {dose}")
             else:
-                try:
-                    sym_vec = self.sym_bin.transform([[s]])
-                    age_vec = self.age_enc.transform([age_grp]).reshape(-1, 1)
-                    x_in = np.hstack((sym_vec, age_vec))
+                results.append(f"Typical Dosage: Consult a medical professional.")
 
-                    preds = [
-                        self.nb.predict(x_in)[0],
-                        self.rf.predict(x_in)[0],
-                        self.knn.predict(x_in)[0],
-                        self.mlp.predict(x_in)[0],
-                        self.xgb.predict(x_in)[0]
-                    ]
-
-                    weights = {
-                        "nb": 1,
-                        "rf": 3,
-                        "knn": 1,
-                        "mlp": 2,
-                        "xgb": 4
-                    }
-
-                    preds = [
-                        ("nb", self.nb.predict(x_in)[0]),
-                        ("rf", self.rf.predict(x_in)[0]),
-                        ("knn", self.knn.predict(x_in)[0]),
-                        ("mlp", self.mlp.predict(x_in)[0]),
-                        ("xgb", self.xgb.predict(x_in)[0])
-                    ]
-
-                    vote_count = {}
-
-                    for model, pred in preds:
-                        vote_count[pred] = vote_count.get(
-                            pred, 0) + weights[model]
-
-                    final_pred = max(vote_count, key=vote_count.get)
-                    model_med = self.med_enc.inverse_transform([final_pred])[0]
-
-                    results.append(f"\nFor symptom '{s}':")
-                    results.append(f"Predicted (Ensemble): {model_med}")
-
-                except:
-                    results.append(f"\nFor symptom '{s}': Prediction failed")
+        except Exception as e:
+            return f"Prediction failed due to internal error."
 
         if gender.lower() == "female" and age >= 18:
+            results.append("\nPRECAUTIONS:")
             if preg.lower() == "yes":
-                results.append("Note: Pregnant. Consult doctor.")
+                results.append("- Patient is pregnant. Please consult a doctor immediately before taking any medication.")
             if feed.lower() == "yes":
-                results.append("Note: Breastfeeding. Consult doctor.")
+                results.append("- Patient is breastfeeding. Ensure the medication is safe for lactation.")
 
         return "\n".join(results)
 
