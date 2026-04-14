@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===== MEDICINE RECOMMENDER LOGIC =====
-    const steps = ["symptoms", "gender", "age", "history"];
+    const steps = ["symptoms", "gender", "age", "pregnancy", "breastfeeding", "history"];
     let currentStep = 0;
 
     function showStep(index) {
@@ -343,7 +343,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
             }
-            showStep(idx + 1);
+            let nextIdx = idx + 1;
+            const genderValue = (document.getElementById("gender")?.value || "").toLowerCase();
+            const ageValue = parseInt(document.getElementById("age")?.value || "0");
+
+            if (steps[idx] === "age" && (genderValue !== "female" || ageValue < 18)) {
+                nextIdx = steps.indexOf("history");
+            }
+            showStep(nextIdx);
         });
     });
 
@@ -356,7 +363,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (idx === 0) {
                 window.location.href = '/dashboard';
             } else {
-                showStep(Math.max(0, idx - 1));
+                let prevIdx = idx - 1;
+                const genderValue = (document.getElementById("gender")?.value || "").toLowerCase();
+                const ageValue = parseInt(document.getElementById("age")?.value || "0");
+
+                if (steps[idx] === "history" && (genderValue !== "female" || ageValue < 18)) {
+                    prevIdx = steps.indexOf("age");
+                }
+                showStep(Math.max(0, prevIdx));
             }
         });
     });
@@ -379,6 +393,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 symptoms: document.getElementById("symptoms")?.value.trim() || "",
                 gender: document.getElementById("gender")?.value || "",
                 age: document.getElementById("age")?.value || "",
+                pregnancy: document.getElementById("pregnancy")?.value || "no",
+                breastfeeding: document.getElementById("breastfeeding")?.value || "no",
                 history: document.getElementById("history")?.value.trim() || ""
             };
 

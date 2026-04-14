@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Register</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <!-- Google Translate -->
-    <script>window.changeLanguage = window.changeLanguage || function(l) { localStorage.setItem('selectedLanguage', l); document.cookie = 'googtrans=/en/'+l+'; path=/'; window.location.hash = "#googtrans(en|" + l + ")"; location.reload(); };</script>
     <script src="{{ url_for('static', filename='language.js') }}"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript"
+        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='aurora.css') }}" />
     <style>
         /* Hide Google Translate Bar */
-        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
-        body { top: 0px !important; }
-        .goog-te-combo { display: none !important; }
+        .goog-te-banner-frame.skiptranslate,
+        .goog-te-gadget-icon {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
+            background-color: #02040a !important;
+            color: #fff;
+        }
+
+        .goog-te-combo {
+            display: none !important;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            width: 360px;
+            min-height: 580px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            position: relative;
+            color: #fff;
+        }
 
         .lang-float {
             position: fixed;
@@ -21,11 +48,12 @@
             background: rgba(255, 255, 255, 0.9);
             padding: 8px 12px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             gap: 8px;
         }
+
         .lang-float select {
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -34,30 +62,22 @@
             background: #fff;
             cursor: pointer;
         }
-        .lang-float i { color: #3f5efb; }
+
+        .lang-float i {
+            color: #3f5efb;
+        }
 
         body {
             font-family: Arial;
-            /* background: linear-gradient(to right, #00106b, #575555); */
-            background-image: url(/static/profile_pics/BIOLOGIA_processed.jpg);
-            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background-color: #02040a;
         }
 
-        .box {
-            /* background: linear-gradient(rgb(180, 178, 178),rgb(241, 251, 251)); */
-            background-color: white;
-            opacity: 0.6;
-            padding: 30px;
-            width: 300px;
-            min-height:380px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
-            position: relative;
-        }
 
         h2 {
             text-align: center;
@@ -65,91 +85,112 @@
 
         input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: #7cff67;
+            box-shadow: 0 0 10px rgba(124, 255, 103, 0.2);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
         }
 
         button {
             width: 100%;
-            padding: 10px;
-            background: #3f5efb;
+            padding: 12px;
+            background: linear-gradient(135deg, #7cff67, #5227FF);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         button:hover {
-            background: #2f45c5;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(124, 255, 103, 0.3);
+            filter: brightness(1.1);
         }
 
-        #forget2{
-            margin-left:85px;
+        #forget2 {
+            margin-left: 107px;
             text-decoration: none;
         }
 
-        #forget2:hover{
-            color:rgb(68, 4, 100);
+        #forget2:hover {
+            color: rgb(68, 4, 100);
         }
 
         /* PASSWORD CONTAINER */
 
-        .password-container{
-            position:relative;
+        .password-container {
+            position: relative;
         }
 
         /* PASSWORD RULES */
 
-        .password-rules{
-            display:none;
-            position:absolute;
-            left:330px;
-            top:0;
-            width:220px;
-            background:#fff3cd;
-            border:1px solid #ffeeba;
-            padding:12px;
-            border-radius:8px;
-            font-size:13px;
-            color:#856404;
-            box-shadow:0px 0px 10px rgba(0,0,0,0.2);
+        .password-rules {
+            display: none;
+            position: absolute;
+            left: 330px;
+            top: 0;
+            width: 220px;
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #856404;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
 
         /* Show rules when hovering password */
 
         .password-container:hover .password-rules,
-        .password-container input:focus + .password-rules{
-            display:block;
+        .password-container input:focus+.password-rules {
+            display: block;
         }
-
     </style>
 </head>
 
 <body>
-<div id="google_translate_element"></div>
-<div class="lang-float">
-    <i class="fa-solid fa-language"></i>
-    <select class="language-selector" onchange="changeLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="hi">Hindi</option>
-        <option value="es">Spanish</option>
-        <option value="fr">French</option>
-    </select>
-</div>
+    <div id="aurora-bg" class="aurora-container"></div>
+    <div id="google_translate_element"></div>
+    <div class="lang-float">
+        <i class="fa-solid fa-language"></i>
+        <select class="language-selector" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+        </select>
+    </div>
 
-<div class="box">
+    <div class="box">
 
-    <h2>Register</h2><br><br>
+        <h2>Register</h2><br><br>
 
-    <form method="post">
+        <form method="post">
 
-        <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="text" name="username" placeholder="Enter Username" required>
 
-        <input type="email" name="email" placeholder="Email" required>
+            <input type="email" name="email" placeholder="Email" required>
 
-        {% if error %}
-        <div style="
+            {% if error %}
+            <div style="
         background:#ffe6e6;
         color:#b30000;
         padding:10px;
@@ -157,47 +198,56 @@
         font-size:14px;
         margin-bottom:10px;
         ">
-        <strong>Password requirements:</strong><br>
-        • Minimum 6 characters<br>
-        • At least 1 uppercase letter (A–Z)<br>
-        • At least 1 special character (!@#$%^&*)<br>
-        • At least 1 number (0–9)<br>
-        <em>{{ error }}</em>
-        </div>
-        {% endif %}
-
-        <div class="password-container">
-
-            <input type="password" name="password" placeholder="Password" required>
-
-            <div class="password-rules">
-                <strong>Password rules:</strong><br><br>
+                <strong>Password requirements:</strong><br>
                 • Minimum 6 characters<br>
-                • At least 1 uppercase letter<br>
-                • At least 1 number<br>
-                • At least 1 special symbol
+                • At least 1 uppercase letter (A–Z)<br>
+                • At least 1 special character (!@#$%^&*)<br>
+                • At least 1 number (0–9)<br>
+                <em>{{ error }}</em>
+            </div>
+            {% endif %}
+
+            <div class="password-container">
+
+                <input type="password" name="password" placeholder="Password" required>
+
+                <div class="password-rules">
+                    <strong>Password rules:</strong><br><br>
+                    • Minimum 6 characters<br>
+                    • At least 1 uppercase letter<br>
+                    • At least 1 number<br>
+                    • At least 1 special symbol
+                </div>
+
             </div>
 
-        </div>
+            <br>
 
-        <br>
+            <button type="button" onclick="window.open('/image_captcha', '_blank', 'width=600,height=600')">
+                Verify Image CAPTCHA
+            </button>
 
-        <button type="button"
-        onclick="window.open('/image_captcha', '_blank', 'width=600,height=600')">
-        Verify Image CAPTCHA
-        </button>
+            <br><br><br>
 
-        <br><br><br>
+            <button type="submit">Register</button>
 
-        <button type="submit">Register</button>
+            <br><br><br><br><br><br>
 
-        <br><br>
+            <a href="/forgot" id="forget2">Forgot Password</a>
 
-        <a href="/forgot" id="forget2">Forgot Password</a>
+        </form>
 
-    </form>
+    </div>
 
-</div>
-
+    <script type="module">
+        import { initAurora } from "{{ url_for('static', filename='aurora.js') }}";
+        initAurora(document.getElementById('aurora-bg'), {
+            colorStops: ["#7cff67", "#B497CF", "#5227FF"],
+            blend: 0.5,
+            amplitude: 1.0,
+            speed: 1.5
+        });
+    </script>
 </body>
+
 </html>

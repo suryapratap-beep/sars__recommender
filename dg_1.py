@@ -115,10 +115,11 @@ class MedicineRecommender:
                     f"  Exact match '{s}': {row['Medicine']} ({dose})")
 
         if gender.lower() == "female" and age >= 18:
+            results.append("\nPRECAUTIONS:")
             if preg.lower() == "yes":
-                results.append("PREGNANT: Doctor required.")
+                results.append("- Patient is pregnant. Please consult a doctor immediately before taking any medication.")
             if feed.lower() == "yes":
-                results.append("BREASTFEEDING: Doctor required.")
+                results.append("- Patient is breastfeeding. Ensure the medication is safe for lactation.")
 
         return "\n".join(results)
 

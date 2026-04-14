@@ -23,7 +23,21 @@ from ddi_model import DDIModel
 from groq import Groq
 
 # Initialize Groq Client
-client = Groq(api_key=os.environ.get("GROQ_API_KEY", "gsk_placeholder_key"))
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+if not GROQ_API_KEY or GROQ_API_KEY == "gsk_placeholder_key":
+    print("\n--- Groq API Key Missing ---")
+    print("Get a free key at: https://console.groq.com/")
+    GROQ_API_KEY = input("Enter Groq API Key: ").strip()
+    if GROQ_API_KEY:
+        # Persistence: save to .env
+        try:
+            with open(".env", "a") as env_file:
+                env_file.write(f"\nGROQ_API_KEY={GROQ_API_KEY}\n")
+            print("API Key saved to .env")
+        except:
+            print("Failed to save to .env, but using key for current session.")
+
+client = Groq(api_key=GROQ_API_KEY or "gsk_placeholder_key")
 
 warnings.filterwarnings('ignore', category=UserWarning)
 
@@ -442,8 +456,10 @@ def chat_api():
         ai_cache[cache_key] = response # Save to cache
         return jsonify({"response": response})
     except Exception as e:
-        print(f"Groq Error: {e}")
-        return jsonify({"response": "I'm having trouble connecting to Groq AI. Please check your API key!"})
+        import traceback
+        print(f"Groq API Error: {str(e)}")
+        traceback.print_exc()
+        return jsonify({"response": f"I'm having trouble connecting to Groq AI. Error: {str(e)[:100]}... Please check your API key!"})
 
 
 
@@ -495,14 +511,17 @@ def run_predict_disease():
 @app.route('/get-drugs', methods=['POST'])
 def run_get_drugs():
     data = request.get_json() or {}
-    symptoms, gender = data.get(
-        'symptoms', '').lower(), data.get('gender', '').lower()
+    symptoms = data.get('symptoms', '').lower()
+    gender = data.get('gender', '').lower()
     age = int(data.get('age', 0)) if str(data.get('age')).isdigit() else 0
+    preg = data.get('pregnancy', 'no').lower()
+    feed = data.get('breastfeeding', 'no').lower()
+
     if not medicine_model:
         return jsonify(['Model not initialized'])
     try:
         lines = [line.strip() for line in medicine_model.recommend(
-            symptoms, age, gender, "no", "no", "1 day").split('\n') if line.strip()]
+            symptoms, age, gender, preg, feed, "1 day").split('\n') if line.strip()]
         return jsonify(lines if lines else ["No medication found"])
     except:
         return jsonify(["Error retrieving medication recommendation"])

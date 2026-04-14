@@ -128,10 +128,11 @@ class MedicineRecommender:
                     results.append(f"\nFor symptom '{s}': Prediction failed")
 
         if gender.lower() == "female" and age >= 18:
+            results.append("\nPRECAUTIONS:")
             if preg.lower() == "yes":
-                results.append("Note: Pregnant. Consult doctor.")
+                results.append("- Patient is pregnant. Please consult a doctor immediately before taking any medication.")
             if feed.lower() == "yes":
-                results.append("Note: Breastfeeding. Consult doctor.")
+                results.append("- Patient is breastfeeding. Ensure the medication is safe for lactation.")
 
         return "\n".join(results)
 

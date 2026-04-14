@@ -15,6 +15,7 @@
     body { top: 0px !important; }
     .goog-te-combo { display: none !important; }
   </style>
+  <link rel="stylesheet" href="{{ url_for('static', filename='aurora.css') }}">
   <style>
     /* ══════════════════════════════════════════
        1.  THEME TOKENS  — ALL colours live here
@@ -66,12 +67,6 @@
       font-family:'DM Sans',sans-serif;
       background:var(--bg); color:var(--text);
       display:flex; min-height:100vh; overflow-x:hidden;
-    }
-    body::before {
-      content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background:
-        radial-gradient(ellipse 60% 50% at 10% 20%,rgba(56,189,248,.06) 0%,transparent 60%),
-        radial-gradient(ellipse 50% 40% at 90% 80%,rgba(129,140,248,.06) 0%,transparent 60%);
     }
 
     /* ══════════════════════════════════════════
@@ -304,6 +299,7 @@
   </style>
 </head>
 <body>
+<div id="aurora-bg" class="aurora-container"></div>
 <div id="google_translate_element"></div>
 <div class="overlay" id="overlay"></div>
 <aside class="sidebar" id="sidebar">
@@ -588,6 +584,15 @@
         });
       });
       document.querySelectorAll('.stat-val[data-target]').forEach(function(c) { obs.observe(c); });
+    });
+  </script>
+  <script type="module">
+    import { initAurora } from "{{ url_for('static', filename='aurora.js') }}";
+    initAurora(document.getElementById('aurora-bg'), {
+        colorStops: ["#7cff67", "#B497CF", "#5227FF"],
+        blend: 0.5,
+        amplitude: 1.0,
+        speed: 1.5
     });
   </script>
 </body>
