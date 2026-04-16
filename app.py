@@ -599,6 +599,129 @@ def check_my_sub_status():
     return jsonify({'is_subscribed': is_subscribed_user()})
 
 
+# ----- SETTINGS APIs -----
+
+@app.route('/api/update-profile', methods=['POST'])
+def update_profile_api():
+    if 'email' not in session:
+        return jsonify({'success': False, 'message': 'Not logged in'}), 401
+    
+    data = request.get_json() or {}
+    new_username = data.get('username')
+    new_email = data.get('email')
+    
+    if not new_username or not new_email:
+        return jsonify({'success': False, 'message': 'Username and Email are required'}), 400
+        
+    old_email = session['email']
+    
+    try:
+        if supabase:
+            # Check if new email is taken by someone else
+            if new_email != old_email:
+                existing = supabase.table('users').select('id').eq('email', new_email).execute()
+                if existing.data and len(existing.data) > 0:
+                    return jsonify({'success': False, 'message': 'Email already exists'}), 400
+            
+            res = supabase.table('users').update({
+                'username': new_username,
+                'email': new_email
+            }).eq('email', old_email).execute()
+            
+            if res.data:
+                session['username'] = new_username
+                session['email'] = new_email
+                return jsonify({'success': True, 'message': 'Profile updated successfully'})
+            else:
+                return jsonify({'success': False, 'message': 'User not found'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': f"Supabase Error: {str(e)}"}), 500
+    
+    return jsonify({'success': False, 'message': 'Database connection error'})
+
+
+@app.route('/api/update-password', methods=['POST'])
+def update_password_api():
+    if 'email' not in session:
+        return jsonify({'success': False, 'message': 'Not logged in'}), 401
+    
+    data = request.get_json() or {}
+    current_pw = data.get('current_password')
+    new_pw = data.get('new_password')
+    
+    if not current_pw or not new_pw:
+        return jsonify({'success': False, 'message': 'Missing data'}), 400
+        
+    valid, msg = is_valid_password(new_pw)
+    if not valid:
+        return jsonify({'success': False, 'message': msg}), 400
+    
+    email = session['email']
+    
+    try:
+        if supabase:
+            res = supabase.table('users').select('*').eq('email', email).execute()
+            if res.data:
+                user = res.data[0]
+                if check_password_hash(user.get('password', ''), current_pw):
+                    hashed_pw = generate_password_hash(new_pw)
+                    supabase.table('users').update({'password': hashed_pw}).eq('email', email).execute()
+                    return jsonify({'success': True, 'message': 'Password updated successfully'})
+                else:
+                    return jsonify({'success': False, 'message': 'Current password incorrect'})
+    except Exception as e:
+        return jsonify({'success': False, 'message': f"Error: {str(e)}"}), 500
+        
+    return jsonify({'success': False, 'message': 'Error updating password'})
+
+
+@app.route('/api/upload-avatar', methods=['POST'])
+def upload_avatar_api():
+    if 'email' not in session:
+        return jsonify({'success': False, 'message': 'Not logged in'}), 401
+        
+    if 'avatar' not in request.files:
+        return jsonify({'success': False, 'message': 'No file uploaded'}), 400
+        
+    file = request.files['avatar']
+    if file.filename == '':
+        return jsonify({'success': False, 'message': 'No file selected'}), 400
+        
+    from werkzeug.utils import secure_filename
+    # Add timestamp or random string to make filename unique
+    ext = file.filename.rsplit('.', 1)[1].lower() if '.' in file.filename else 'png'
+    filename = secure_filename(f"user_{session['username']}_{int(time.time())}.{ext}")
+    
+    upload_folder = os.path.join(app.static_folder, 'profile_pics')
+    if not os.path.exists(upload_folder):
+        os.makedirs(upload_folder)
+        
+    save_path = os.path.join(upload_folder, filename)
+    file.save(save_path)
+    
+    try:
+        if supabase:
+            supabase.table('users').update({'profile_pic': filename}).eq('email', session['email']).execute()
+            return jsonify({'success': True, 'filename': filename})
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+            
+    return jsonify({'success': False, 'message': 'Upload failed'})
+
+
+@app.route('/api/update-preferences', methods=['POST'])
+def update_preferences_api():
+    if 'email' not in session:
+        return jsonify({'success': False, 'message': 'Not logged in'}), 401
+    
+    data = request.get_json() or {}
+    # Store settings in session for now as we don't have DB columns for them yet
+    session['theme'] = data.get('theme', 'dark')
+    session['lang'] = data.get('lang', 'en')
+    
+    return jsonify({'success': True, 'message': 'Preferences saved'})
+
+
 if __name__ == '__main__':
     # threaded=True allows multiple simultaneous users
     app.run(debug=True, port=5000, threaded=True)
