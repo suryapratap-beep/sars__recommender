@@ -15,8 +15,7 @@ class MedicineRecommender:
         file_name = "demo6.csv"
 
         if not os.path.exists(file_name):
-            print("demo6.csv file missing")
-            exit()
+            raise FileNotFoundError(f"demo6.csv file missing")
 
         self.df = pd.read_csv(file_name)
         print("Dataset loaded successfully")

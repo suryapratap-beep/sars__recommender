@@ -13,8 +13,7 @@ class DiseasePredictor:
         file_name = "disease_symptoms.csv"
 
         if not os.path.exists(file_name):
-            print("Dataset file missing")
-            exit()
+            raise FileNotFoundError(f"Dataset file {file_name} missing")
 
         self.df = pd.read_csv(file_name)
         print("Dataset loaded")

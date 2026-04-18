@@ -27,16 +27,7 @@ from groq import Groq
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 if not GROQ_API_KEY or GROQ_API_KEY == "gsk_placeholder_key":
     print("\n--- Groq API Key Missing ---")
-    print("Get a free key at: https://console.groq.com/")
-    GROQ_API_KEY = input("Enter Groq API Key: ").strip()
-    if GROQ_API_KEY:
-        # Persistence: save to .env
-        try:
-            with open(".env", "a") as env_file:
-                env_file.write(f"\nGROQ_API_KEY={GROQ_API_KEY}\n")
-            print("API Key saved to .env")
-        except:
-            print("Failed to save to .env, but using key for current session.")
+    print("Please set GROQ_API_KEY in your environment variables.")
 
 client = Groq(api_key=GROQ_API_KEY or "gsk_placeholder_key")
 
