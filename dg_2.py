@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from xgboost import XGBClassifier
 from sklearn.preprocessing import MultiLabelBinarizer, LabelEncoder
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
@@ -69,20 +68,11 @@ class MedicineRecommender:
             random_state=42
         )
 
-        self.xgb = XGBClassifier(
-            n_estimators=100,
-            learning_rate=0.1,
-            max_depth=5,
-            use_label_encoder=False,
-            eval_metric='mlogloss'
-        )
-
         # Training
         self.nb.fit(x_train, y_train)
         self.rf.fit(x_train, y_train)
         self.knn.fit(x_train, y_train)
         self.mlp.fit(x_train, y_train)
-        self.xgb.fit(x_train, y_train)
 
         # Accuracy
         print("Naive Bayes acc:", round(
@@ -93,8 +83,6 @@ class MedicineRecommender:
             accuracy_score(y_test, self.knn.predict(x_test)), 2))
         print("MLP acc:", round(
             accuracy_score(y_test, self.mlp.predict(x_test)), 2))
-        print("XGBoost acc:", round(
-            accuracy_score(y_test, self.xgb.predict(x_test)), 2))
 
     def age_grp(self, age):
         if age <= 1:
@@ -160,16 +148,14 @@ class MedicineRecommender:
                 ("nb", self.nb.predict(x_in)[0]),
                 ("rf", self.rf.predict(x_in)[0]),
                 ("knn", self.knn.predict(x_in)[0]),
-                ("mlp", self.mlp.predict(x_in)[0]),
-                ("xgb", self.xgb.predict(x_in)[0])
+                ("mlp", self.mlp.predict(x_in)[0])
             ]
 
             weights = {
                 "nb": 1,
-                "rf": 3,
-                "knn": 1,
-                "mlp": 2,
-                "xgb": 4
+                "rf": 5,
+                "knn": 2,
+                "mlp": 3
             }
             vote_count = {}
             for model, pred in preds:

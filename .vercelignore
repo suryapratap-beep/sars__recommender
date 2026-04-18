@@ -1,0 +1,14 @@
+.git
+.conda
+.vscode
+profile_pics
+__pycache__
+*.pyc
+env
+venv
+.env
+ddi_data.csv
+demo6.csv
+disease_symptoms.csv
+disease_description.csv
+.DS_Store
