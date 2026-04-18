@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Google Translate -->
-    <script>window.changeLanguage = window.changeLanguage || function(l) { localStorage.setItem("selectedLanguage", l); document.cookie = "googtrans=/en/"+l+"; path=/"; window.location.hash = "#googtrans(en|" + l + ")"; location.reload(); };</script>
-    <script src="{{ url_for("static", filename="language.js") }}"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js"></script>
-    <div id="google_translate_element" style="position:fixed;bottom:-100px;opacity:0;"></div>
+    <!-- Language Support -->
+    <script src="{{ url_for('static', filename='language.js') }}"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        /* Hide Google Translate Bar */
+        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+        body { top: 0px !important; }
+        .goog-te-combo { display: none !important; }
+    </style>
     <title>Image CAPTCHA</title>
     <style>
         body {
-            font-family: Arial;
+            font-family: 'Arial Black', sans-serif;
             text-align: center;
         }
 
@@ -82,5 +86,6 @@
     <button type="submit">Verify CAPTCHA</button>
 </form>
 
+  <div id="google_translate_element" style="position:fixed; bottom:-100px; left:0; opacity:0; pointer-events:none;"></div>
 </body>
 </html>

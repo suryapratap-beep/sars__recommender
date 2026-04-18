@@ -11,7 +11,7 @@
             --bg-color: #f8fafc; --glass-bg: rgba(255, 255, 255, 0.7); --glass-border: rgba(255, 255, 255, 0.5);
             --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial Black', sans-serif; }
         body {
             background-color: var(--bg-color); background-image: radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%); background-size: cover; background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
         }
@@ -171,8 +171,37 @@
                     <button type="button" class="primary disease-next">Next ➔</button>
                 </div>
             </div>
+
+            <div id="step-disease-father" class="field-step">
+                <div class="form-group">
+                    <label>Father's Health History</label>
+                    <textarea id="disease-father" rows="3" placeholder="Past health conditions of your father..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary disease-back">Back</button>
+                    <button type="button" class="primary disease-next">Next ➔</button>
+                </div>
+            </div>
+
+            <div id="step-disease-mother" class="field-step">
+                <div class="form-group">
+                    <label>Mother's Health History</label>
+                    <textarea id="disease-mother" rows="3" placeholder="Past health conditions of your mother..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="secondary disease-back">Back</button>
+                    <button type="button" class="primary disease-next">Next ➔</button>
+                </div>
+            </div>
             
             <div id="step-disease-medicines" class="field-step">
+                <div class="form-group">
+                    <label>Choose Prediction Model</label>
+                    <select id="disease-model-type" style="margin-bottom: 15px;">
+                        <option value="rf">Random Forest Classifier (Highly Accurate)</option>
+                        <option value="nb">Naive Bayes Classifier (Fast & Probabilistic)</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label>Current Medications (Optional)</label>
                     <p style="font-size: 12px; color: #64748b; margin-top: -5px; line-height: 1.2;">Select the medicines you are currently taking from your dataset (Hold CTRL/CMD to select multiple).</p>
@@ -198,6 +227,7 @@
             <div class="button-group" style="margin-top: 20px;">
                  <button type="button" class="secondary" id="back-home-disease-result">← Home</button>
                  <button type="button" class="primary" id="disease-to-medicine" style="background: #6366f1;">Find Medicines ➔</button>
+                 <button type="button" class="primary hidden" id="disease-chatbot-redirect" style="background: #10b981;">Consult AI Chatbot 🤖</button>
             </div>
         </div>
     </div>
@@ -307,6 +337,7 @@
                 <button type="button" class="secondary" id="back-home-medicine">← Home</button>
                 <button type="button" class="primary" id="check-safety-btn" style="background: #fbbf24; color: #1e293b; border: none;">⚠️ Verify Safety (DDI) ➔</button>
                 <button type="button" class="primary" id="medicine-to-disease" style="background: #10b981; color: white;">Try Disease Predictor ➔</button>
+                <button type="button" class="primary hidden" id="medicine-chatbot-redirect" style="background: #6366f1; color: white;">Consult AI Chatbot 🤖</button>
             </div>
         </div>
     </div>

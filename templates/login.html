@@ -4,66 +4,26 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <!-- Google Translate -->
+    
     <!-- Language Support -->
-    <script>window.changeLanguage = window.changeLanguage || function (lang) { localStorage.setItem('selectedLanguage', lang); const cv = '/en/' + lang; document.cookie = 'googtrans=' + cv + '; path=/'; window.location.hash = "#googtrans(en|" + lang + ")"; location.reload(); };</script>
-    <script src="{{ url_for('static', filename='static/language.js') }}"></script>
-    <script type="text/javascript"
-        src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='aurora.css') }}" />
+    <script src="{{ url_for('static', filename='language.js') }}"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <style>
         /* Hide Google Translate Bar */
-        .goog-te-banner-frame.skiptranslate,
-        .goog-te-gadget-icon {
-            display: none !important;
-        }
-
+        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+        body { top: 0px !important; }
+        .goog-te-combo { display: none !important; }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='aurora.css') }}" />
+    <style>
         body {
             top: 0px !important;
             background-color: #02040a !important;
             color: #fff;
         }
 
-        .goog-te-combo {
-            display: none !important;
-        }
-
-        .box {
-            backdrop-filter: blur(12px) saturate(180%);
-            -webkit-backdrop-filter: blur(12px) saturate(180%);
-            background-color: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        }
-
-        .lang-float {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 8px 12px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .lang-float select {
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 4px 8px;
-            font-size: 14px;
-            background: #fff;
-            cursor: pointer;
-        }
-
-        .lang-float i {
-            color: #0083b0;
-        }
-
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial Black', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -196,14 +156,15 @@
 
 <body>
     <div id="aurora-bg" class="aurora-container"></div>
-    <div id="google_translate_element"></div>
-    <div class="lang-float">
-        <i class="fa-solid fa-language"></i>
-        <select class="language-selector" onchange="changeLanguage(this.value)">
-            <option value="en">English</option>
-            <option value="hi">Hindi</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
+    <div id="google_translate_element" style="position:fixed; bottom:-100px; left:0; opacity:0; pointer-events:none;"></div>
+    
+    <!-- Floating Language Selector -->
+    <div style="position:fixed; top:20px; right:20px; z-index:100; display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); padding:8px 12px; border-radius:10px; backdrop-filter:blur(10px);">
+        <i class="fa-solid fa-language" style="color:#38bdf8; font-size:14px;"></i>
+        <select class="language-selector" style="background:none; border:none; color:white; font-size:12px; font-weight:600; cursor:pointer; width:100%; outline:none;">
+          <option value="en" style="color:black">English</option>
+          <option value="hi" style="color:black">Hindi</option>
+          <option value="te" style="color:black">Telugu</option>
         </select>
     </div>
 

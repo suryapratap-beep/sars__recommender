@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google Translate -->
-    <script>window.changeLanguage = window.changeLanguage || function(l) { localStorage.setItem("selectedLanguage", l); document.cookie = "googtrans=/en/"+l+"; path=/"; window.location.hash = "#googtrans(en|" + l + ")"; location.reload(); };</script>
-    <script src="{{ url_for("static", filename="language.js") }}"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js"></script>
-    <div id="google_translate_element" style="position:fixed;bottom:-100px;opacity:0;"></div>
+    <!-- Language Support -->
+    <script src="{{ url_for('static', filename='language.js') }}"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        /* Hide Google Translate Bar */
+        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+        body { top: 0px !important; }
+        .goog-te-combo { display: none !important; }
+    </style>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Medication Recommender | SARS_RECOMMENDER</title>
@@ -59,7 +63,7 @@
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html, body { height:100%; transition:background .3s, color .3s; }
     body {
-      font-family:'DM Sans',sans-serif;
+      font-family: 'Arial Black', sans-serif;
       background:var(--bg); color:var(--text);
       display:flex; min-height:100vh; overflow-x:hidden;
     }
@@ -95,7 +99,7 @@
       padding:0 20px 22px; border-bottom:1px solid var(--border); margin-bottom:14px;
     }
     .logo-icon { width:34px; height:34px; background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff; flex-shrink:0; }
-    .logo-text  { font-family:'Syne',sans-serif; font-weight:800; font-size:13px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; line-height:1.3; }
+    .logo-text  { font-family: 'Arial Black', sans-serif; font-weight:800; font-size:13px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; line-height:1.3; }
     .logo-small { font-size:10px; color:var(--muted); font-weight:400; letter-spacing:.04em; text-transform:none; }
 
     .nav-label { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:0; padding-left:20px; margin-bottom:4px; }
@@ -106,7 +110,7 @@
     .nav-links li>a i.nav-ic { width:18px; font-size:14px; text-align:center; flex-shrink:0; }
 
     .nav-group { display:flex; flex-direction:column; }
-    .nav-group-hdr { display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:10px; color:var(--muted); font-size:16.5px; font-weight:500; background:none; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; text-align:left; width:100%; transition:all .2s; }
+    .nav-group-hdr { display:flex; align-items:center; gap:11px; padding:10px 12px; border-radius:10px; color:var(--muted); font-size:16.5px; font-weight:500; background:none; border:none; cursor:pointer; font-family: 'Arial Black', sans-serif; text-align:left; width:100%; transition:all .2s; }
     .nav-group-hdr .g-ic { width:18px; font-size:14px; text-align:center; flex-shrink:0; }
     .nav-group-hdr .g-lbl { flex:1; }
     .nav-group-hdr .chev { font-size:10px; transition:transform .25s ease; }
@@ -122,7 +126,7 @@
 
     .sidebar-footer { padding:16px 16px 0; border-top:1px solid var(--border); margin-top:auto; }
     .user-card { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; background:var(--inp); border:1px solid var(--border); }
-    .user-av { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:12px; color:#fff; flex-shrink:0; }
+    .user-av { width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-family: 'Arial Black', sans-serif; font-weight:700; font-size:12px; color:#fff; flex-shrink:0; }
     .user-info { flex:1; min-width:0; }
     .user-info p { font-size:13px; font-weight:600; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .user-info span { font-size:10.5px; color:var(--muted); display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -147,8 +151,8 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     }
     .predictor-card .icon { font-size:48px; color:var(--accent2); margin-bottom:20px; }
-    .predictor-card h2 { font-family:'Syne',sans-serif; margin-bottom:24px; color:var(--text); font-size:1.8rem; }
-    textarea { width:100%; height:140px; padding:16px; border-radius:12px; border:1px solid var(--border); background:var(--inp); color:var(--text); resize:none; font-size:15px; font-family:'DM Sans',sans-serif; transition:all 0.3s; margin-bottom:20px; }
+    .predictor-card h2 { font-family: 'Arial Black', sans-serif; margin-bottom:24px; color:var(--text); font-size:1.8rem; }
+    textarea { width:100%; height:140px; padding:16px; border-radius:12px; border:1px solid var(--border); background:var(--inp); color:var(--text); resize:none; font-size:15px; font-family: 'Arial Black', sans-serif; transition:all 0.3s; margin-bottom:20px; }
     textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(56,189,248,0.1); }
     .btn-predict { width:100%; padding:14px; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:white; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; transition:all 0.3s; }
     .btn-predict:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(129,140,248,0.3); }
@@ -196,6 +200,16 @@
     <li><a href="{{ url_for('settings') }}"><i class="fa-solid fa-gear nav-ic"></i> Settings</a></li>
   </ul>
   <div class="sidebar-footer">
+    <div style="padding: 0 12px 12px;">
+      <div style="display:flex; align-items:center; gap:8px; background:var(--inp); border:1px solid var(--border); padding:8px 12px; border-radius:10px;">
+        <i class="fa-solid fa-language" style="color:var(--accent); font-size:14px;"></i>
+        <select class="language-selector" style="background:none; border:none; color:var(--text); font-size:12px; font-weight:600; cursor:pointer; width:100%; outline:none;">
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="te">Telugu</option>
+        </select>
+      </div>
+    </div>
     <div class="user-card">
       <div class="user-av">{{ username[:1].upper() if username else 'U' }}</div>
       <div class="user-info">

@@ -4,8 +4,9 @@ from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 from supabase import create_client
 import random
-import time
 import os
+import time
+from datetime import datetime, date
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -398,7 +399,36 @@ def health_records():
 def settings():
     if "username" not in session:
         return redirect("/")
-    return render_template("settings.html", username=session["username"], email=session["email"])
+    
+    email = session["email"]
+    member_since = "Jan 2024"  # Fallback
+    subscription_date = "None"
+    
+    if supabase:
+        try:
+            # Get registration date
+            user_res = supabase.table('users').select('created_at').eq('email', email).execute()
+            if user_res.data and len(user_res.data) > 0:
+                created_at = user_res.data[0].get('created_at')
+                if created_at:
+                    dt = datetime.fromisoformat(created_at.replace('Z', '+00:00'))
+                    member_since = dt.strftime('%b %d, %Y')
+            
+            # Get latest successful subscription date
+            sub_res = supabase.table('subscriptions_requests').select('created_at').eq('email', email).filter('status', 'in', '("paid", "successful", "success", "completed")').order('created_at', desc=True).limit(1).execute()
+            if sub_res.data and len(sub_res.data) > 0:
+                sub_at = sub_res.data[0].get('created_at')
+                if sub_at:
+                    dt_sub = datetime.fromisoformat(sub_at.replace('Z', '+00:00'))
+                    subscription_date = dt_sub.strftime('%b %d, %Y')
+        except Exception as e:
+            print(f"Error fetching timestamps: {e}")
+
+    return render_template("settings.html", 
+                           username=session["username"], 
+                           email=session["email"],
+                           member_since=member_since,
+                           subscription_date=subscription_date)
 
 
 @app.route("/medicine")
@@ -443,7 +473,7 @@ def chat_api():
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a professional medical assistant. Provide clear, empathetic health advice but always include a disclaimer to consult a doctor."
+                    "content": "You are a professional medical assistant. Provide clear, empathetic health advice using only concise, easy-to-read bullet points. Keep answers simple, direct, and under 150 words. Always include a short disclaimer to consult a professional doctor."
                 },
                 {
                     "role": "user",
@@ -498,13 +528,22 @@ def serve_static(path):
 @app.route('/predict-disease', methods=['POST'])
 def run_predict_disease():
     data = request.get_json() or {}
-    symptoms, severity, duration, history = data.get('symptoms', '').lower(), data.get(
-        'severity', '').lower(), data.get('duration', '').lower(), data.get('history', '').lower()
+    symptoms = data.get('symptoms', '').lower()
+    severity = data.get('severity', '').lower()
+    duration = data.get('duration', '').lower()
+    history = data.get('history', '').lower()
+    father_history = data.get('father_history', '').lower()
+    mother_history = data.get('mother_history', '').lower()
+    model_type = data.get('model_type', 'rf').lower()
+
     if not disease_model:
         return jsonify({'diseases': ['Model not initialized']})
     try:
-        return jsonify({'diseases': [disease_model.predict(symptoms, severity, duration, history)]})
-    except:
+        # Pass all fields to the enhanced predict method
+        prediction = disease_model.predict(symptoms, severity, duration, history, father_history, mother_history, model_type)
+        return jsonify({'diseases': [prediction]})
+    except Exception as e:
+        print(f"Prediction Error: {e}")
         return jsonify({'diseases': ['Error processing prediction']})
 
 
@@ -609,6 +648,7 @@ def update_profile_api():
     data = request.get_json() or {}
     new_username = data.get('username')
     new_email = data.get('email')
+    new_phone = data.get('phone')
     
     if not new_username or not new_email:
         return jsonify({'success': False, 'message': 'Username and Email are required'}), 400
@@ -625,7 +665,8 @@ def update_profile_api():
             
             res = supabase.table('users').update({
                 'username': new_username,
-                'email': new_email
+                'email': new_email,
+                'phone': new_phone
             }).eq('email', old_email).execute()
             
             if res.data:

@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===== DISEASE PREDICTOR LOGIC =====
-    const diseaseSteps = ["disease-symptoms", "disease-duration", "disease-severity", "disease-history", "disease-medicines"];
+    const diseaseSteps = ["disease-symptoms", "disease-duration", "disease-severity", "disease-history", "disease-father", "disease-mother", "disease-medicines"];
     let currentDiseaseStep = 0;
 
     // Load dataset medicines and symptoms into the UI
@@ -249,6 +249,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const diseaseLoading = document.getElementById("disease-loading");
     const diseaseResult = document.getElementById("disease-result");
     const diseaseList = document.getElementById("diseaseList");
+    const diseaseChatbotRedirect = document.getElementById("disease-chatbot-redirect");
+    const medicineChatbotRedirect = document.getElementById("medicine-chatbot-redirect");
 
     if (diseaseForm) {
         diseaseForm.addEventListener("submit", async (e) => {
@@ -259,6 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const duration = document.getElementById("disease-duration")?.value || "";
             const severity = document.getElementById("disease-severity")?.value || "";
             let history = document.getElementById("disease-history")?.value.trim() || "";
+            const father_history = document.getElementById("disease-father")?.value.trim() || "";
+            const mother_history = document.getElementById("disease-mother")?.value.trim() || "";
+            const model_type = document.getElementById("disease-model-type")?.value || "rf";
             
             const medsSelect = document.getElementById("disease-medicines");
             if (medsSelect) {
@@ -271,12 +276,13 @@ document.addEventListener("DOMContentLoaded", () => {
             if (diseaseLoading) diseaseLoading.classList.remove("hidden");
             if (diseaseResult) { diseaseResult.classList.add("hidden"); diseaseResult.classList.remove('visible'); }
             if (diseaseList) diseaseList.innerHTML = "";
+            if (diseaseChatbotRedirect) diseaseChatbotRedirect.classList.add("hidden");
 
             try {
                 const response = await fetch("/predict-disease", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ symptoms, duration, severity, history })
+                    body: JSON.stringify({ symptoms, duration, severity, history, father_history, mother_history, model_type })
                 });
 
                 if (!response.ok) throw new Error(`Server returned ${response.status}`);
@@ -295,9 +301,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     const li = document.createElement("li");
                     li.textContent = "No matching diseases found.";
                     diseaseList.appendChild(li);
+                    if (diseaseChatbotRedirect) diseaseChatbotRedirect.classList.remove("hidden");
                 }
 
-                if (diseaseResult) { diseaseResult.classList.remove("hidden"); setTimeout(() => diseaseResult.classList.add('visible'), 20); }
+                // Check for the specific "No valid symptoms" message from the logic
+                if (diseases.length === 1 && diseases[0].includes("No valid symptoms")) {
+                    if (diseaseChatbotRedirect) diseaseChatbotRedirect.classList.remove("hidden");
+                }
+
+                if (diseaseResult) { 
+                    diseaseResult.classList.remove("hidden"); 
+                    setTimeout(() => diseaseResult.classList.add('visible'), 20); 
+                }
+                if (diseaseChatbotRedirect) diseaseChatbotRedirect.classList.remove("hidden");
             } catch (error) {
                 alert("Error predicting disease. Please try again.");
                 console.error(error);
@@ -388,6 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (loading) loading.classList.remove("hidden");
             if (result) { result.classList.add("hidden"); result.classList.remove('visible'); }
             if (drugList) drugList.innerHTML = "";
+            if (medicineChatbotRedirect) medicineChatbotRedirect.classList.add("hidden");
 
             const data = {
                 symptoms: document.getElementById("symptoms")?.value.trim() || "",
@@ -418,9 +435,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     const li = document.createElement("li");
                     li.textContent = "No drugs found for the given input.";
                     drugList.appendChild(li);
+                    if (medicineChatbotRedirect) medicineChatbotRedirect.classList.remove("hidden");
                 }
 
-                if (result) { result.classList.remove("hidden"); setTimeout(()=>result.classList.add('visible'), 20); }
+                // Check for specific "No valid symptoms" message from medicine logic
+                if (drugs.length === 1 && drugs[0].includes("No valid symptoms")) {
+                    if (medicineChatbotRedirect) medicineChatbotRedirect.classList.remove("hidden");
+                }
+
+                if (result) { 
+                    result.classList.remove("hidden"); 
+                    setTimeout(()=>result.classList.add('visible'), 20); 
+                }
+                if (medicineChatbotRedirect) medicineChatbotRedirect.classList.remove("hidden");
             } catch (error) {
                 alert("Error fetching drug list. Please check the backend or open the console for details.");
                 console.error(error);
@@ -526,6 +553,49 @@ document.addEventListener("DOMContentLoaded", () => {
     if (chatInput) {
         chatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') chatSend.click();
+        });
+    }
+
+    // REDIRECT LOGIC
+    function sendToChatbot(message) {
+        // Store message for full-page chatbot
+        sessionStorage.setItem('pending_medical_query', message);
+        window.location.href = '/chat';
+    }
+
+    if (diseaseChatbotRedirect) {
+        diseaseChatbotRedirect.addEventListener("click", () => {
+            const sym = document.getElementById("disease-symptoms")?.value || "";
+            const dur = document.getElementById("disease-duration")?.value || "";
+            const sev = document.getElementById("disease-severity")?.value || "";
+            let hist = document.getElementById("disease-history")?.value || "";
+            const father = document.getElementById("disease-father")?.value || "";
+            const mother = document.getElementById("disease-mother")?.value || "";
+            
+            const medsSelect = document.getElementById("disease-medicines");
+            if (medsSelect) {
+                const selectedMeds = Array.from(medsSelect.selectedOptions).map(opt => opt.value);
+                if (selectedMeds.length > 0) {
+                    hist += " | Currently taking: " + selectedMeds.join(", ");
+                }
+            }
+            
+            const msg = `I am experiencing these symptoms: ${sym}. It has been going on for ${dur} and the severity is ${sev}. Medical history: ${hist}. Father's history: ${father}. Mother's history: ${mother}. The disease predictor didn't find a satisfactory match, can you help analyze this?`;
+            sendToChatbot(msg);
+        });
+    }
+
+    if (medicineChatbotRedirect) {
+        medicineChatbotRedirect.addEventListener("click", () => {
+            const sym = document.getElementById("symptoms")?.value || "";
+            const age = document.getElementById("age")?.value || "";
+            const gender = document.getElementById("gender")?.value || "";
+            const preg = document.getElementById("pregnancy")?.value || "";
+            const feed = document.getElementById("breastfeeding")?.value || "";
+            const hist = document.getElementById("history")?.value || "";
+            
+            const msg = `I need medicine recommendations for these symptoms: ${sym}. Age: ${age}, Gender: ${gender}, Pregnant: ${preg}, Breastfeeding: ${feed}. Medical history: ${hist}. The recommender didn't have enough data, what do you suggest?`;
+            sendToChatbot(msg);
         });
     }
 });

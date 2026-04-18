@@ -9,13 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   
   <!-- Language Support -->
-  <script>window.changeLanguage = window.changeLanguage || function(lang) { localStorage.setItem('selectedLanguage', lang); const cv = '/en/' + lang; document.cookie = 'googtrans=' + cv + '; path=/'; window.location.hash = "#googtrans(en|" + lang + ")"; location.reload(); };</script><script src="{{ url_for('static', filename='language.js') }}"></script><script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script src="{{ url_for('static', filename='language.js') }}"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <style>
     /* Hide Google Translate Bar */
     .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
     body { top: 0px !important; }
     .goog-te-combo { display: none !important; }
   </style>
+  
   <style>
     /* ══════════════════════════════════════════
        1.  THEME TOKENS
@@ -65,7 +67,7 @@
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Arial Black', sans-serif;
       background: var(--bg);
       color: var(--text);
       height: 100vh;
@@ -110,7 +112,7 @@
     }
 
     .logo-text {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Arial Black', sans-serif;
       font-weight: 800;
       font-size: 13px;
       color: var(--accent);
@@ -181,7 +183,7 @@
     }
 
     .chat-header h2 {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Arial Black', sans-serif;
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--text);
@@ -260,7 +262,7 @@
       outline: none;
       padding: 12px 0;
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Arial Black', sans-serif;
       font-size: 0.95rem;
     }
 
@@ -344,6 +346,19 @@
       <li class="active"><a href="{{ url_for('chatbot') }}"><i class="fa-solid fa-robot"></i> AI Health Buddy</a></li>
       <li><a href="{{ url_for('settings') }}"><i class="fa-solid fa-gear"></i> Settings</a></li>
     </ul>
+    <div class="sidebar-footer">
+      <div style="padding: 0 12px 12px;">
+        <div style="display:flex; align-items:center; gap:8px; background:var(--inp); border:1px solid var(--border); padding:8px 12px; border-radius:10px;">
+          <i class="fa-solid fa-language" style="color:var(--accent); font-size:14px;"></i>
+          <select class="language-selector" style="background:none; border:none; color:var(--text); font-size:12px; font-weight:600; cursor:pointer; width:100%; outline:none;">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="te">Telugu</option>
+          </select>
+        </div>
+      </div>
+      <div style="padding: 0 12px 12px;">
+    </div>
   </aside>
 
   <main class="chat-container">
@@ -442,8 +457,19 @@
 
     sendBtn.addEventListener('click', sendMessage);
     userInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
+    // Handle redirected medical queries
+    window.addEventListener('load', () => {
+      const pendingQuery = sessionStorage.getItem('pending_medical_query');
+      if (pendingQuery) {
+        userInput.value = pendingQuery;
+        sendMessage();
+        sessionStorage.removeItem('pending_medical_query');
+      }
+    });
   </script>
 
+  <div id="google_translate_element" style="position:fixed; bottom:-100px; left:0; opacity:0; pointer-events:none;"></div>
 </body>
 
 </html>

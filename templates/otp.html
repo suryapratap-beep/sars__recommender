@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Google Translate -->
-    <script>window.changeLanguage = window.changeLanguage || function(l) { localStorage.setItem("selectedLanguage", l); document.cookie = "googtrans=/en/"+l+"; path=/"; window.location.hash = "#googtrans(en|" + l + ")"; location.reload(); };</script>
-    <script src="{{ url_for("static", filename="language.js") }}"></script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js"></script>
-    <div id="google_translate_element" style="position:fixed;bottom:-100px;opacity:0;"></div>
+    <!-- Language Support -->
+    <script src="{{ url_for('static', filename='language.js') }}"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <style>
+        /* Hide Google Translate Bar */
+        .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon { display: none !important; }
+        body { top: 0px !important; }
+        .goog-te-combo { display: none !important; }
+    </style>
     <title>OTP Verification</title>
     <style>
         body {
-            font-family: Arial;
+            font-family: 'Arial Black', sans-serif;
             background: linear-gradient(to right, #11998e, #e6ef38);
             display: flex;
             justify-content: center;
@@ -45,6 +49,17 @@
     </style>
 </head>
 <body>
+    <div id="google_translate_element" style="position:fixed; bottom:-100px; left:0; opacity:0; pointer-events:none;"></div>
+    
+    <!-- Floating Language Selector -->
+    <div style="position:fixed; top:20px; right:20px; z-index:100; display:flex; align-items:center; gap:8px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); padding:8px 12px; border-radius:10px; backdrop-filter:blur(10px);">
+        <i class="fa-solid fa-language" style="color:#38bdf8; font-size:14px;"></i>
+        <select class="language-selector" style="background:none; border:none; color:white; font-size:12px; font-weight:600; cursor:pointer; width:100%; outline:none;">
+          <option value="en" style="color:black">English</option>
+          <option value="hi" style="color:black">Hindi</option>
+          <option value="te" style="color:black">Telugu</option>
+        </select>
+    </div>
 
 <div class="box">
     <h2>Verify OTP</h2>

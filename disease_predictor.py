@@ -48,7 +48,7 @@ class DiseasePredictor:
   #      print("Naive Bayes acc:", round(
    #         accuracy_score(y_test, self.nb.predict(x_test)), 2))
 
-    def predict(self, symptoms, severity, duration, comorbidities):
+    def predict(self, symptoms, severity, duration, comorbidities, father_history="", mother_history="", model_type="rf"):
 
         import difflib
         
@@ -57,19 +57,16 @@ class DiseasePredictor:
         
         sym_list = []
         
-        # 1. Broad extraction: Find any known symptoms that appear anywhere in the user's string
-        # This fixes the issue where users type "fever and headache" without using commas
+        # 1. Broad extraction
         for known in known_symptoms:
-            # We enforce a small length limit so short acronyms don't falsely trigger inside other words
             if len(known) > 3 and known in raw_input:
                 sym_list.append(known)
                 
-        # 2. Strict / Typos extraction: Fallback to comma separation and fuzzy matching
+        # 2. Strict / Typos extraction
         sym_list_raw = [i.strip() for i in raw_input.split(",")]
         for s in sym_list_raw:
             if not s:
                  continue
-            # Skip if this chunk already clearly matches an extracted symptom from step 1
             if any(k in s for k in sym_list):
                  continue
                  
@@ -77,7 +74,6 @@ class DiseasePredictor:
             if matches:
                 sym_list.append(matches[0])
                 
-        # Clean duplicates
         sym_list = list(set(sym_list))
 
         if len(sym_list) == 0:
@@ -85,12 +81,46 @@ class DiseasePredictor:
 
         sym_vec = self.sym_bin.transform([sym_list])
 
-        x_input = sym_vec
+        # Model Selection
+        if model_type == "nb":
+            model = self.nb
+            model_name = "Naive Bayes"
+        else:
+            model = self.rf
+            model_name = "Random Forest"
 
-        pred = self.rf.predict(x_input)[0]
-        disease_name = self.dis_enc.inverse_transform([pred])[0]
-
-        return disease_name
+        # Get Probabilities
+        probs = model.predict_proba(sym_vec)[0]
+        top_idx = np.argsort(probs)[-1]
+        
+        disease_name = self.dis_enc.inverse_transform([top_idx])[0]
+        base_prob = probs[top_idx] * 100
+        
+        # Parental Factor Assessment
+        genetic_boost = 0
+        p_history = (str(father_history) + " " + str(mother_history)).lower()
+        
+        # Heuristic: If the predicted disease or key parts of its name are in parental history
+        # we increase the "Genetic Confidence"
+        disease_keywords = [disease_name.lower()]
+        if "(" in disease_name: # Handle names like "Leprosy (Hansen's Disease)"
+             disease_keywords.extend(disease_name.lower().replace("(","").replace(")","").split())
+        
+        match_found = False
+        for kw in disease_keywords:
+            if len(kw) > 3 and kw in p_history:
+                match_found = True
+                break
+        
+        if match_found:
+            # Boost the probability if there's a genetic link
+            # We don't want to exceed 99% purely based on heuristics
+            genetic_boost = min(25, 99 - base_prob)
+            final_prob = base_prob + genetic_boost
+            return f"Predicted ({model_name}): {disease_name} | Estimated Probability: {final_prob:.1f}% (Genetic Risk Factor: Elevated)"
+        else:
+            # Standard probability
+            return f"Predicted ({model_name}): {disease_name} | Estimated Probability: {base_prob:.1f}% (Genetic Risk Factor: Low/Unknown)"
 
 
 if __name__ == "__main__":
