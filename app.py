@@ -55,8 +55,7 @@ SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
 if not SUPABASE_URL or not SUPABASE_KEY:
     print("Supabase credentials missing from environment.")
-    SUPABASE_URL = input("Enter Supabase URL: ").strip()
-    SUPABASE_KEY = input("Enter Supabase Anon Key: ").strip()
+    # Log but don't hang with input()
 
 try:
     supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
@@ -249,19 +248,23 @@ def register():
         hashed_password = generate_password_hash(plain_password)
         if supabase:
             try:
-                # Check for existing email to prevent duplicate registrations
+                # Check for existing email
                 existing = supabase.table('users').select('id').eq('email', email).execute()
                 if existing.data and len(existing.data) > 0:
-                    return render_template("register.html", error="User already registered")
+                    return render_template("register.html", error="User with this email already exists.")
                 
-                # Insert new user
-                supabase.table('users').insert({
+                # Insert new user with timestamp
+                res = supabase.table('users').insert({
                     "username": username,
                     "email": email,
                     "password": hashed_password
                 }).execute()
+                print(f"User registered in Supabase: {email}")
             except Exception as e:
-                return render_template("register.html", error="Registration failed. Please try again.")
+                print(f"Supabase Registration Error: {e}")
+                return render_template("register.html", error=f"Database connection error. Please try again.")
+        else:
+            return render_template("register.html", error="System error: Cloud database unavailable.")
 
         session["captcha_verified"] = False
         return redirect("/")
