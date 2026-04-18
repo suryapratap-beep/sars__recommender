@@ -9,4 +9,5 @@ groq==0.4.2
 scikit-learn==1.4.0
 xgboost==2.0.3
 numpy==1.26.4
-python-dotenv
+python-dotenv==1.0.1
+gunicorn==21.2.0
